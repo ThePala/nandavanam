@@ -73,7 +73,7 @@ function App() {
             villages.add(props['data-details-village']);
             lookup.push({
               village: props['data-details-village'],
-              block: props.block,
+              block: props.data-details-block,
               templeid: props.Temple,
               species: props['data-details-species'],
               latlng,
