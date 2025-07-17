@@ -117,14 +117,17 @@ function App() {
   }, []);
 
   // Zoom to first tree in selected temple
-  useEffect(() => {
-    if (selectedTempleId && mapRef.current && templeLookup.length) {
-      const match = templeLookup.find(t => t.templeid === selectedTempleId);
-      if (match) {
-        mapRef.current.setView(match.latlng, 20);
-      }
+useEffect(() => {
+  if (selectedTempleId && mapRef.current && templeLookup.length) {
+    const matches = templeLookup.filter(t => t.templeid === selectedTempleId);
+    if (matches.length > 0) {
+      const latlngs = matches.map(t => t.latlng);
+      const bounds = L.latLngBounds(latlngs);
+      mapRef.current.fitBounds(bounds, { padding: [50, 50] }); // Optional padding
     }
-  }, [selectedTempleId, templeLookup]);
+  }
+}, [selectedTempleId, templeLookup]);
+
 
   return (
     <div className="container">

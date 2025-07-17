@@ -83,3 +83,8 @@ body, html, #root {
 .read-the-docs {
   color: #888;
 }
+
+.radio-options label {
+  display: block;
+  margin-bottom: 8px;
+}
