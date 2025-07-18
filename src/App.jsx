@@ -1,19 +1,21 @@
 import { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { PieChart, Pie, Cell, Tooltip } from 'recharts';
 import './App.css';
 
 function App() {
   const mapRef = useRef(null);
   const [selectedTree, setSelectedTree] = useState(null);
-  const [allSpecies, setAllSpecies] = useState(new Set());
   const [selectedVillage, setSelectedVillage] = useState('');
-  const [availableTempleBlocks, setAvailableTempleBlocks] = useState([]);
   const [selectedTempleId, setSelectedTempleId] = useState('');
   const [villageSet, setVillageSet] = useState(new Set());
   const [templeLookup, setTempleLookup] = useState([]);
+  const [availableTemples, setAvailableTemples] = useState([]);
+  const [treeData, setTreeData] = useState([]);
+  const [villageDetailsOpen, setVillageDetailsOpen] = useState(true);
+  const [speciesColorMap, setSpeciesColorMap] = useState({});
 
-  const speciesColors = {};
   const colorPalette = [
     '#e6194b', '#3cb44b', '#ffe119', '#4363d8', '#f58231',
     '#911eb4', '#46f0f0', '#f032e6', '#bcf60c', '#fabebe',
@@ -21,203 +23,169 @@ function App() {
     '#aaffc3', '#808000', '#ffd8b1', '#000075', '#808080'
   ];
 
-  const getSpeciesColor = (species) => {
-    if (!speciesColors[species]) {
-      const index = Object.keys(speciesColors).length % colorPalette.length;
-      speciesColors[species] = colorPalette[index];
-    }
-    return speciesColors[species];
+  const resetAll = () => {
+    setSelectedTree(null);
+    setSelectedVillage('');
+    setSelectedTempleId('');
+    setAvailableTemples([]);
   };
 
   useEffect(() => {
     if (mapRef.current) return;
 
-    const streets = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors'
-    });
-
     const satellite = L.tileLayer(
-      'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-        attribution: '&copy; Esri, Maxar, Earthstar Geographics'
-      });
+      'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+      {
+        attribution: '&copy; Esri, Maxar, Earthstar Geographics',
+      }
+    );
 
     const map = L.map('map', {
       center: [8.658335, 77.448118],
       zoom: 18,
-      layers: [satellite]
+      layers: [satellite],
     });
     mapRef.current = map;
-
-    L.control.layers({
-      "Streets": streets,
-      "Satellite": satellite
-    }).addTo(map);
 
     fetch('/trees.geojson')
       .then(res => res.json())
       .then(data => {
-        const speciesSet = new Set();
         const villages = new Set();
         const lookup = [];
-        let previouslySelectedCircle = null;
+        const colorMap = {};
+        let colorIndex = 0;
 
-        const geoLayer = L.geoJSON(data, {
+        const layer = L.geoJSON(data, {
           pointToLayer: (feature, latlng) => {
-            const props = feature.properties || {};
-            const species = props['data-details-species'] || 'Unknown';
-
-            const girth = (parseFloat(props['data-details-gbh-base-level']) || 1) * 0.04;
-            const radius = Math.max(girth * 0.5, 3.5);
-
-            speciesSet.add(species);
+            const props = feature.properties;
             villages.add(props['data-details-village']);
             lookup.push({
-              village: props['data-details-village'],
-              block: props['data-details-block'],
-              templeid: props.Temple,
-              species: props['data-details-species'],
+              ...props,
               latlng,
-              properties: props
             });
 
-            const color = getSpeciesColor(species);
+            const species = props['data-details-species'] || 'Unknown';
+            if (!colorMap[species]) {
+              colorMap[species] = colorPalette[colorIndex % colorPalette.length];
+              colorIndex++;
+            }
+
+            const gbh = parseFloat(props['data-details-gbh-base-level']) || 1;
+            const radius = Math.max(gbh * 0.04, 3.5);
+
             const circle = L.circleMarker(latlng, {
               radius,
-              fillColor: color,
+              fillColor: colorMap[species],
               color: '#000',
               weight: 0.5,
-              fillOpacity: 0.8
+              fillOpacity: 0.8,
             });
 
-            circle.feature = feature;
-
             circle.on('click', () => {
-              if (previouslySelectedCircle && previouslySelectedCircle !== circle) {
-                const prevProps = previouslySelectedCircle.feature.properties;
-                const prevGirth = (parseFloat(prevProps['data-details-gbh-base-level']) || 1) * 0.04;
-                previouslySelectedCircle.setRadius(Math.max(prevGirth * 0.5, 3.5));
-              }
-
-              const accuracy = parseFloat(props.accuracy) || 5;
-              circle.setRadius(accuracy / 2);
-
-              previouslySelectedCircle = circle;
-              setSelectedTree({ ...props, latlng });
+              setSelectedTree(props);
+              setSelectedVillage(props['data-details-village']);
+              setSelectedTempleId(props['Temple']);
             });
 
             return circle;
-          }
+          },
         }).addTo(map);
 
-        setAllSpecies(speciesSet);
         setVillageSet(villages);
         setTempleLookup(lookup);
-      })
-      .catch(err => console.error('Error loading GeoJSON:', err));
+        setTreeData(data.features);
+        setSpeciesColorMap(colorMap);
+      });
   }, []);
 
-  // Zoom to first tree in selected temple
-useEffect(() => {
-  if (selectedTempleId && mapRef.current && templeLookup.length) {
-    const matches = templeLookup.filter(t => t.templeid === selectedTempleId);
-    if (matches.length > 0) {
-      const latlngs = matches.map(t => t.latlng);
-      const bounds = L.latLngBounds(latlngs);
-      mapRef.current.fitBounds(bounds, { padding: [50, 50] }); // Optional padding
+  useEffect(() => {
+    if (selectedVillage) {
+      const temples = templeLookup
+        .filter(t => t['data-details-village'] === selectedVillage)
+        .map(t => t.Temple);
+      setAvailableTemples([...new Set(temples)]);
     }
-  }
-}, [selectedTempleId, templeLookup]);
+  }, [selectedVillage, templeLookup]);
 
+  const getVillageStats = () => {
+    const filtered = templeLookup.filter(t => t['data-details-village'] === selectedVillage);
+    const totalTrees = filtered.length;
+    const templeCount = new Set(filtered.map(t => t.Temple)).size;
+
+    const speciesMap = {};
+    filtered.forEach(t => {
+      const species = t['data-details-species'] || 'Unknown';
+      speciesMap[species] = (speciesMap[species] || 0) + 1;
+    });
+
+    const speciesDistribution = Object.entries(speciesMap).map(([name, count]) => ({
+      name,
+      value: count,
+      color: speciesColorMap[name] || '#888'
+    }));
+
+    return { totalTrees, templeCount, speciesDistribution };
+  };
+
+  const { totalTrees, templeCount, speciesDistribution } = getVillageStats();
 
   return (
     <div className="container">
       <div id="map" />
       <div className="sidebar">
-        <div className="filter-section">
-          <h2>Filter by Village</h2>
-          <select value={selectedVillage} onChange={(e) => {
-            const v = e.target.value;
-            setSelectedVillage(v);
-            setSelectedTempleId('');
-            const filtered = templeLookup
-              .filter(t => t.village === v)
-              .map(t => ({ block: t.block, templeid: t.templeid }));
-            const unique = Array.from(new Map(filtered.map(i => [i.templeid, i])).values());
-            setAvailableTempleBlocks(unique);
-          }}>
-            <option value="">-- Select Village --</option>
-            {[...villageSet].map(v => (
-              <option key={v} value={v}>{v}</option>
-            ))}
-          </select>
+        <button onClick={resetAll} className="reset-button">🔄</button>
 
-          {availableTempleBlocks.length > 0 && (
-            <div className="radio-options">
-              <h3>Select Temple</h3>
-              {availableTempleBlocks.map(({ block, templeid }) => (
-                <label key={templeid}>
-                  <input
-                    type="radio"
-                    name="templeid"
-                    value={templeid}
-                    checked={selectedTempleId === templeid}
-                    onChange={() => setSelectedTempleId(templeid)}
-                  />
-                  Block: {block} | Temple: {templeid}
-                </label>
-              ))}
+        <select value={selectedVillage} onChange={(e) => setSelectedVillage(e.target.value)}>
+          <option value="">Select Village</option>
+          {[...villageSet].map(v => (
+            <option key={v} value={v}>{v}</option>
+          ))}
+        </select>
+
+        <div className="village-section">
+          <h2 onClick={() => setVillageDetailsOpen(!villageDetailsOpen)}>Village Details</h2>
+          {villageDetailsOpen && (
+            <div>
+              <p><b>No. of Nandhavanam:</b> {templeCount}</p>
+              <p><b>Species wise Distribution of Trees:</b> {totalTrees}</p>
+              <PieChart width={200} height={200}>
+                <Pie
+                  data={speciesDistribution}
+                  dataKey="value"
+                  nameKey="name"
+                  cx="50%"
+                  cy="50%"
+                  outerRadius={80}
+                  label={false}
+                >
+                  {speciesDistribution.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                </Pie>
+                <Tooltip formatter={(value, name) => [`${value} trees`, name]} />
+              </PieChart>
+              <ul className="legend">
+                {speciesDistribution.map(entry => (
+                  <li key={entry.name} style={{ marginBottom: '4px' }}>
+                    <span style={{ background: entry.color, width: 12, height: 12, display: 'inline-block', marginRight: 6, borderRadius: '50%' }}></span>
+                    {entry.name}
+                  </li>
+                ))}
+              </ul>
             </div>
           )}
         </div>
 
-        {selectedTree ? (
-          <div className="tree-details">
-            <h2>Tree Details</h2>
-            {Object.entries(selectedTree).map(([k, v]) => (
-              <p key={k}><b>{k}</b>: {v}</p>
-            ))}
-          </div>
-        ) : (
-          <div className="no-selection">
-            <h2>No Tree Selected</h2>
-            <p>Click a tree to view details.</p>
-          </div>
-        )}
+        <select value={selectedTempleId} onChange={(e) => setSelectedTempleId(e.target.value)}>
+          <option value="">Select Temple</option>
+          {availableTemples.map(tid => (
+            <option key={tid} value={tid}>{tid}</option>
+          ))}
+        </select>
 
-        <div className="generic-info">
-          <h2>Generic Info</h2>
-          <p><b>Total Species:</b> {
-            [...allSpecies].filter(species => {
-              if (!selectedTempleId) return true;
-              return templeLookup.some(t =>
-                t.templeid === selectedTempleId &&
-                t.species === species
-              );
-            }).length
-          }</p>
-          <ul>
-            {[...allSpecies]
-              .filter(species => {
-                if (!selectedTempleId) return true;
-                return templeLookup.some(t =>
-                  t.templeid === selectedTempleId &&
-                  t.species === species
-                );
-              })
-              .map(species => (
-                <li key={species}>
-                  <span style={{
-                    background: getSpeciesColor(species),
-                    display: 'inline-block',
-                    width: 12,
-                    height: 12,
-                    marginRight: 6,
-                    borderRadius: '50%'
-                  }}></span>
-                  {species}
-                </li>
-              ))}
-          </ul>
+        <div className="temple-section">
+          <h2>Temple Details</h2>
+          {/* Future implementation */}
         </div>
       </div>
     </div>
