@@ -53,15 +53,22 @@ body, html, #root {
 
 #map {
   flex: 1;
+  height: 100vh;
+  position: relative;
+  z-index: 0;
 }
 
 .sidebar {
-  background-color: black;
-  color: white;
-  padding: 20px;
-  height: 100vh;
+  width: 320px;
+  background: black;
+  padding: 12px;
   overflow-y: auto;
+  overflow-x: hidden;
+  height: 100vh;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  z-index: 1000;
 }
+
 
 .sidebar h2,
 .sidebar p,

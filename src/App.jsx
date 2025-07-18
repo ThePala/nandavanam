@@ -16,6 +16,9 @@ function App() {
   const [villageDetailsOpen, setVillageDetailsOpen] = useState(true);
   const [speciesColorMap, setSpeciesColorMap] = useState({});
 
+  const villageMarkersRef = useRef({});
+  const templeMarkersRef = useRef({});
+
   const colorPalette = [
     '#e6194b', '#3cb44b', '#ffe119', '#4363d8', '#f58231',
     '#911eb4', '#46f0f0', '#f032e6', '#bcf60c', '#fabebe',
@@ -54,11 +57,16 @@ function App() {
         const lookup = [];
         const colorMap = {};
         let colorIndex = 0;
+        const villageMarkers = {};
+        const templeMarkers = {};
 
         const layer = L.geoJSON(data, {
           pointToLayer: (feature, latlng) => {
             const props = feature.properties;
-            villages.add(props['data-details-village']);
+            const village = props['data-details-village'];
+            const temple = props['Temple'];
+
+            villages.add(village);
             lookup.push({
               ...props,
               latlng,
@@ -83,9 +91,15 @@ function App() {
 
             circle.on('click', () => {
               setSelectedTree(props);
-              setSelectedVillage(props['data-details-village']);
-              setSelectedTempleId(props['Temple']);
+              setSelectedVillage(village);
+              setSelectedTempleId(temple);
             });
+
+            if (!villageMarkers[village]) villageMarkers[village] = [];
+            villageMarkers[village].push(circle);
+
+            if (!templeMarkers[temple]) templeMarkers[temple] = [];
+            templeMarkers[temple].push(circle);
 
             return circle;
           },
@@ -95,6 +109,8 @@ function App() {
         setTempleLookup(lookup);
         setTreeData(data.features);
         setSpeciesColorMap(colorMap);
+        villageMarkersRef.current = villageMarkers;
+        templeMarkersRef.current = templeMarkers;
       });
   }, []);
 
@@ -104,8 +120,24 @@ function App() {
         .filter(t => t['data-details-village'] === selectedVillage)
         .map(t => t.Temple);
       setAvailableTemples([...new Set(temples)]);
+
+      const map = mapRef.current;
+      const markers = villageMarkersRef.current[selectedVillage];
+      if (map && markers?.length) {
+        const group = L.featureGroup(markers);
+        map.fitBounds(group.getBounds().pad(0.2));
+      }
     }
   }, [selectedVillage, templeLookup]);
+
+  useEffect(() => {
+    const map = mapRef.current;
+    const markers = templeMarkersRef.current[selectedTempleId];
+    if (map && markers?.length) {
+      const group = L.featureGroup(markers);
+      map.fitBounds(group.getBounds().pad(0.2));
+    }
+  }, [selectedTempleId]);
 
   const getVillageStats = () => {
     const filtered = templeLookup.filter(t => t['data-details-village'] === selectedVillage);
