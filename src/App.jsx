@@ -34,16 +34,16 @@ function App() {
   };
 
   const highlightMarkers = (highlightedMarkers) => {
-  // Reset all to default
-  Object.values(villageMarkersRef.current).flat().forEach(marker =>
-    marker.setStyle({ weight: 0.5 })
-  );
+    // Reset all to default
+    Object.values(villageMarkersRef.current).flat().forEach(marker =>
+      marker.setStyle({ weight: 0.5, color: '#000' })
+    );
 
-  // Highlight selected ones
-  highlightedMarkers.forEach(marker =>
-    marker.setStyle({ weight: 3 })  // Thicker stroke
-  );
-};
+    // Highlight selected ones
+    highlightedMarkers.forEach(marker =>
+      marker.setStyle({ weight: 3, color: '#fff' })  // Thicker stroke, white color
+    );
+  };
 
 
   useEffect(() => {
@@ -138,7 +138,7 @@ useEffect(() => {
     if (markers?.length) {
       const map = mapRef.current;
       const group = L.featureGroup(markers);
-      map.fitBounds(group.getBounds().pad(0.2));
+      map.fitBounds(group.getBounds().pad(0.02));
       highlightMarkers(markers);
     }
   } else {
@@ -153,7 +153,7 @@ useEffect(() => {
   if (markers?.length) {
     const map = mapRef.current;
     const group = L.featureGroup(markers);
-    map.fitBounds(group.getBounds().pad(0.2));
+    map.fitBounds(group.getBounds().pad(0.02));
     highlightMarkers(markers);
   } else {
     highlightMarkers([]);
