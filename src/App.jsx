@@ -33,6 +33,19 @@ function App() {
     setAvailableTemples([]);
   };
 
+  const highlightMarkers = (highlightedMarkers) => {
+  // Reset all to default
+  Object.values(villageMarkersRef.current).flat().forEach(marker =>
+    marker.setStyle({ weight: 0.5 })
+  );
+
+  // Highlight selected ones
+  highlightedMarkers.forEach(marker =>
+    marker.setStyle({ weight: 3 })  // Thicker stroke
+  );
+};
+
+
   useEffect(() => {
     if (mapRef.current) return;
 
@@ -114,30 +127,39 @@ function App() {
       });
   }, []);
 
-  useEffect(() => {
-    if (selectedVillage) {
-      const temples = templeLookup
-        .filter(t => t['data-details-village'] === selectedVillage)
-        .map(t => t.Temple);
-      setAvailableTemples([...new Set(temples)]);
+useEffect(() => {
+  if (selectedVillage) {
+    const temples = templeLookup
+      .filter(t => t['data-details-village'] === selectedVillage)
+      .map(t => t.Temple);
+    setAvailableTemples([...new Set(temples)]);
 
+    const markers = villageMarkersRef.current[selectedVillage];
+    if (markers?.length) {
       const map = mapRef.current;
-      const markers = villageMarkersRef.current[selectedVillage];
-      if (map && markers?.length) {
-        const group = L.featureGroup(markers);
-        map.fitBounds(group.getBounds().pad(0.2));
-      }
-    }
-  }, [selectedVillage, templeLookup]);
-
-  useEffect(() => {
-    const map = mapRef.current;
-    const markers = templeMarkersRef.current[selectedTempleId];
-    if (map && markers?.length) {
       const group = L.featureGroup(markers);
       map.fitBounds(group.getBounds().pad(0.2));
+      highlightMarkers(markers);
     }
-  }, [selectedTempleId]);
+  } else {
+    highlightMarkers([]);  // Reset if none selected
+    setAvailableTemples([]);
+  }
+}, [selectedVillage, templeLookup]);
+
+
+useEffect(() => {
+  const markers = templeMarkersRef.current[selectedTempleId];
+  if (markers?.length) {
+    const map = mapRef.current;
+    const group = L.featureGroup(markers);
+    map.fitBounds(group.getBounds().pad(0.2));
+    highlightMarkers(markers);
+  } else {
+    highlightMarkers([]);
+  }
+}, [selectedTempleId]);
+
 
   const getVillageStats = () => {
     const filtered = templeLookup.filter(t => t['data-details-village'] === selectedVillage);
