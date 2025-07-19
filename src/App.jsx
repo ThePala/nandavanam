@@ -7,16 +7,16 @@ import './App.css';
 function App() {
   const mapRef = useRef(null);
   const [selectedTree, setSelectedTree] = useState(null);
-  const [selectedVillage, setSelectedVillage] = useState('');
+  const [selectedblock, setSelectedblock] = useState('');
   const [selectedTempleId, setSelectedTempleId] = useState('');
-  const [villageSet, setVillageSet] = useState(new Set());
+  const [blockSet, setblockSet] = useState(new Set());
   const [templeLookup, setTempleLookup] = useState([]);
   const [availableTemples, setAvailableTemples] = useState([]);
   const [treeData, setTreeData] = useState([]);
-  const [villageDetailsOpen, setVillageDetailsOpen] = useState(true);
+  const [blockDetailsOpen, setblockDetailsOpen] = useState(true);
   const [speciesColorMap, setSpeciesColorMap] = useState({});
 
-  const villageMarkersRef = useRef({});
+  const blockMarkersRef = useRef({});
   const templeMarkersRef = useRef({});
 
   const colorPalette = [
@@ -28,14 +28,14 @@ function App() {
 
   const resetAll = () => {
     setSelectedTree(null);
-    setSelectedVillage('');
+    setSelectedblock('');
     setSelectedTempleId('');
     setAvailableTemples([]);
   };
 
   const highlightMarkers = (highlightedMarkers) => {
     // Reset all to default
-    Object.values(villageMarkersRef.current).flat().forEach(marker =>
+    Object.values(blockMarkersRef.current).flat().forEach(marker =>
       marker.setStyle({ weight: 0.5, color: '#000' })
     );
 
@@ -66,20 +66,20 @@ function App() {
     fetch('/trees.geojson')
       .then(res => res.json())
       .then(data => {
-        const villages = new Set();
+        const blocks = new Set();
         const lookup = [];
         const colorMap = {};
         let colorIndex = 0;
-        const villageMarkers = {};
+        const blockMarkers = {};
         const templeMarkers = {};
 
         const layer = L.geoJSON(data, {
           pointToLayer: (feature, latlng) => {
             const props = feature.properties;
-            const village = props['data-details-village'];
+            const block = props['data-details-block'];
             const temple = props['Temple'];
 
-            villages.add(village);
+            blocks.add(block);
             lookup.push({
               ...props,
               latlng,
@@ -104,12 +104,12 @@ function App() {
 
             circle.on('click', () => {
               setSelectedTree(props);
-              setSelectedVillage(village);
+              setSelectedblock(block);
               setSelectedTempleId(temple);
             });
 
-            if (!villageMarkers[village]) villageMarkers[village] = [];
-            villageMarkers[village].push(circle);
+            if (!blockMarkers[block]) blockMarkers[block] = [];
+            blockMarkers[block].push(circle);
 
             if (!templeMarkers[temple]) templeMarkers[temple] = [];
             templeMarkers[temple].push(circle);
@@ -118,23 +118,23 @@ function App() {
           },
         }).addTo(map);
 
-        setVillageSet(villages);
+        setblockSet(blocks);
         setTempleLookup(lookup);
         setTreeData(data.features);
         setSpeciesColorMap(colorMap);
-        villageMarkersRef.current = villageMarkers;
+        blockMarkersRef.current = blockMarkers;
         templeMarkersRef.current = templeMarkers;
       });
   }, []);
 
 useEffect(() => {
-  if (selectedVillage) {
+  if (selectedblock) {
     const temples = templeLookup
-      .filter(t => t['data-details-village'] === selectedVillage)
+      .filter(t => t['data-details-block'] === selectedblock)
       .map(t => t.Temple);
     setAvailableTemples([...new Set(temples)]);
 
-    const markers = villageMarkersRef.current[selectedVillage];
+    const markers = blockMarkersRef.current[selectedblock];
     if (markers?.length) {
       const map = mapRef.current;
       const group = L.featureGroup(markers);
@@ -145,7 +145,7 @@ useEffect(() => {
     highlightMarkers([]);  // Reset if none selected
     setAvailableTemples([]);
   }
-}, [selectedVillage, templeLookup]);
+}, [selectedblock, templeLookup]);
 
 
 useEffect(() => {
@@ -161,8 +161,8 @@ useEffect(() => {
 }, [selectedTempleId]);
 
 
-  const getVillageStats = () => {
-    const filtered = templeLookup.filter(t => t['data-details-village'] === selectedVillage);
+  const getblockStats = () => {
+    const filtered = templeLookup.filter(t => t['data-details-block'] === selectedblock);
     const totalTrees = filtered.length;
     const templeCount = new Set(filtered.map(t => t.Temple)).size;
 
@@ -181,7 +181,7 @@ useEffect(() => {
     return { totalTrees, templeCount, speciesDistribution };
   };
 
-  const { totalTrees, templeCount, speciesDistribution } = getVillageStats();
+  const { totalTrees, templeCount, speciesDistribution } = getblockStats();
 
   return (
     <div className="container">
@@ -189,16 +189,16 @@ useEffect(() => {
       <div className="sidebar">
         <button onClick={resetAll} className="reset-button">🔄</button>
 
-        <select value={selectedVillage} onChange={(e) => setSelectedVillage(e.target.value)}>
-          <option value="">Select Village</option>
-          {[...villageSet].map(v => (
+        <select value={selectedblock} onChange={(e) => setSelectedblock(e.target.value)}>
+          <option value="">Select block</option>
+          {[...blockSet].map(v => (
             <option key={v} value={v}>{v}</option>
           ))}
         </select>
 
-        <div className="village-section">
-          <h2 onClick={() => setVillageDetailsOpen(!villageDetailsOpen)}>Village Details</h2>
-          {villageDetailsOpen && (
+        <div className="block-section">
+          <h2 onClick={() => setblockDetailsOpen(!blockDetailsOpen)}>block Details</h2>
+          {blockDetailsOpen && (
             <div>
               <p><b>No. of Nandhavanam:</b> {templeCount}</p>
               <p><b>Species wise Distribution of Trees:</b> {totalTrees}</p>
