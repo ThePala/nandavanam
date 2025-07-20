@@ -15,6 +15,26 @@ function App() {
   const [treeData, setTreeData] = useState([]);
   const [blockDetailsOpen, setblockDetailsOpen] = useState(true);
   const [speciesColorMap, setSpeciesColorMap] = useState({});
+  const [templeNameMap, setTempleNameMap] = useState({}); 
+
+useEffect(() => {
+  fetch('/templenameslist.csv')
+    .then(res => res.text())
+    .then(text => {
+      const lines = text.trim().split('\n');
+      const map = {};
+      for (let i = 1; i < lines.length; i++) {
+        const cols = lines[i].split(',');
+        if (cols.length < 2) continue; // Skip malformed lines
+        const id = cols[0]?.trim();
+        const name = cols[1]?.trim();
+        if (id && name) {
+          map[id] = name;
+        }
+      }
+      setTempleNameMap(map);
+    });
+}, []);
 
   const blockMarkersRef = useRef({});
   const templeMarkersRef = useRef({});
@@ -197,7 +217,7 @@ useEffect(() => {
         </select>
 
         <div className="block-section">
-          <h2 onClick={() => setblockDetailsOpen(!blockDetailsOpen)}>block Details</h2>
+          <h2 onClick={() => setblockDetailsOpen(!blockDetailsOpen)}>Block Details</h2>
           {blockDetailsOpen && (
             <div>
               <p><b>No. of Nandhavanam:</b> {templeCount}</p>
@@ -230,12 +250,14 @@ useEffect(() => {
           )}
         </div>
 
-        <select value={selectedTempleId} onChange={(e) => setSelectedTempleId(e.target.value)}>
-          <option value="">Select Temple</option>
-          {availableTemples.map(tid => (
-            <option key={tid} value={tid}>{tid}</option>
-          ))}
-        </select>
+<select value={selectedTempleId} onChange={(e) => setSelectedTempleId(e.target.value)}>
+  <option value="">Select Temple</option>
+  {availableTemples.map(tid => (
+    <option key={tid} value={tid}>
+      {templeNameMap[tid] || tid}
+    </option>
+  ))}
+</select>
 
         <div className="temple-section">
           <h2>Temple Details</h2>
