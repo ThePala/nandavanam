@@ -14,6 +14,8 @@ function App() {
   const [availableTemples, setAvailableTemples] = useState([]);
   const [treeData, setTreeData] = useState([]);
   const [blockDetailsOpen, setblockDetailsOpen] = useState(true);
+  const [templeDetailsOpen, setTempleDetailsOpen] = useState(true);
+  const [treeDetailsOpen, setTreeDetailsOpen] = useState(true);
   const [speciesColorMap, setSpeciesColorMap] = useState({});
   const [templeNameMap, setTempleNameMap] = useState({}); 
 
@@ -64,7 +66,6 @@ useEffect(() => {
       marker.setStyle({ weight: 3, color: '#fff' })  // Thicker stroke, white color
     );
   };
-
 
   useEffect(() => {
     if (mapRef.current) return;
@@ -126,6 +127,10 @@ useEffect(() => {
               setSelectedTree(props);
               setSelectedblock(block);
               setSelectedTempleId(temple);
+              // Auto-collapse other sections and expand tree details
+              setblockDetailsOpen(false);
+              setTempleDetailsOpen(false);
+              setTreeDetailsOpen(true);
             });
 
             if (!blockMarkers[block]) blockMarkers[block] = [];
@@ -167,7 +172,6 @@ useEffect(() => {
   }
 }, [selectedblock, templeLookup]);
 
-
 useEffect(() => {
   const markers = templeMarkersRef.current[selectedTempleId];
   if (markers?.length) {
@@ -179,7 +183,6 @@ useEffect(() => {
     highlightMarkers([]);
   }
 }, [selectedTempleId]);
-
 
   const getblockStats = () => {
     const filtered = templeLookup.filter(t => t['data-details-block'] === selectedblock);
@@ -201,7 +204,29 @@ useEffect(() => {
     return { totalTrees, templeCount, speciesDistribution };
   };
 
+  const getTempleStats = () => {
+    if (!selectedTempleId) return { totalTrees: 0, speciesDistribution: [] };
+    
+    const filtered = templeLookup.filter(t => t.Temple === selectedTempleId);
+    const totalTrees = filtered.length;
+
+    const speciesMap = {};
+    filtered.forEach(t => {
+      const species = t['data-details-species'] || 'Unknown';
+      speciesMap[species] = (speciesMap[species] || 0) + 1;
+    });
+
+    const speciesDistribution = Object.entries(speciesMap).map(([name, count]) => ({
+      name,
+      value: count,
+      color: speciesColorMap[name] || '#888'
+    }));
+
+    return { totalTrees, speciesDistribution };
+  };
+
   const { totalTrees, templeCount, speciesDistribution } = getblockStats();
+  const { totalTrees: templeTotalTrees, speciesDistribution: templeSpeciesDistribution } = getTempleStats();
 
   return (
     <div className="container">
@@ -217,7 +242,10 @@ useEffect(() => {
         </select>
 
         <div className="block-section">
-          <h2 onClick={() => setblockDetailsOpen(!blockDetailsOpen)}>Block Details</h2>
+          <h2 onClick={() => setblockDetailsOpen(!blockDetailsOpen)} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            Block Details
+            <span style={{ fontSize: '0.8em' }}>{blockDetailsOpen ? '▼' : '▶'}</span>
+          </h2>
           {blockDetailsOpen && (
             <div>
               <p><b>No. of Nandhavanam:</b> {templeCount}</p>
@@ -250,18 +278,70 @@ useEffect(() => {
           )}
         </div>
 
-<select value={selectedTempleId} onChange={(e) => setSelectedTempleId(e.target.value)}>
-  <option value="">Select Temple</option>
-  {availableTemples.map(tid => (
-    <option key={tid} value={tid}>
-      {templeNameMap[tid] || tid}
-    </option>
-  ))}
-</select>
+        <select value={selectedTempleId} onChange={(e) => setSelectedTempleId(e.target.value)}>
+          <option value="">Select Temple</option>
+          {availableTemples.map(tid => (
+            <option key={tid} value={tid}>
+              {templeNameMap[tid] || tid}
+            </option>
+          ))}
+        </select>
 
         <div className="temple-section">
-          <h2>Temple Details</h2>
-          {/* Future implementation */}
+          <h2 onClick={() => setTempleDetailsOpen(!templeDetailsOpen)} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            Temple Details
+            <span style={{ fontSize: '0.8em' }}>{templeDetailsOpen ? '▼' : '▶'}</span>
+          </h2>
+          {templeDetailsOpen && selectedTempleId && (
+            <div>
+              <p><b>Temple:</b> {templeNameMap[selectedTempleId] || selectedTempleId}</p>
+              <p><b>Total Trees:</b> {templeTotalTrees}</p>
+              {templeTotalTrees > 0 && (
+                <>
+                  <PieChart width={200} height={200}>
+                    <Pie
+                      data={templeSpeciesDistribution}
+                      dataKey="value"
+                      nameKey="name"
+                      cx="50%"
+                      cy="50%"
+                      outerRadius={80}
+                      label={false}
+                    >
+                      {templeSpeciesDistribution.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={entry.color} />
+                      ))}
+                    </Pie>
+                    <Tooltip formatter={(value, name) => [`${value} trees`, name]} />
+                  </PieChart>
+                  <ul className="legend">
+                    {templeSpeciesDistribution.map(entry => (
+                      <li key={entry.name} style={{ marginBottom: '4px' }}>
+                        <span style={{ background: entry.color, width: 12, height: 12, display: 'inline-block', marginRight: 6, borderRadius: '50%' }}></span>
+                        {entry.name}
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )}
+            </div>
+          )}
+        </div>
+
+        <div className="tree-section">
+          <h2 onClick={() => setTreeDetailsOpen(!treeDetailsOpen)} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            Tree Details
+            <span style={{ fontSize: '0.8em' }}>{treeDetailsOpen ? '▼' : '▶'}</span>
+          </h2>
+          {treeDetailsOpen && selectedTree && (
+            <div>
+              <p><b>Species:</b> {selectedTree['data-details-species'] || 'Unknown'}</p>
+              <p><b>Block:</b> {selectedTree['data-details-block']}</p>
+              <p><b>Temple:</b> {templeNameMap[selectedTree['Temple']] || selectedTree['Temple']}</p>
+              <p><b>GBH (Base Level):</b> {selectedTree['data-details-gbh-base-level'] || 'N/A'}</p>
+              {/* Add more tree properties as needed */}
+            </div>
+          )}
         </div>
       </div>
     </div>
