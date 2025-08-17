@@ -18,28 +18,78 @@ function App() {
   const [treeDetailsOpen, setTreeDetailsOpen] = useState(true);
   const [speciesColorMap, setSpeciesColorMap] = useState({});
   const [templeNameMap, setTempleNameMap] = useState({}); 
+  const [templeBlockMap, setTempleBlockMap] = useState({}); // New: Temple ID → Block Name mapping 
+
+  const blockMarkersRef = useRef({});
+  const templeMarkersRef = useRef({});
+  const blockPolygonsRef = useRef(null);
+  const treeLayerRef = useRef(null);
+  const blockLabelsRef = useRef([]);
 
 useEffect(() => {
   fetch('/templenameslist.csv')
     .then(res => res.text())
     .then(text => {
+      console.log('CSV Raw text:', text.substring(0, 200)); // First 200 chars
       const lines = text.trim().split('\n');
-      const map = {};
+      console.log('CSV Lines:', lines.slice(0, 5)); // First 5 lines
+      
+      const nameMap = {};
+      const blockMap = {};
+      
+      // Function to properly parse CSV line with quoted fields
+      const parseCSVLine = (line) => {
+        const result = [];
+        let current = '';
+        let inQuotes = false;
+        
+        for (let i = 0; i < line.length; i++) {
+          const char = line[i];
+          
+          if (char === '"') {
+            // Handle escaped quotes (double quotes within quotes)
+            if (inQuotes && line[i + 1] === '"') {
+              current += '"';
+              i++; // Skip the next quote
+            } else {
+              inQuotes = !inQuotes;
+            }
+          } else if (char === ',' && !inQuotes) {
+            result.push(current.trim());
+            current = '';
+          } else {
+            current += char;
+          }
+        }
+        
+        // Add the last field
+        result.push(current.trim());
+        return result;
+      };
+      
       for (let i = 1; i < lines.length; i++) {
-        const cols = lines[i].split(',');
-        if (cols.length < 2) continue; // Skip malformed lines
-        const id = cols[0]?.trim();
-        const name = cols[1]?.trim();
-        if (id && name) {
-          map[id] = name;
+        const cols = parseCSVLine(lines[i]);
+        if (cols.length < 3) continue;
+        
+        const templeId = cols[0]?.trim();
+        const templeName = cols[1]?.trim();
+        const blockName = cols[2]?.trim();
+        
+        if (templeId && templeName) {
+          nameMap[templeId] = templeName;
+        }
+        if (templeId && blockName) {
+          blockMap[templeId] = blockName;
         }
       }
-      setTempleNameMap(map);
+      
+      console.log('Temple Name Map sample:', Object.entries(nameMap).slice(0, 3));
+      console.log('Temple Block Map sample:', Object.entries(blockMap).slice(0, 3));
+      
+      setTempleNameMap(nameMap);
+      setTempleBlockMap(blockMap);
     });
 }, []);
-
-  const blockMarkersRef = useRef({});
-  const templeMarkersRef = useRef({});
 
   const colorPalette = [
     '#e6194b', '#3cb44b', '#ffe119', '#4363d8', '#f58231',
@@ -53,36 +103,107 @@ useEffect(() => {
     setSelectedblock('');
     setSelectedTempleId('');
     setAvailableTemples([]);
+    
+    // Remove tree layer when resetting
+    if (treeLayerRef.current && mapRef.current) {
+      mapRef.current.removeLayer(treeLayerRef.current);
+      treeLayerRef.current = null;
+    }
+    
+    // Show block labels again
+    showBlockLabels();
+    
+    // Reset map view to show all polygons
+    if (blockPolygonsRef.current && mapRef.current) {
+      mapRef.current.fitBounds(blockPolygonsRef.current.getBounds());
+    }
   };
 
-  const highlightMarkers = (highlightedMarkers) => {
-    // Reset all to default
-    Object.values(blockMarkersRef.current).flat().forEach(marker =>
-      marker.setStyle({ weight: 0.5, color: '#000' })
-    );
+// Replace the highlightMarkers function and add new highlighting functions
 
-    // Highlight selected ones
-    highlightedMarkers.forEach(marker =>
-      marker.setStyle({ weight: 3, color: '#fff' })  // Thicker stroke, white color
-    );
-  };
+const highlightMarkers = (highlightedMarkers) => {
+  // Reset all markers to default style first
+  Object.values(blockMarkersRef.current).flat().forEach(marker =>
+    marker.setStyle({ weight: 0.5, color: '#000' })
+  );
 
-  useEffect(() => {
-    if (mapRef.current) return;
+  // Highlight the specified markers
+  highlightedMarkers.forEach(marker =>
+    marker.setStyle({ weight: 3, color: '#fff' })
+  );
+};
 
-    const satellite = L.tileLayer(
-      'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-      {
-        attribution: '&copy; Esri, Maxar, Earthstar Geographics',
+const highlightBlockTrees = (blockName) => {
+  const markersToHighlight = [];
+  
+  // Get all temples in this block
+  const templesInBlock = Object.entries(templeBlockMap)
+    .filter(([tid, block]) => block === blockName)
+    .map(([tid]) => tid);
+  
+  // Collect all markers for temples in this block
+  templesInBlock.forEach(templeId => {
+    if (templeMarkersRef.current[templeId]) {
+      markersToHighlight.push(...templeMarkersRef.current[templeId]);
+    }
+  });
+  
+  highlightMarkers(markersToHighlight);
+};
+
+const highlightTempleTree = (templeId) => {
+  const markers = templeMarkersRef.current[templeId] || [];
+  highlightMarkers(markers);
+};
+
+  const showBlockLabels = () => {
+    // Clear existing labels
+    blockLabelsRef.current.forEach(label => {
+      if (mapRef.current && mapRef.current.hasLayer(label)) {
+        mapRef.current.removeLayer(label);
       }
-    );
-
-    const map = L.map('map', {
-      center: [8.658335, 77.448118],
-      zoom: 18,
-      layers: [satellite],
     });
-    mapRef.current = map;
+    blockLabelsRef.current = [];
+
+    // Add new labels
+    if (blockPolygonsRef.current) {
+      blockPolygonsRef.current.eachLayer(layer => {
+        const bounds = layer.getBounds();
+        const center = bounds.getCenter();
+        const blockName = layer.feature.properties.Block_Name || 
+                         layer.feature.properties.BLOCK_NAME || 
+                         layer.feature.properties.block_name || 
+                         layer.feature.properties.name || 
+                         'Unknown Block';
+
+        const label = L.marker(center, {
+          icon: L.divIcon({
+            className: 'block-label',
+            html: `<div style="background: rgba(255,255,255,0.8); padding: 2px 6px; border-radius: 3px; font-size: 12px; font-weight: bold; text-align: center; border: 1px solid #333;">${blockName}</div>`,
+            iconSize: [100, 20],
+            iconAnchor: [50, 10]
+          })
+        }).addTo(mapRef.current);
+
+        blockLabelsRef.current.push(label);
+      });
+    }
+  };
+
+  const hideBlockLabels = () => {
+    blockLabelsRef.current.forEach(label => {
+      if (mapRef.current && mapRef.current.hasLayer(label)) {
+        mapRef.current.removeLayer(label);
+      }
+    });
+    blockLabelsRef.current = [];
+  };
+
+  const loadTreesForBlock = (blockName) => {
+    // Remove existing tree layer
+    if (treeLayerRef.current && mapRef.current) {
+      mapRef.current.removeLayer(treeLayerRef.current);
+    }
 
     fetch('/trees.geojson')
       .then(res => res.json())
@@ -94,7 +215,10 @@ useEffect(() => {
         const blockMarkers = {};
         const templeMarkers = {};
 
-        const layer = L.geoJSON(data, {
+        // Load ALL trees (no filtering for now)
+        const filteredFeatures = data.features;
+
+        const layer = L.geoJSON({ type: 'FeatureCollection', features: filteredFeatures }, {
           pointToLayer: (feature, latlng) => {
             const props = feature.properties;
             const block = props['data-details-block'];
@@ -125,9 +249,7 @@ useEffect(() => {
 
             circle.on('click', () => {
               setSelectedTree(props);
-              setSelectedblock(block);
               setSelectedTempleId(temple);
-              // Auto-collapse other sections and expand tree details
               setblockDetailsOpen(false);
               setTempleDetailsOpen(false);
               setTreeDetailsOpen(true);
@@ -141,51 +263,140 @@ useEffect(() => {
 
             return circle;
           },
-        }).addTo(map);
+        }).addTo(mapRef.current);
 
-        setblockSet(blocks);
+        treeLayerRef.current = layer;
         setTempleLookup(lookup);
-        setTreeData(data.features);
-        setSpeciesColorMap(colorMap);
+        setTreeData(filteredFeatures);
+        setSpeciesColorMap(prev => ({ ...prev, ...colorMap }));
         blockMarkersRef.current = blockMarkers;
         templeMarkersRef.current = templeMarkers;
+
+        // Hide block labels when trees are loaded
+        hideBlockLabels();
       });
+  };
+
+  useEffect(() => {
+    if (mapRef.current) return;
+
+    const satellite = L.tileLayer(
+      'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+      {
+        attribution: '&copy; Esri, Maxar, Earthstar Geographics',
+      }
+    );
+
+    const map = L.map('map', {
+      center: [8.542344, 77.586146],
+      zoom: 10,
+      layers: [satellite],
+    });
+    mapRef.current = map;
+
+    // Load district block polygons
+    fetch('/district_blocks.geojson')
+      .then(res => res.json())
+      .then(data => {
+        const polygonLayer = L.geoJSON(data, {
+          style: {
+            color: '#3388ff',
+            weight: 2,
+            opacity: 0.8,
+            fillColor: '#3388ff',
+            fillOpacity: 0.1
+          },
+          onEachFeature: (feature, layer) => {
+            // Make polygons clickable to select block
+            layer.on('click', () => {
+              const blockName = feature.properties.Block_Name || 
+                               feature.properties.BLOCK_NAME || 
+                               feature.properties.block_name || 
+                               feature.properties.name || 
+                               'Unknown Block';
+              setSelectedblock(blockName);
+            });
+          }
+        }).addTo(map);
+        
+        blockPolygonsRef.current = polygonLayer;
+        
+        // Get all block names from polygons and show labels
+        const blockNames = new Set();
+        data.features.forEach(feature => {
+          const blockName = feature.properties.Block_Name || 
+                           feature.properties.BLOCK_NAME || 
+                           feature.properties.block_name || 
+                           feature.properties.name || 
+                           'Unknown Block';
+          blockNames.add(blockName);
+        });
+        
+        setblockSet(blockNames);
+        showBlockLabels();
+      })
+      .catch(err => console.log('District blocks not found:', err));
   }, []);
 
+// Updated useEffect for selectedblock
 useEffect(() => {
   if (selectedblock) {
-    const temples = templeLookup
-      .filter(t => t['data-details-block'] === selectedblock)
-      .map(t => t.Temple);
-    setAvailableTemples([...new Set(temples)]);
+    // Load trees for selected block
+    loadTreesForBlock(selectedblock);
 
-    const markers = blockMarkersRef.current[selectedblock];
+    // Zoom to selected block
+    if (blockPolygonsRef.current) {
+      blockPolygonsRef.current.eachLayer(layer => {
+        const blockName = layer.feature.properties.Block_Name || 
+                         layer.feature.properties.BLOCK_NAME || 
+                         layer.feature.properties.block_name || 
+                         layer.feature.properties.name || 
+                         'Unknown Block';
+        if (blockName === selectedblock) {
+          mapRef.current.fitBounds(layer.getBounds().pad(0.02));
+        }
+      });
+    }
+
+    // Get temples from the CSV-based map
+    const templesInBlock = Object.entries(templeBlockMap)
+      .filter(([tid, block]) => block === selectedblock)
+      .map(([tid]) => tid);
+
+    setAvailableTemples(templesInBlock);
+    
+    // Highlight all trees in the selected block after a short delay
+    // (to ensure trees are loaded first)
+    setTimeout(() => {
+      highlightBlockTrees(selectedblock);
+    }, 500);
+    
+  } else {
+    setAvailableTemples([]);
+    showBlockLabels();
+    // Reset highlighting when no block is selected
+    highlightMarkers([]);
+  }
+}, [selectedblock, templeBlockMap]);
+
+  useEffect(() => {
+    const markers = templeMarkersRef.current[selectedTempleId];
     if (markers?.length) {
       const map = mapRef.current;
       const group = L.featureGroup(markers);
       map.fitBounds(group.getBounds().pad(0.02));
       highlightMarkers(markers);
+    } else {
+      highlightMarkers([]);
     }
-  } else {
-    highlightMarkers([]);  // Reset if none selected
-    setAvailableTemples([]);
-  }
-}, [selectedblock, templeLookup]);
-
-useEffect(() => {
-  const markers = templeMarkersRef.current[selectedTempleId];
-  if (markers?.length) {
-    const map = mapRef.current;
-    const group = L.featureGroup(markers);
-    map.fitBounds(group.getBounds().pad(0.02));
-    highlightMarkers(markers);
-  } else {
-    highlightMarkers([]);
-  }
-}, [selectedTempleId]);
+  }, [selectedTempleId]);
 
   const getblockStats = () => {
-    const filtered = templeLookup.filter(t => t['data-details-block'] === selectedblock);
+    const filtered = templeLookup.filter(t => {
+      const templeId = t.Temple;
+      const templeBlock = templeBlockMap[templeId];
+      return templeBlock === selectedblock;
+    });
     const totalTrees = filtered.length;
     const templeCount = new Set(filtered.map(t => t.Temple)).size;
 
@@ -246,7 +457,7 @@ useEffect(() => {
             Block Details
             <span style={{ fontSize: '0.8em' }}>{blockDetailsOpen ? '▼' : '▶'}</span>
           </h2>
-          {blockDetailsOpen && (
+          {blockDetailsOpen && selectedblock && (
             <div>
               <p><b>No. of Nandhavanam:</b> {templeCount}</p>
               <p><b>Species wise Distribution of Trees:</b> {totalTrees}</p>
@@ -339,7 +550,7 @@ useEffect(() => {
               <p><b>Block:</b> {selectedTree['data-details-block']}</p>
               <p><b>Temple:</b> {templeNameMap[selectedTree['Temple']] || selectedTree['Temple']}</p>
               <p><b>GBH (Base Level):</b> {selectedTree['data-details-gbh-base-level'] || 'N/A'}</p>
-              {/* Add more tree properties as needed */}
+              <p><b>Temple ID:</b> {selectedTree['Temple'] || 'N/A'}</p>
             </div>
           )}
         </div>
