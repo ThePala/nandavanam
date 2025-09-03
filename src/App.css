@@ -1,45 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;600&display=swap');
+
 * {
-  font-family: 'Inter', sans-serif;
-}
-
-
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
+  font-family: 'Instrument Sans', sans-serif;
+  box-sizing: border-box;
 }
 
 body, html, #root {
@@ -47,9 +10,10 @@ body, html, #root {
   padding: 0;
   height: 100%;
   width: 100%;
-  font-family: sans-serif;
+  font-family: 'Instrument Sans', sans-serif;
 }
 
+/* Main container */
 .container {
   display: flex;
   height: 100vh;
@@ -63,40 +27,124 @@ body, html, #root {
   z-index: 0;
 }
 
+/* Sidebar */
 .sidebar {
   width: 320px;
-  background: black;
-  padding: 12px;
+  background: #ffffff; /* WHITE background */
+  color: #000000;
   overflow-y: auto;
-  overflow-x: hidden;
   height: 100vh;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
-  z-index: 1000;
+  box-shadow: 0 0 12px rgba(0,0,0,0.25);
+  display: flex;
+  flex-direction: column;
+
+  padding: 0; /* 🚫 remove default padding */
 }
 
+/* Reset button bar */
+.sidebar .reset-bar {
+  background: #31572C; /* dark green */
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-.sidebar h2,
-.sidebar p,
-.sidebar li,
-.sidebar b {
+.reset-button {
+  background: transparent;
+  border: none;
   color: white;
+  font-size: 22px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.tree-details, .generic-info, .no-selection {
-  margin-bottom: 2rem;
+.reset-button:hover {
+  color: #C6DC7E;
 }
 
-.generic-info ul {
-  list-style: none;
+/* Dropdowns */
+.sidebar select {
+  width: calc(100% - 24px); /* inset from edges */
+  margin: 12px auto;        /* center with side margins */
+  padding: 10px 12px;
+  border: 1px solid #31572C;
+  border-radius: 6px;
+  background: #C6DC7E;   /* light green background */
+  font-size: 0.95rem;
+  color: #31572C;
+  cursor: pointer;
+}
+
+/* Section wrappers */
+.block-section,
+.temple-section,
+.tree-section {
+  margin: 0;
   padding: 0;
 }
 
+/* Section headers: full-width dark green bars */
+/* Section headers: full-width black bars, centered text */
+.sidebar h2 {
+  background: #31572C; /* keep dark green background */
+  color: #000000;      /* black text */
+  font-size: 1.25rem;  /* bigger font */
+  font-weight: 600;
+  display: flex;
+  justify-content: center;  /* center content */
+  align-items: center;
+  cursor: pointer;
 
-.read-the-docs {
-  color: #888;
+  height: 52px;        /* taller bar */
+  line-height: 52px;
+  width: 100%;
+  margin: 0;
+  border-radius: 0;
+  position: relative;
 }
 
-.radio-options label {
-  display: block;
-  margin-bottom: 8px;
+/* Make the expand/collapse arrow black and keep it centered with text */
+.sidebar h2 .material-icons {
+  color: #000000;      /* black arrow */
+  margin-left: 8px;    /* small space from text */
+  font-size: 24px;     /* bigger arrow */
+}
+
+/* Section content (white card under header) */
+.sidebar .section-content {
+  background: #ffffff;
+  color: #000000;
+  padding: 12px;
+  border-radius: 0 0 6px 6px;
+  margin-bottom: 16px;
+  color: #31572C;
+  font-size: 0.95rem;
+  border: 1px solid #e0e0e0;
+  border-top: none; /* attaches cleanly to header */
+}
+
+/* Legend for pie chart */
+.legend {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0 0;
+}
+
+.legend li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+  color: #31572C;
+  font-size: 0.9rem;
+}
+
+.legend span {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 6px;
 }

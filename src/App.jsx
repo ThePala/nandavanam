@@ -443,7 +443,9 @@ useEffect(() => {
     <div className="container">
       <div id="map" />
       <div className="sidebar">
-        <button onClick={resetAll} className="reset-button">🔄</button>
+        <button onClick={resetAll} className="reset-button">
+  <span className="material-icons">refresh</span>
+</button>
 
         <select value={selectedblock} onChange={(e) => setSelectedblock(e.target.value)}>
           <option value="">Select block</option>
@@ -453,10 +455,12 @@ useEffect(() => {
         </select>
 
         <div className="block-section">
-          <h2 onClick={() => setblockDetailsOpen(!blockDetailsOpen)} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            Block Details
-            <span style={{ fontSize: '0.8em' }}>{blockDetailsOpen ? '▼' : '▶'}</span>
-          </h2>
+<h2 onClick={() => setblockDetailsOpen(!blockDetailsOpen)}>
+  Block Details
+  <span className="material-icons" style={{ fontSize: '18px' }}>
+    {blockDetailsOpen ? 'expand_more' : 'chevron_right'}
+  </span>
+</h2>
           {blockDetailsOpen && selectedblock && (
             <div>
               <p><b>No. of Nandhavanam:</b> {templeCount}</p>
@@ -498,62 +502,81 @@ useEffect(() => {
           ))}
         </select>
 
-        <div className="temple-section">
-          <h2 onClick={() => setTempleDetailsOpen(!templeDetailsOpen)} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            Temple Details
-            <span style={{ fontSize: '0.8em' }}>{templeDetailsOpen ? '▼' : '▶'}</span>
-          </h2>
-          {templeDetailsOpen && selectedTempleId && (
-            <div>
-              <p><b>Temple:</b> {templeNameMap[selectedTempleId] || selectedTempleId}</p>
-              <p><b>Total Trees:</b> {templeTotalTrees}</p>
-              {templeTotalTrees > 0 && (
-                <>
-                  <PieChart width={200} height={200}>
-                    <Pie
-                      data={templeSpeciesDistribution}
-                      dataKey="value"
-                      nameKey="name"
-                      cx="50%"
-                      cy="50%"
-                      outerRadius={80}
-                      label={false}
-                    >
-                      {templeSpeciesDistribution.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={entry.color} />
-                      ))}
-                    </Pie>
-                    <Tooltip formatter={(value, name) => [`${value} trees`, name]} />
-                  </PieChart>
-                  <ul className="legend">
-                    {templeSpeciesDistribution.map(entry => (
-                      <li key={entry.name} style={{ marginBottom: '4px' }}>
-                        <span style={{ background: entry.color, width: 12, height: 12, display: 'inline-block', marginRight: 6, borderRadius: '50%' }}></span>
-                        {entry.name}
-                      </li>
-                    ))}
-                  </ul>
-                </>
-              )}
-            </div>
-          )}
-        </div>
+<div className="temple-section">
+<h2
+  onClick={() => setTempleDetailsOpen(!templeDetailsOpen)}
+>
+  Temple Details
+  <span className="material-icons">
+    {templeDetailsOpen ? 'expand_more' : 'chevron_right'}
+  </span>
+</h2>
 
-        <div className="tree-section">
-          <h2 onClick={() => setTreeDetailsOpen(!treeDetailsOpen)} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            Tree Details
-            <span style={{ fontSize: '0.8em' }}>{treeDetailsOpen ? '▼' : '▶'}</span>
-          </h2>
-          {treeDetailsOpen && selectedTree && (
-            <div>
-              <p><b>Species:</b> {selectedTree['data-details-species'] || 'Unknown'}</p>
-              <p><b>Block:</b> {selectedTree['data-details-block']}</p>
-              <p><b>Temple:</b> {templeNameMap[selectedTree['Temple']] || selectedTree['Temple']}</p>
-              <p><b>GBH (Base Level):</b> {selectedTree['data-details-gbh-base-level'] || 'N/A'}</p>
-              <p><b>Temple ID:</b> {selectedTree['Temple'] || 'N/A'}</p>
-            </div>
-          )}
-        </div>
+  {templeDetailsOpen && selectedTempleId && (
+    <div>
+      <p><b>Temple:</b> {templeNameMap[selectedTempleId] || selectedTempleId}</p>
+      <p><b>Total Trees:</b> {templeTotalTrees}</p>
+      {templeTotalTrees > 0 && (
+        <>
+          <PieChart width={200} height={200}>
+            <Pie
+              data={templeSpeciesDistribution}
+              dataKey="value"
+              nameKey="name"
+              cx="50%"
+              cy="50%"
+              outerRadius={80}
+              label={false}
+            >
+              {templeSpeciesDistribution.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={entry.color} />
+              ))}
+            </Pie>
+            <Tooltip formatter={(value, name) => [`${value} trees`, name]} />
+          </PieChart>
+          <ul className="legend">
+            {templeSpeciesDistribution.map(entry => (
+              <li key={entry.name} style={{ marginBottom: '4px' }}>
+                <span style={{
+                  background: entry.color,
+                  width: 12,
+                  height: 12,
+                  display: 'inline-block',
+                  marginRight: 6,
+                  borderRadius: '50%'
+                }}></span>
+                {entry.name}
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+    </div>
+  )}
+</div>
+
+
+<div className="tree-section">
+<h2
+  onClick={() => setTreeDetailsOpen(!treeDetailsOpen)}
+>
+  Tree Details
+  <span className="material-icons">
+    {treeDetailsOpen ? 'expand_more' : 'chevron_right'}
+  </span>
+</h2>
+
+  {treeDetailsOpen && selectedTree && (
+    <div>
+      <p><b>Species:</b> {selectedTree['data-details-species'] || 'Unknown'}</p>
+      <p><b>Block:</b> {selectedTree['data-details-block']}</p>
+      <p><b>Temple:</b> {templeNameMap[selectedTree['Temple']] || selectedTree['Temple']}</p>
+      <p><b>GBH (Base Level):</b> {selectedTree['data-details-gbh-base-level'] || 'N/A'}</p>
+      <p><b>Temple ID:</b> {selectedTree['Temple'] || 'N/A'}</p>
+    </div>
+  )}
+</div>
+
       </div>
     </div>
   );
