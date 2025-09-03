@@ -1,0 +1,84 @@
+.site-header {
+  background: #31572C; /* dark green */
+  color: white;
+  padding: 10px 20px;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo img {
+  height: 50px;
+}
+
+.logo-text {
+  font-size: 14px;
+  line-height: 1.2;
+  font-weight: bold;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.nav-menu a,
+.nav-menu span {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.nav-menu a:hover {
+  text-decoration: underline;
+}
+
+/* Dropdown */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background: #31572C;
+  padding: 10px;
+  margin-top: 8px;
+  border-radius: 6px;
+  flex-direction: column;
+  min-width: 200px;
+  z-index: 1000;
+}
+
+.dropdown:hover .dropdown-content {
+  display: flex;
+}
+
+.dropdown-content a,
+.dropdown-content span {
+  color: white;
+  padding: 5px 0;
+  text-decoration: none;
+}
+
+.dropdown-content a:hover {
+  text-decoration: underline;
+}
+
+/* Nested dropdown (Tree Mapping) */
+.nested-dropdown {
+  margin-left: 15px;
+  display: flex;
+  flex-direction: column;
+}
