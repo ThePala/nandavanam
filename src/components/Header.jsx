@@ -7,7 +7,7 @@ export default function Header() {
       <div className="header-container">
         {/* Logo */}
         <div className="logo">
-          <img src="/images/logo-final.svg" alt="ATREE Logo" />
+          <img src="/images/logonobg.png" alt="ATREE Logo" />
           <span className="logo-text">
             ASHOKA TRUST FOR RESEARCH<br />
             IN ECOLOGY AND THE ENVIRONMENT
