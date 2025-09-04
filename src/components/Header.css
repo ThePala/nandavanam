@@ -80,7 +80,10 @@
   border-radius: 6px;
 }
 .nav-link:hover,
-.nav-link.active { text-decoration: underline; }
+.nav-link.active { text-decoration: underline;
+  color: var(--white); 
+
+}
 
 /* group buttons (section headers, not links) */
 .section-header {
@@ -128,7 +131,9 @@
   padding: 10px;
   border-radius: 8px;
 }
-.panel-link:hover { background: var(--panel-hover); }
+.panel-link:hover { background: var(--panel-hover);
+color: var(--white); 
+ }
 
 /* DESKTOP ≥ 960px */
 @media (min-width: 960px) {
@@ -139,8 +144,8 @@
     display: flex !important; /* always visible */
     flex-direction: row;
     align-items: center;
-    gap: 32px;
-    padding: 0;
+    gap: 16px;
+    /* padding-right: 20%; */
     border: 0;
     background: transparent;
   }
@@ -175,11 +180,11 @@
   .has-panel > .panel {
     position: absolute;
     top: 100%;
-    left: 0;
+    right: 0;
     margin-top: 10px;
     background: var(--panel);
     border-radius: var(--radius);
-    min-width: 260px;
+    min-width: 200px;
     box-shadow: var(--shadow);
     display: none;
   }
@@ -193,7 +198,7 @@
     content: "";
     position: absolute;
     top: -8px;
-    left: 24px;
+    right: 24px;
     width: 16px;
     height: 16px;
     background: var(--panel);

@@ -10,6 +10,9 @@
   color: var(--text);
   font-size: 15px;
   line-height: 1.55;
+  position: relative;
+  bottom: 0;
+  width: 100%;
 }
 
 /* top panel */
@@ -31,7 +34,10 @@
   text-decoration: none;
   font-weight: 600;
 }
-.footer-link:hover{ text-decoration: underline; }
+.footer-link:hover{ 
+  text-decoration: underline;
+  color: var(--text);
+ }
 .footer-link.inline{ display:inline-block; padding: 4px 0; }
 
 /* contact rows with icons */
@@ -57,6 +63,8 @@
   background: var(--lime);
   color: #1a1a1a;
   padding: 12px 20px;
+  bottom: 0;
+  width: 100%;
 }
 .bottom-inner{
   display:flex;
