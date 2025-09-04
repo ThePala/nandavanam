@@ -1,37 +1,102 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, NavLink } from "react-router-dom";
 import "./Header.css";
 
 export default function Header() {
+  const [open, setOpen] = useState(false);           // hamburger menu
+  const [openInitiatives, setOpenInitiatives] = useState(false); // mobile accordion
+  const [openAbout, setOpenAbout] = useState(false); // mobile accordion
+
+  const closeAll = () => {
+    setOpen(false);
+    setOpenInitiatives(false);
+    setOpenAbout(false);
+  };
+
   return (
     <header className="site-header">
       <div className="header-container">
-        {/* Logo */}
-        <div className="logo">
-          <img src="/images/logonobg.png" alt="ATREE Logo" />
-          <span className="logo-text">
-            ASHOKA TRUST FOR RESEARCH<br />
-            IN ECOLOGY AND THE ENVIRONMENT
+        {/* Logo + Brand */}
+        <Link to="/" className="brand" onClick={closeAll}>
+          <img src="/images/logonobg.png" alt="ATREE logo" />
+          <span className="brand-text">
+            ASHOKA TRUST FOR RESEARCH IN 
+            <br />ECOLOGY AND THE ENVIRONMENT
           </span>
-        </div>
+        </Link>
 
-        {/* Navigation */}
-        <nav className="nav-menu">
-          <Link to="/">Home</Link>
-          <div className="dropdown">
-            <span>Our Initiatives</span>
-            <div className="dropdown-content">
-              <Link to="/nandavanam">Namma Ooru Nandavanam</Link>
-              <span>Tree Mapping</span>
-              <div className="nested-dropdown">
-                <Link to="/treedetails">Tree Map Details</Link>
-                <Link to="/maptool">Map Tool</Link>
-              </div>
-            </div>
-          </div>
-          <Link to="/media">Media</Link>
-          <Link to="/team">Team</Link>
-          <Link to="/partners">Partners</Link>
-        </nav>
+        {/* Hamburger */}
+        <button
+          className={`hamburger ${open ? "is-open" : ""}`}
+          onClick={() => setOpen(!open)}
+          aria-expanded={open}
+          aria-controls="primary-nav"
+          aria-label="Toggle menu"
+        >
+          <span />
+          <span />
+          <span />
+        </button>
+
+        {/* Nav */}
+<nav id="primary-nav" className={`nav-menu ${open ? "open" : ""}`}>
+  <NavLink to="/" className="nav-link" onClick={closeAll}>
+    Home
+  </NavLink>
+
+  {/* Our Initiatives */}
+  <div className="nav-item has-panel">
+    <button className="section-header" type="button" aria-haspopup="true">
+      Our Initiatives
+      <span className="chev" />
+    </button>
+
+    <div className="panel">
+      <ul className="panel-list">
+        <li>
+          <NavLink to="/nandavanam" className="panel-link" onClick={closeAll}>
+            Namma Ooru Nandavanam
+          </NavLink>
+        </li>
+
+        <li>
+          <NavLink to="/treedetails" className="panel-link" onClick={closeAll}>
+            Tree Mapping
+          </NavLink>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <NavLink to="/media" className="nav-link" onClick={closeAll}>
+    Media
+  </NavLink>
+
+  {/* About Us */}
+  <div className="nav-item has-panel">
+    <button className="section-header" type="button" aria-haspopup="true">
+      About Us
+      <span className="chev" />
+    </button>
+
+    <div className="panel">
+      <ul className="panel-list">
+        <li>
+          <NavLink to="/team" className="panel-link" onClick={closeAll}>
+            Our Team
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/partners" className="panel-link" onClick={closeAll}>
+            Our Partners
+          </NavLink>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
       </div>
     </header>
   );

@@ -8,6 +8,8 @@ import Team from "./pages/Team";
 import Partners from "./pages/Partners";
 import "./styles/common.css";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
+
 
 
 function App() {
@@ -46,6 +48,7 @@ function App() {
         <Route path="/team" element={<Team />} />
         <Route path="/partners" element={<Partners />} />
       </Routes>
+      <Footer />
     </div>
   );
 }
