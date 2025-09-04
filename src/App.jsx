@@ -16,7 +16,7 @@ function App() {
   return (
     <div>
       <Header />
-      <nav>
+      {/* <nav>
         <Link to="/">Home</Link>
         <div className="dropdown">
           <span>Our Initiatives</span>
@@ -37,7 +37,7 @@ function App() {
             <Link to="/partners">Our Partners</Link>
           </div>
         </div>
-      </nav>
+      </nav> */}
 
       <Routes>
         <Route path="/" element={<Home />} />
