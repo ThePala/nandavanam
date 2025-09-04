@@ -32,12 +32,14 @@ export default function Footer() {
                 d="M12 2C8.14 2 5 5.14 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.86-3.14-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5
                    2.5 2.5 0 0 1 0 5z"/>
             </svg>
-            <address>
-              ATREE- ACCC, 3/199D, Mukkavar,<br/>
-              Manimutharu Post, Ambasamudram Taluk,<br/>
-              Tirunelveli 627421<br/>
-              Tamil Nadu
-            </address>
+            <a href="https://maps.app.goo.gl/ZaBHBXtuAbLWqeNQ8" target="_blank" rel="noreferrer" style={{textDecoration: 'none', color: 'inherit'}}>
+              <address>
+                ATREE- ACCC, 3/199D, Mukkavar,<br/>
+                Manimutharu Post, Ambasamudram Taluk,<br/>
+                Tirunelveli 627421<br/>
+                Tamil Nadu
+              </address>
+            </a>
           </div>
 
           <div className="contact-row">
