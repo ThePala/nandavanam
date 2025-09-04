@@ -24,7 +24,7 @@
 
 /* Phones */
 @media (max-width: 639.98px) {
-  .partners-grid, .funders-grid { grid-template-columns: repeat(2, 1fr); }
+  .partners-grid, .funders-grid { grid-template-columns: 1fr; }
 }
 
 /* Logo sizing */
