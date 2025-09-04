@@ -144,16 +144,18 @@ color: var(--white);
     display: flex !important; /* always visible */
     flex-direction: row;
     align-items: center;
-    gap: 16px;
-    /* padding-right: 20%; */
+    gap: 50px;
+    padding-right: 0;
     border: 0;
     background: transparent;
+    font-size: 14pt;
   }
 
   .nav-link {
     position: relative;
     padding: 18px 6px;
     color: #fff;
+    
   }
   .nav-link::after {
     content: "";
