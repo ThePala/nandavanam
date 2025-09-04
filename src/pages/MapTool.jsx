@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { PieChart, Pie, Cell, Tooltip } from 'recharts';
@@ -441,6 +442,9 @@ useEffect(() => {
 
   return (
     <div className="container">
+      <Link to="/" className="home-icon" style={{ position: 'absolute', top: 16, left: 16, zIndex: 1002, background: '#fff', borderRadius: '50%', boxShadow: '0 2px 8px rgba(0,0,0,0.12)', width: 44, height: 44, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <span className="material-icons" style={{ fontSize: 28, color: '#2f5d2f' }}>home</span>
+      </Link>
       <div id="map" />
       <div className="sidebar">
         <button onClick={resetAll} className="reset-button">
