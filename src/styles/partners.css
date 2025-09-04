@@ -1,0 +1,56 @@
+/* Page shell */
+.partners-page { background:#fff; color:#111; min-height:100vh; }
+.wrap { max-width:1200px; margin:0 auto; padding:48px 20px; }
+
+/* Headings */
+.title { text-align:center; font-size:32px; font-weight:700; margin:0 0 24px; }
+.sep { margin:40px 0; border:none; height:1px; background:#e5e7eb; }
+
+/* Shared grid */
+.grid { display:grid; gap:28px 28px; justify-items:center; }
+.cell { display:flex; align-items:center; justify-content:center; }
+
+/* Desktop layout: exact column counts */
+@media (min-width: 1024px) {
+  .partners-grid { grid-template-columns: repeat(5, 1fr); }
+  .funders-grid  { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* Tablets */
+@media (min-width: 640px) and (max-width: 1023.98px) {
+  .partners-grid { grid-template-columns: repeat(3, 1fr); }
+  .funders-grid  { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Phones */
+@media (max-width: 639.98px) {
+  .partners-grid, .funders-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Logo sizing */
+.logo { display:block; width:100%; height:100%; object-fit:contain; }
+.partner-logo { width:150px; height:150px; }
+.funder-logo  { width:220px; height:100px; }
+
+/* Names section: show as a separate grid below logos */
+.names-grid{ 
+  display:grid; 
+  gap:30px 60px; 
+  margin-top:16px; 
+  justify-items:start; 
+}
+@media (min-width: 1024px){
+  .names-grid{ grid-template-columns: repeat(3, 1fr); }
+}
+@media (min-width: 640px) and (max-width:1023.98px){
+  .names-grid{ grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 639.98px){
+  .names-grid{ grid-template-columns: 1fr; }
+}
+.name-item{
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 18px;
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+}
