@@ -205,8 +205,16 @@
   .nandavanam-container .ribbon-content{ max-width: 950px; }
 }
 @media (max-width:880px){
-  .nandavanam-container .nandavanam-main{ display:block;}
-  .nandavanam-container .sidebar{ width:100%; min-width:100%; position:relative; box-shadow:none; border-radius:10px; margin-bottom:12px; }
+  .nandavanam-container .nandavanam-main{
+    display:block;
+    width: 100%;
+    padding: 0 0 48px 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+  .nandavanam-container .sidebar{
+    width:100%; min-width:100%; position:relative; box-shadow:none; border-radius:10px; margin-bottom:12px; margin-right:0;
+  }
   .nandavanam-container .sidebar::after{ display:none; }
   .nandavanam-container .sidebar-inner{ flex-direction:row; justify-content:center; flex-wrap:wrap; gap:10px; padding:8px; }
   .nandavanam-container .temple-list{ flex-direction:row; gap:6px; width:auto; padding:0 8px; }
@@ -216,7 +224,16 @@
   .nandavanam-container .hero-title{ font-size: clamp(24px,7vw,34px); }
   .nandavanam-container .hero-ribbon::before{ background: rgba(0,0,0,0.52); }
   .nandavanam-container .ribbon-content{ padding:14px; }
-  .nandavanam-container .details{ min-height:auto; }
+  .nandavanam-container .details{
+    min-height:auto;
+    width: 100%;
+    margin-left: 0;
+    border-radius: 12px;
+    box-sizing: border-box;
+    overflow-x: auto;
+    word-break: break-word;
+  }
   .nandavanam-container .photo-and-stats{ flex-direction:row; justify-content:space-between; }
   .nandavanam-container .map-wrapper{ min-height:200px; }
+  .nandavanam-container .tree-table{ width: 100%; min-width: 0; }
 }
