@@ -5,56 +5,60 @@ const templeData = {
   "Thirukadugai Moondreeswarar Temple": {
     photo: "/images/team/adithyan.png", // replace with actual
     mapEmbed: "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d1194.842001273556!2d77.49955540501362!3d8.752436415298831!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zOMKwNDUnMDcuNCJOIDc3wrAzMCcwMS4xIkU!5e1!3m2!1sen!2sin!4v1757054316170!5m2!1sen!2sin",
-    noOfTrees: 59,
+    noOfTrees: 57,
+    area: "0.3309 acres",
+    speciesCount: 41,
     datePlanted: "11 December 2021",
-trees: [
-  { species: "Mango tree", count: 6 },
-  { species: "Star jasmine", count: 3 },
-  { species: "Amla", count: 3 },
-  { species: "Indian tulip tree", count: 3 },
-  { species: "Pinwheelflower", count: 2 },
-  { species: "Large Garlic Pear", count: 2 },
-  { species: "bael", count: 2 },
-  { species: "Lemon", count: 2 },
-  { species: "Golden shower", count: 2 },
-  { species: "Gaub", count: 1 },
-  { species: "Red Bead Tree", count: 1 },
-  { species: "Hari champa", count: 1 },
-  { species: "Devil Tree", count: 1 },
-  { species: "Spanish cherry", count: 1 },
-  { species: "Wood apple", count: 1 },
-  { species: "China Rose", count: 1 },
-  { species: "Jamun", count: 1 },
-  { species: "White Silk-Cotton Tree", count: 1 },
-  { species: "Ceylon iorn wood", count: 1 },
-  { species: "Anjan", count: 1 },
-  { species: "Fiddlewood", count: 1 },
-  { species: "Neem tree", count: 1 },
-  { species: "calabash tree", count: 1 },
-  { species: "Nux vomica", count: 1 },
-  { species: "Baheda", count: 1 },
-  { species: "Indian Mulberry", count: 1 },
-  { species: "Palas tree", count: 1 },
-  { species: "Thin jasmine", count: 1 },
-  { species: "Dye fig", count: 1 },
-  { species: "Indian Oak", count: 1 },
-  { species: "Bidi leaf tree", count: 1 },
-  { species: "Sulthan chempa", count: 1 },
-  { species: "Jasmine", count: 1 },
-  { species: "Tamarind", count: 1 },
-  { species: "Arjun tree", count: 1 },
-  { species: "jack fruit tree", count: 1 },
-  { species: "Gamhar tree", count: 1 },
-  { species: "Indian butter tree", count: 1 },
-  { species: "Common bamboo", count: 1 },
-  { species: "Indian Bat fig", count: 1 },
-  { species: "Banyan tree", count: 1 },
-]
+    trees: [
+      { species: "Mango tree", count: 6 },
+      { species: "Star jasmine", count: 3 },
+      { species: "Amla", count: 3 },
+      { species: "Indian tulip tree", count: 3 },
+      { species: "Pinwheelflower", count: 2 },
+      { species: "Large Garlic Pear", count: 2 },
+      { species: "bael", count: 2 },
+      { species: "Lemon", count: 2 },
+      { species: "Golden shower", count: 2 },
+      { species: "Gaub", count: 1 },
+      { species: "Red Bead Tree", count: 1 },
+      { species: "Hari champa", count: 1 },
+      { species: "Devil Tree", count: 1 },
+      { species: "Spanish cherry", count: 1 },
+      { species: "Wood apple", count: 1 },
+      { species: "China Rose", count: 1 },
+      { species: "Jamun", count: 1 },
+      { species: "White Silk-Cotton Tree", count: 1 },
+      { species: "Ceylon iorn wood", count: 1 },
+      { species: "Anjan", count: 1 },
+      { species: "Fiddlewood", count: 1 },
+      { species: "Neem tree", count: 1 },
+      { species: "calabash tree", count: 1 },
+      { species: "Nux vomica", count: 1 },
+      { species: "Baheda", count: 1 },
+      { species: "Indian Mulberry", count: 1 },
+      { species: "Palas tree", count: 1 },
+      { species: "Thin jasmine", count: 1 },
+      { species: "Dye fig", count: 1 },
+      { species: "Indian Oak", count: 1 },
+      { species: "Bidi leaf tree", count: 1 },
+      { species: "Sulthan chempa", count: 1 },
+      { species: "Jasmine", count: 1 },
+      { species: "Tamarind", count: 1 },
+      { species: "Arjun tree", count: 1 },
+      { species: "jack fruit tree", count: 1 },
+      { species: "Gamhar tree", count: 1 },
+      { species: "Indian butter tree", count: 1 },
+      { species: "Common bamboo", count: 1 },
+      { species: "Indian Bat fig", count: 1 },
+      { species: "Banyan tree", count: 1 },
+    ],
   },
   "Abhi Muktheeswarar Temple": {
     photo: "/images/team/adithyan.png",
     mapEmbed: "https://www.google.com/maps/embed?...",
     noOfTrees: 42,
+    area: "900 sq.m.",
+    speciesCount: 12,
     datePlanted: "05 January 2022",
     trees: [
       { species: "Tree A", count: 10 },
@@ -119,17 +123,17 @@ export default function Nandavanam() {
                   <span className="stat-value">{temple.noOfTrees}</span>
                 </div>
                 <div className="stat-row">
+                  <span className="stat-label">Area</span>
+                  <span className="stat-value">{temple.area}</span>
+                </div>
+                <div className="stat-row">
+                  <span className="stat-label">Species Count</span>
+                  <span className="stat-value">{temple.speciesCount}</span>
+                </div>
+                <div className="stat-row">
                   <span className="stat-label">Date Planted</span>
                   <span className="stat-value">{temple.datePlanted}</span>
                 </div>
-                <a
-                  href={temple.mapEmbed}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="goto-map-link"
-                >
-                  Go To Location ↗
-                </a>
               </div>
             </div>
 
