@@ -77,6 +77,18 @@ const templeData = {
       { species: "Tree B", count: 8 },
     ],
   },
+      "Fourth Fourth Fourth Temple": {
+    photo: "/images/team/adithyan.png",
+    mapEmbed: "https://www.google.com/maps/embed?...",
+    noOfTrees: 42,
+    area: "900 sq.m.",
+    speciesCount: 12,
+    datePlanted: "05 January 2022",
+    trees: [
+      { species: "Tree A", count: 10 },
+      { species: "Tree B", count: 8 },
+    ],
+  },
   // ... add all 9 temples here
 };
 
