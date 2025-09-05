@@ -1,17 +1,27 @@
 /* Nandavanam.css — single clean stylesheet for hero + ribbon + sidebar + details */
 
 /* reset */
-* { box-sizing: border-box; }
-:root{
+
+:root {
   --sidebar-width: 260px;
-  --sidebar-bg: #26512f;
+  --sidebar-bg: #31572C;
   --page-max-width: 1150px;
-  --header-height: 90px; /* adjust if needed */
+  --header-height: 90px;
 }
-html,body { margin:0; padding:0; font-family: "Inter", Arial, sans-serif; color:#222; }
+
+.nandavanam-container * { box-sizing: border-box; }
+
+
+.nandavanam-container html,
+.nandavanam-container body {
+  margin:0;
+  padding:0;
+  font-family: "Inter", Arial, sans-serif;
+  color:#222;
+}
 
 /* ---------------- HERO ---------------- */
-.hero {
+.nandavanam-container .hero {
   position: relative;
   width: 100%;
   min-height: 360px;
@@ -23,7 +33,7 @@ html,body { margin:0; padding:0; font-family: "Inter", Arial, sans-serif; color:
   box-sizing: border-box;
 }
 
-.hero-inner{
+.nandavanam-container .hero-inner{
   width: 100%;
   max-width: var(--page-max-width);
   margin: 0 auto;
@@ -32,7 +42,7 @@ html,body { margin:0; padding:0; font-family: "Inter", Arial, sans-serif; color:
   padding: 12px 0;
 }
 
-.hero-title{
+.nandavanam-container .hero-title{
   margin: 0 0 12px;
   color: #fff;
   font-size: clamp(28px, 5vw, 56px);
@@ -43,68 +53,64 @@ html,body { margin:0; padding:0; font-family: "Inter", Arial, sans-serif; color:
   z-index: 6;
 }
 
-/* ribbon: full-width dark background via ::before, text constrained */
-.hero-ribbon{ position: relative; z-index: 4; margin-top: 6px; }
-.hero-ribbon::before{
+/* ribbon */
+.nandavanam-container .hero-ribbon{ position: relative; z-index: 4; margin-top: 6px; }
+.nandavanam-container .hero-ribbon::before{
   content:"";
   position:absolute;
   left:0; right:0; top:0; bottom:0;
   background: rgba(0,0,0,0.5);
   z-index: 1;
 }
-.ribbon-content{
+.nandavanam-container .ribbon-content{
   position: relative;
   z-index: 2;
   max-width: var(--page-max-width);
   margin: 0 auto;
   padding: 18px 20px;
 }
-.hero-paragraph{ margin:0; color:#fff; line-height:1.6; font-size:1rem; text-shadow:0 2px 6px rgba(0,0,0,0.45); }
+.nandavanam-container .hero-paragraph{
+  margin:0;
+  color:#fff;
+  line-height:1.6;
+  font-size:1rem;
+  text-shadow:0 2px 6px rgba(0,0,0,0.45);
+}
+.nandavanam-container .hero-space { height: 360px; }
 
-/* spacer so next content doesn't overlap ribbon */
-.hero-space { height: 360px; }
-
-/* ---------------- LAYOUT - MAIN ----------------
-   Two-column grid: left sidebar (fixed width), right details (fluid)
-*/
-.nandavanam-main{
-  max-width: var(--page-max-width);
-  /* margin: 28px auto; */
-  padding: 0 20px 60px 0;
+/* ---------------- LAYOUT - MAIN ---------------- */
+.nandavanam-container .nandavanam-main{
+  padding: 0 0 60px 0;
   display: grid;
   grid-template-columns: var(--sidebar-width) 1fr;
   gap: 24px;
   box-sizing: border-box;
 }
 
-/* ---------------- SIDEBAR (in-flow, sticky) ---------------- */
-.sidebar{
+/* ---------------- SIDEBAR ---------------- */
+.nandavanam-container .sidebar{
   background: var(--sidebar-bg);
-  color: #fff;
+  color: #000000;
   padding: 0;
   margin-right: 50px;
   display:flex;
   align-items: stretch;
   border-radius: 8px;
   overflow: hidden;
-  position: relative; /* keep in flow so it appears below hero */
+  position: relative;
   height: auto;
   box-shadow: 0 8px 24px rgba(0,0,0,0.08);
 }
-
-/* use an inner column to vertically space items evenly */
-.sidebar-inner{
+.nandavanam-container .sidebar-inner{
   display:flex;
   flex-direction: column;
-  justify-content: space-around; /* spaces the names vertically */
+  justify-content: space-around;
   align-items: center;
   width: 100%;
   padding: 18px 12px;
   box-sizing: border-box;
 }
-
-/* notch at top-right */
-.sidebar::after{
+.nandavanam-container .sidebar::after{
   content:"";
   position:absolute;
   right: -26px;
@@ -117,7 +123,7 @@ html,body { margin:0; padding:0; font-family: "Inter", Arial, sans-serif; color:
 }
 
 /* list/buttons */
-.temple-list{
+.nandavanam-container .temple-list{
   width: 100%;
   display:flex;
   flex-direction:column;
@@ -125,11 +131,11 @@ html,body { margin:0; padding:0; font-family: "Inter", Arial, sans-serif; color:
   align-items: center;
   padding: 6px 8px;
 }
-.temple-item{
+.nandavanam-container .temple-item{
   width: calc(100% - 30px);
   background: transparent;
   border: none;
-  color: #fff;
+  color: #ffffff;
   font-weight: 600;
   text-align: center;
   padding: 12px 10px;
@@ -141,23 +147,23 @@ html,body { margin:0; padding:0; font-family: "Inter", Arial, sans-serif; color:
   white-space: normal;
   display:block;
 }
-.temple-item:hover{ transform: translateY(-3px); background: rgba(255,255,255,0.03); }
-.temple-item.active{ background: rgba(255,255,255,0.06); font-weight:700; }
+.nandavanam-container .temple-item:hover{ transform: translateY(-3px); background: rgba(255,255,255,0.03); }
+.nandavanam-container .temple-item.active{ background: rgba(255,255,255,0.06); font-weight:700; }
 
-/* ---------------- DETAILS / CONTENT ---------------- */
-.details{
-  background: #fff;
-  border-radius: 12px;
+/* ---------------- DETAILS ---------------- */
+.nandavanam-container .details{
+  background: #ffffff;
+  color:#000000;
+  border-radius: 12px 0 0 12px;
   padding: 20px;
-  margin-left:30px;
+  margin-left: 30px;
   box-shadow: 0 10px 30px rgba(10,15,10,0.05);
   min-height: 360px;
-  display:flex;
-  flex-direction:column;
-  gap:18px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
-
-.details-top{
+.nandavanam-container .details-top{
   display:flex;
   gap:18px;
   align-items:flex-start;
@@ -165,49 +171,52 @@ html,body { margin:0; padding:0; font-family: "Inter", Arial, sans-serif; color:
 }
 
 /* photo & stats */
-.photo-and-stats{ display:flex; gap:18px; align-items:center; min-width:260px; flex:1 1 360px; }
-.circle-photo{ width:132px; height:132px; border-radius:50%; object-fit:cover; border:6px solid #fff; box-shadow:0 8px 24px rgba(0,0,0,0.12); }
-.stats{ display:flex; flex-direction:column; gap:8px; }
-.stat-row{ display:flex; gap:16px; align-items:center; }
-.stat-label{ color:#6b6b6b; min-width:110px; font-size:14px; }
-.stat-value{ font-weight:700; font-size:16px; }
+.nandavanam-container .photo-and-stats{ display:flex; gap:18px; align-items:center; min-width:260px; flex:1 1 360px; }
+.nandavanam-container .circle-photo{ width:132px; height:132px; border-radius:50%; object-fit:cover; border:6px solid #fff; box-shadow:0 8px 24px rgba(0,0,0,0.12); }
+.nandavanam-container .stats{ display:flex; flex-direction:column; gap:8px; }
+.nandavanam-container .stat-row{ display:flex; gap:16px; align-items:center; }
+.nandavanam-container .stat-label{ color:#6b6b6b; min-width:110px; font-size:14px; }
+.nandavanam-container .stat-value{ font-weight:700; font-size:16px; }
 
 /* map */
-.map-wrapper{ flex:1 1 420px; min-height:220px; border-radius:10px; overflow:hidden; background:#e9eef0; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.03); }
-.map-wrapper iframe{ width:100%; height:100%; border:0; min-height:220px; display:block; }
+.nandavanam-container .map-wrapper{ flex:1 1 420px; min-height:220px; border-radius:10px; overflow:hidden; background:#e9eef0; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.03); }
+.nandavanam-container .map-wrapper iframe{ width:100%; height:100%; border:0; min-height:220px; display:block; }
 
 /* trees */
-.trees-grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap:12px; }
-.tree-card{ display:flex; justify-content:space-between; align-items:center; padding:10px 12px; border-radius:10px; background:linear-gradient(180deg,#fff,#fbfbfb); border:1px solid #f0f0f0; box-shadow: 0 6px 18px rgba(13,17,22,0.03); }
-.tree-species{ font-size:14px; color:#222; } .tree-count{ font-weight:700; color:#2f6b3a; }
+.nandavanam-container .trees-grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap:12px; }
+.nandavanam-container .tree-card{ display:flex; justify-content:space-between; align-items:center; padding:10px 12px; border-radius:10px; background:linear-gradient(180deg,#fff,#fbfbfb); border:1px solid #f0f0f0; box-shadow: 0 6px 18px rgba(13,17,22,0.03); }
+.nandavanam-container .tree-species{ font-size:14px; color:#222; }
+.nandavanam-container .tree-count{ font-weight:700; color:#2f6b3a; }
 
-/* table styles (if you use table) */
-.tree-table{ border-collapse: collapse; width:100%; margin-top:1rem; }
-.tree-table th, .tree-table td{ border:1px solid #ddd; padding:0.6rem; text-align:left; }
-.tree-table th{ background:#f5f5f5; font-weight:bold; }
+/* table styles */
+.nandavanam-container .tree-table{ border-collapse: collapse; width:100%; margin-top:1rem; }
+.nandavanam-container .tree-table th,
+.nandavanam-container .tree-table td{ border:1px solid #ddd; padding:0.6rem; text-align:left; }
+.nandavanam-container .tree-table th{ background:#f5f5f5; font-weight:bold; }
 
 /* helper link */
-.goto-map-link{ color:#2b96d6; text-decoration:none; font-size:14px; margin-top:6px; }
+.nandavanam-container .goto-map-link{ color:#2b96d6; text-decoration:none; font-size:14px; margin-top:6px; }
 
 /* ---------------- RESPONSIVE ---------------- */
 @media (max-width:1150px){
-  :root{ --page-max-width: 950px; }
-  .nandavanam-main{ grid-template-columns: 220px 1fr; gap:18px; padding: 0 16px 48px; }
-  .hero-inner, .ribbon-content{ max-width: 950px; }
+  .nandavanam-container :root{ --page-max-width: 950px; }
+  .nandavanam-container .nandavanam-main{ grid-template-columns: 220px 1fr; gap:18px; padding: 0 16px 48px; }
+  .nandavanam-container .hero-inner,
+  .nandavanam-container .ribbon-content{ max-width: 950px; }
 }
 @media (max-width:880px){
-  .nandavanam-main{ display:block;}
-  .sidebar{ width:100%; min-width:100%; position:relative; box-shadow:none; border-radius:10px; margin-bottom:12px; }
-  .sidebar::after{ display:none; }
-  .sidebar-inner{ flex-direction:row; justify-content:center; flex-wrap:wrap; gap:10px; padding:8px; }
-  .temple-list{ flex-direction:row; gap:6px; width:auto; padding:0 8px; }
-  .temple-item{ width:auto; padding:8px 10px; font-size:13px; }
-  .hero{ min-height:420px; padding:18px 12px 0; }
-  .hero-space{ height:420px; }
-  .hero-title{ font-size: clamp(24px,7vw,34px); }
-  .hero-ribbon::before{ background: rgba(0,0,0,0.52); }
-  .ribbon-content{ padding:14px; }
-  .details{ min-height:auto; }
-  .photo-and-stats{ flex-direction:row; justify-content:space-between; }
-  .map-wrapper{ min-height:200px; }
+  .nandavanam-container .nandavanam-main{ display:block;}
+  .nandavanam-container .sidebar{ width:100%; min-width:100%; position:relative; box-shadow:none; border-radius:10px; margin-bottom:12px; }
+  .nandavanam-container .sidebar::after{ display:none; }
+  .nandavanam-container .sidebar-inner{ flex-direction:row; justify-content:center; flex-wrap:wrap; gap:10px; padding:8px; }
+  .nandavanam-container .temple-list{ flex-direction:row; gap:6px; width:auto; padding:0 8px; }
+  .nandavanam-container .temple-item{ width:auto; padding:8px 10px; font-size:13px; }
+  .nandavanam-container .hero{ min-height:420px; padding:18px 12px 0; }
+  .nandavanam-container .hero-space{ height:420px; }
+  .nandavanam-container .hero-title{ font-size: clamp(24px,7vw,34px); }
+  .nandavanam-container .hero-ribbon::before{ background: rgba(0,0,0,0.52); }
+  .nandavanam-container .ribbon-content{ padding:14px; }
+  .nandavanam-container .details{ min-height:auto; }
+  .nandavanam-container .photo-and-stats{ flex-direction:row; justify-content:space-between; }
+  .nandavanam-container .map-wrapper{ min-height:200px; }
 }

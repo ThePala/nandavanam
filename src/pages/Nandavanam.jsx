@@ -4,7 +4,7 @@ import "../styles/nandavanam.css";
 const templeData = {
   "Thirukadugai Moondreeswarar Temple": {
     photo: "/images/bird.jpg", // replace with actual
-    mapEmbed: "https://www.google.com/maps/embed?...",
+    mapEmbed: "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d1194.842001273556!2d77.49955540501362!3d8.752436415298831!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zOMKwNDUnMDcuNCJOIDc3wrAzMCcwMS4xIkU!5e1!3m2!1sen!2sin!4v1757054316170!5m2!1sen!2sin",
     noOfTrees: 59,
     datePlanted: "11 December 2021",
     trees: [
