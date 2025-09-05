@@ -3,7 +3,7 @@ import "../styles/nandavanam.css";
 
 const templeData = {
   "Thirukadugai Moondreeswarar Temple": {
-    photo: "/images/team/adithyan.png", // replace with actual
+    photo: "/images/pappakudi.png", // replace with actual
     mapEmbed: "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d1194.842001273556!2d77.49955540501362!3d8.752436415298831!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zOMKwNDUnMDcuNCJOIDc3wrAzMCcwMS4xIkU!5e1!3m2!1sen!2sin!4v1757054316170!5m2!1sen!2sin",
     noOfTrees: 57,
     area: "0.33 acres",
@@ -357,6 +357,7 @@ export default function Nandavanam() {
   const [selectedTemple, setSelectedTemple] = useState(
     "Thirukadugai Moondreeswarar Temple"
   );
+  const [showPhotoPopup, setShowPhotoPopup] = useState(false);
   const temple = templeData[selectedTemple];
 
   return (
@@ -401,6 +402,8 @@ export default function Nandavanam() {
                 src={temple.photo}
                 alt={selectedTemple}
                 className="circle-photo"
+                style={{ cursor: 'pointer' }}
+                onClick={() => setShowPhotoPopup(true)}
               />
               <div className="stats">
                 <div className="stat-row">
@@ -452,6 +455,60 @@ export default function Nandavanam() {
           </table>
         </section>
       </div>
+
+      {/* Photo Popup Modal */}
+      {showPhotoPopup && (
+        <div
+          className="photo-popup-overlay"
+          onClick={() => setShowPhotoPopup(false)}
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100vw',
+            height: '100vh',
+            background: 'rgba(0,0,0,0.7)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 9999,
+          }}
+        >
+          <div
+            className="photo-popup-content"
+            onClick={e => e.stopPropagation()}
+            style={{ position: 'relative', maxWidth: '90vw', maxHeight: '90vh' }}
+          >
+            <img
+              src={temple.photo}
+              alt={selectedTemple}
+              style={{ maxWidth: '90vw', maxHeight: '80vh', borderRadius: '12px', boxShadow: '0 8px 32px rgba(0,0,0,0.25)' }}
+            />
+            <button
+              onClick={() => setShowPhotoPopup(false)}
+              style={{
+                position: 'absolute',
+                top: 8,
+                right: 8,
+                background: 'rgba(0,0,0,0.6)',
+                color: '#fff',
+                border: 'none',
+                borderRadius: '50%',
+                width: 36,
+                height: 36,
+                fontSize: 24,
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+              aria-label="Close photo"
+            >
+              &times;
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

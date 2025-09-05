@@ -172,7 +172,14 @@
 
 /* photo & stats */
 .nandavanam-container .photo-and-stats{ display:flex; gap:18px; align-items:center; min-width:260px; flex:1 1 360px; }
-.nandavanam-container .circle-photo{ width:132px; height:132px; border-radius:50%; object-fit:cover; border:6px solid #fff; box-shadow:0 8px 24px rgba(0,0,0,0.12); }
+.nandavanam-container .circle-photo{
+  width: 160px;
+  height: 160px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 6px solid #fff;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
 .nandavanam-container .stats{ display:flex; flex-direction:column; gap:8px; }
 .nandavanam-container .stat-row{ display:flex; gap:16px; align-items:center; }
 .nandavanam-container .stat-label{ color:#6b6b6b; min-width:110px; font-size:14px; }
