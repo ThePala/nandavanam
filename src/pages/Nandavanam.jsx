@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../styles/Nandavanam.css";
+import "../styles/nandavanam.css";
 
 const templeData = {
   "Thirukadugai Moondreeswarar Temple": {
