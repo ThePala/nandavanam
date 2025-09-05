@@ -11,6 +11,7 @@ export default function Footer() {
         {/* Col 1 */}
         <nav className="footer-col">
           <Link to="/" className="footer-link">Home</Link>
+          <Link to="/nandavanam" className="footer-link">Namma Ooru Nandavanam</Link>
           <Link to="/treedetails" className="footer-link">Tree Map Details</Link>
           <Link to="/maptool" className="footer-link">Map Tool</Link>
           <Link to="/media" className="footer-link">Media</Link>
