@@ -216,9 +216,24 @@
     width:100%; min-width:100%; position:relative; box-shadow:none; border-radius:10px; margin-bottom:12px; margin-right:0;
   }
   .nandavanam-container .sidebar::after{ display:none; }
-  .nandavanam-container .sidebar-inner{ flex-direction:row; justify-content:center; flex-wrap:wrap; gap:10px; padding:8px; }
-  .nandavanam-container .temple-list{ flex-direction:row; gap:6px; width:auto; padding:0 8px; }
-  .nandavanam-container .temple-item{ width:auto; padding:8px 10px; font-size:13px; }
+  .nandavanam-container .sidebar-inner{
+  flex-direction: column;
+  align-items: stretch;
+}
+  .nandavanam-container .temple-list{
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  width: 100%;
+  overflow-x: auto;        /* allow horizontal scroll */
+  -webkit-overflow-scrolling: touch;
+  padding: 8px;
+  scrollbar-width: thin;
+}
+  .nandavanam-container .temple-item{
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
   .nandavanam-container .hero{ min-height:420px; padding:18px 12px 0; }
   .nandavanam-container .hero-space{ height:420px; }
   .nandavanam-container .hero-title{ font-size: clamp(24px,7vw,34px); }
