@@ -30,7 +30,7 @@ Traditionally, sanctuaries for deities were established beneath  sacred trees (S
 
         {/* Section 2 */}
         <section
-          className="home-hero"
+          className="home-hero section-divider"
           style={{ backgroundImage: "url('/images/butterfly.JPG')" }}
         >
           <div className="home-hero-content">
