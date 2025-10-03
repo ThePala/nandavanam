@@ -21,6 +21,24 @@ function MapTool() {
   const [templeNameMap, setTempleNameMap] = useState({}); 
   const [templeBlockMap, setTempleBlockMap] = useState({}); // New: Temple ID → Block Name mapping 
 
+    // Orientation handling
+  const [showOrientationPopup, setShowOrientationPopup] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const isLandscape = window.innerWidth > window.innerHeight;
+      setShowOrientationPopup(!isLandscape); // show popup if portrait
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize(); // run once on mount
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+
   const blockMarkersRef = useRef({});
   const templeMarkersRef = useRef({});
   const blockPolygonsRef = useRef(null);
@@ -441,7 +459,15 @@ useEffect(() => {
   const { totalTrees: templeTotalTrees, speciesDistribution: templeSpeciesDistribution } = getTempleStats();
 
   return (
-    <div className="container">
+  <>
+    {showOrientationPopup && (
+      <div className="orientation-popup">
+        <div className="orientation-popup-box">
+          <p>📱 Switching to Landscape for better usability</p>
+        </div>
+      </div>
+    )}
+     <div className="container">
       <Link to="/" className="home-icon" style={{ position: 'absolute', top: 16, left: 16, zIndex: 1002, background: '#fff', borderRadius: '50%', boxShadow: '0 2px 8px rgba(0,0,0,0.12)', width: 44, height: 44, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <span className="material-icons" style={{ fontSize: 28, color: '#2f5d2f' }}>home</span>
       </Link>
@@ -583,7 +609,7 @@ useEffect(() => {
 
       </div>
     </div>
-  );
-}
+  </>
+)};
 
 export default MapTool;

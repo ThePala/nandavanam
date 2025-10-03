@@ -148,3 +148,31 @@ body, html, #root {
   border-radius: 50%;
   margin-right: 6px;
 }
+
+
+/* Orientation popup overlay */
+.orientation-popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.orientation-popup-box {
+  background: #fff;
+  padding: 1.2rem 1.8rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
