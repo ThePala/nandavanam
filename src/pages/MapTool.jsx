@@ -463,7 +463,7 @@ useEffect(() => {
     {showOrientationPopup && (
       <div className="orientation-popup">
         <div className="orientation-popup-box">
-          <p>📱 Switching to Landscape for better usability</p>
+          <p>Switch to Landscape for better usability</p>
         </div>
       </div>
     )}

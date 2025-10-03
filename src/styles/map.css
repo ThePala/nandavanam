@@ -163,6 +163,7 @@ body, html, #root {
 
 .orientation-popup-box {
   background: #fff;
+  color: #000000;
   padding: 1.2rem 1.8rem;
   border-radius: 12px;
   font-size: 1rem;
