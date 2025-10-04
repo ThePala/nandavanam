@@ -1,0 +1,127 @@
+/* ========= BASE ========= */
+:root {
+  --font-heading: var(--font-heading, "Playfair Display", Georgia, serif);
+  --font-body: var(--font-body, Inter, system-ui, -apple-system, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #ffffff;
+  color: #000000;
+  font-family: var(--font-body);
+}
+
+.nv-landing {
+  background: #ffffff;
+  color: #000000;
+  min-height: 100vh;
+}
+
+/* ========= TITLE ========= */
+.nv-title {
+  padding: 40px 22px 20px;
+  display: flex;
+  justify-content: center;
+}
+.nv-title h1 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(28px, 4vw, 44px);
+  color: #000000;
+}
+
+/* ========= HERO ========= */
+.nv-hero {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  padding: 20px 22px;
+}
+.nv-hero-copy {
+  font-size: 16px;
+  line-height: 1.6;
+}
+.nv-hero-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ========= BUBBLES ========= */
+.nv-bubbles {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 18px;
+  padding: 20px 22px;
+}
+.nv-bubble-img img {
+  width: 60%;
+  height: auto;
+  display: block;
+}
+.nv-bubble-note {
+  font-size: 16px;
+  line-height: 1.5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ========= CTA / INSTRUCTIONS ========= */
+.nv-cta {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 18px;
+  padding: 20px 22px 40px;
+}
+.nv-instructions {
+  font-size: 16px;
+  line-height: 1.6;
+}
+.nv-instructions h3 {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+.nv-instructions ol {
+  margin-left: 20px;
+  margin-bottom: 12px;
+}
+.nv-footnote {
+  font-size: 14px;
+  color: #444;
+}
+
+.nv-cta-linkwrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.nv-cta-link {
+  display: inline-block;
+  padding: 12px 18px;
+  border-radius: 4px;
+  background: #000000;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+}
+.nv-cta-link:hover {
+  background: #333333;
+}
+
+/* ========= RESPONSIVE ========= */
+@media (max-width: 980px) {
+  .nv-hero,
+  .nv-bubbles,
+  .nv-cta {
+    grid-template-columns: 1fr;
+  }
+}

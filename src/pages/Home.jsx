@@ -19,7 +19,6 @@ const Home = () => {
             <p>
  A Nandavanam is more than a flower garden; it is a sanctuary  for native trees, medicinal plants, and shrubs. Ancient temples dedicated to the Hindu deities of Shiva, Vishnu, and Murugan often included these gardens, which were meticulously maintained by a dedicated community known as the Nandavana Kudis. 
 Key features of historic Nandavanams include the presence of  Sacred Trees (Sthala Vrikshas), where each temple had a tree  symbolizing its spiritual essence. These gardens also housed  Functional Flora, with flowers for rituals, seeds from trees like  Punnai and Illupai for oil lamps, and medicinal plants like Tulsi and  Vilvam used in the preparation of holy water. 
-
 Cultural Practices  were deeply embedded in these gardens, with stone platforms  (Poo Palagai) serving as spaces for gathering flowers and weaving  garlands, combining both practical and cultural roles. 
 Additionally,  Historical Inscriptions highlight that lands were explicitly donated  for the upkeep of temple gardens, underscoring their significant  historical and spiritual importance. 
 In recent times, though, the importance given to temple  architecture, artistic sculptures, and history is unfortunately not  extended to the sacred plants within temple grounds, which is  disheartening. 
