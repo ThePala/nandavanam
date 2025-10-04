@@ -605,6 +605,31 @@ function MapTool() {
               )}
             </div>
           )}
+
+          {/* Tree Details Section */}
+          <h2 onClick={() => setTreeDetailsOpen(!treeDetailsOpen)}>
+            Tree Details
+            <span className="material-icons">
+              {treeDetailsOpen ? 'expand_more' : 'chevron_right'}
+            </span>
+          </h2>
+          {treeDetailsOpen && selectedTree && (
+            <div>
+              <p><b>Species:</b> {selectedTree['data-details-species'] || 'Unknown'}</p>
+              <p><b>Height:</b> {(selectedTree['data-details-height'] ? selectedTree['data-details-height'] + ' m' : 'N/A')}</p>
+              <p><b>Threats:</b> {selectedTree['data-details-threats'] || 'N/A'}</p>
+              <p><b>No of trees:</b> {selectedTree['No of trees'] || 'N/A'}</p>
+              <p><b>Girth:</b> {
+                selectedTree['data-details-gbh-base-level']
+                  ? selectedTree['data-details-gbh-base-level'] + ' cms'
+                  : selectedTree['data-details-gbh-chest-level-1']
+                    ? selectedTree['data-details-gbh-chest-level-1'] + ' cms'
+                    : selectedTree['data-details-gbh-chest-level-2']
+                      ? selectedTree['data-details-gbh-chest-level-2'] + ' cms'
+                      : 'N/A'
+              }</p>
+            </div>
+          )}
         </div>
       </div>
     </>
