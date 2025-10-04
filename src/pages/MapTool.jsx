@@ -405,6 +405,25 @@ function MapTool() {
   const { totalTrees, templeCount, speciesDistribution } = getblockStats();
   const { totalTrees: templeTotalTrees, speciesDistribution: templeSpeciesDistribution } = getTempleStats();
 
+  // Expand/collapse logic for sidebar sections
+  const handleBlockSelect = (e) => {
+    setSelectedblock(e.target.value);
+    setblockDetailsOpen(true);
+  };
+
+  const handleTempleSelect = (e) => {
+    setSelectedTempleId(e.target.value);
+    setTempleDetailsOpen(true);
+    setblockDetailsOpen(false);
+  };
+
+  const handleTreeSelect = (tree) => {
+    setSelectedTree(tree);
+    setTreeDetailsOpen(true);
+    setblockDetailsOpen(false);
+    setTempleDetailsOpen(false);
+  };
+
   return (
     <>
       {showOrientationPopup && (
@@ -469,23 +488,35 @@ function MapTool() {
         <div id="map" />
 
         <div className="sidebar">
-          <button onClick={resetAll} className="reset-button">
-            <span className="material-icons">refresh</span>
-          </button>
-
-          {/* Block Dropdown always visible */}
-          <h2 onClick={() => setblockDetailsOpen(!blockDetailsOpen)}>
-            Block Details
-            <span className="material-icons" style={{ fontSize: '18px' }}>
-              {blockDetailsOpen ? 'expand_more' : 'chevron_right'}
-            </span>
-          </h2>
-          <select value={selectedblock} onChange={(e) => setSelectedblock(e.target.value)}>
+          {/* Dropdowns at the top */}
+          <select value={selectedblock} onChange={handleBlockSelect} style={{ marginBottom: 12 }}>
             <option value="">Select block</option>
             {[...blockSet].map(v => (
               <option key={v} value={v}>{v}</option>
             ))}
           </select>
+          <select value={selectedTempleId} onChange={handleTempleSelect} style={{ marginBottom: 20 }}>
+            <option value="">Select Temple</option>
+            {availableTemples.map(tid => (
+              <option key={tid} value={tid}>
+                {templeNameMap[tid] || tid}
+              </option>
+            ))}
+          </select>
+
+          {/* Block Details Section */}
+          <h2 onClick={() => {
+            if (!selectedblock) {
+              window.alert('Please select a block from the dropdown first.');
+              return;
+            }
+            setblockDetailsOpen(!blockDetailsOpen);
+          }}>
+            Block Details
+            <span className="material-icons" style={{ fontSize: '18px' }}>
+              {blockDetailsOpen ? 'expand_more' : 'chevron_right'}
+            </span>
+          </h2>
           {blockDetailsOpen && selectedblock && (
             <div>
               <p><b>No. of Nandhavanam:</b> {templeCount}</p>
@@ -517,21 +548,19 @@ function MapTool() {
             </div>
           )}
 
-          {/* Temple Dropdown always visible */}
-          <h2 onClick={() => setTempleDetailsOpen(!templeDetailsOpen)}>
+          {/* Temple Details Section */}
+          <h2 onClick={() => {
+            if (!selectedTempleId) {
+              window.alert('Please select a temple from the dropdown first.');
+              return;
+            }
+            setTempleDetailsOpen(!templeDetailsOpen);
+          }}>
             Temple Details
             <span className="material-icons">
               {templeDetailsOpen ? 'expand_more' : 'chevron_right'}
             </span>
           </h2>
-          <select value={selectedTempleId} onChange={(e) => setSelectedTempleId(e.target.value)}>
-            <option value="">Select Temple</option>
-            {availableTemples.map(tid => (
-              <option key={tid} value={tid}>
-                {templeNameMap[tid] || tid}
-              </option>
-            ))}
-          </select>
           {templeDetailsOpen && selectedTempleId && (
             <div>
               <p><b>Temple:</b> {templeNameMap[selectedTempleId] || selectedTempleId}</p>
@@ -584,10 +613,18 @@ function MapTool() {
           {treeDetailsOpen && selectedTree && (
             <div>
               <p><b>Species:</b> {selectedTree['data-details-species'] || 'Unknown'}</p>
-              <p><b>Block:</b> {selectedTree['data-details-block']}</p>
-              <p><b>Temple:</b> {templeNameMap[selectedTree['Temple']] || selectedTree['Temple']}</p>
-              <p><b>GBH (Base Level):</b> {selectedTree['data-details-gbh-base-level'] || 'N/A'}</p>
-              <p><b>Temple ID:</b> {selectedTree['Temple'] || 'N/A'}</p>
+              <p><b>Height:</b> {(selectedTree['data-details-height'] ? selectedTree['data-details-height'] + ' m' : 'N/A')}</p>
+              <p><b>Threats:</b> {selectedTree['data-details-threats'] || 'N/A'}</p>
+              <p><b>No of trees:</b> {selectedTree['No of trees'] || 'N/A'}</p>
+              <p><b>Girth:</b> {
+                selectedTree['data-details-gbh-base-level']
+                  ? selectedTree['data-details-gbh-base-level'] + ' cms'
+                  : selectedTree['data-details-gbh-chest-level-1']
+                    ? selectedTree['data-details-gbh-chest-level-1'] + ' cms'
+                    : selectedTree['data-details-gbh-chest-level-2']
+                      ? selectedTree['data-details-gbh-chest-level-2'] + ' cms'
+                      : 'N/A'
+              }</p>
             </div>
           )}
         </div>
