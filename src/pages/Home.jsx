@@ -12,7 +12,7 @@ const Home = () => {
         {/* Section 1 */}
         <section
           className="home-hero"
-          style={{ backgroundImage: "url('/images/pappakudi.png')" }}
+          style={{ backgroundImage: "url('/images/pappakudi.jpg')" }}
         >
           <div className="home-hero-content">
             <h1>What is a Nandavanam?</h1>
