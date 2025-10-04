@@ -14,7 +14,7 @@ export default function NandavanamLanding() {
         <div className="nv-hero-copy">
           <p>
             In 2023, ATREE - Agasthyamalai Community-based Conservation Center,
-            along with volunteers, surveyed existing Nandavanams in 125 temples
+            along with volunteers, surveyed existing Nandavanams in 162 temples
             across the 9 Blocks of Tirunelveli District. Here is what we found:
           </p>
         </div>
