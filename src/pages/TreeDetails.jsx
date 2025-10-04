@@ -27,23 +27,24 @@ export default function NandavanamLanding() {
         </div>
       </section>
 
-      {/* Bubble Chart */}
-      <section className="nv-bubbles">
-        <div className="nv-bubble-img">
-          <img
-            src="/images/bubble.png"
-            alt="Most common trees in the Nandavanams (bubble chart)"
-            loading="eager"
-          />
-        </div>
-
-        <aside className="nv-bubble-note">
-          <p>
-            Here are the most common trees
-            in the Nandavanams.
-          </p>
-        </aside>
-      </section>
+{/* Bubble Chart */}
+<section className="nv-bubbles">
+  <div className="nv-bubble-text">
+    <p>
+      Here is a Bubble graph displaying the most common trees
+      in the surveyed Nandavanams. The interesting thing to note is that even
+      though the Neem tree is not a Sthala Vriksha, it is still considered
+      culturally important, and easily dispersed by birds, which might
+      explain their high count.
+    </p>
+  </div>
+  <img
+    src="/images/bubble.png"
+    alt="Most common trees in the Nandavanams (bubble chart)"
+    loading="eager"
+    className="nv-bubble-img"
+  />
+</section>
 
       {/* How-to + CTA */}
       <section className="nv-cta">

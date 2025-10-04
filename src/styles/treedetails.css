@@ -57,21 +57,29 @@ body {
 /* ========= BUBBLES ========= */
 .nv-bubbles {
   display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 18px;
+  grid-template-columns: 1fr 1fr; /* left text, right image */
+  gap: 20px;
+  align-items: center;
   padding: 20px 22px;
 }
-.nv-bubble-img img {
-  width: 60%;
+
+.nv-bubble-text {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.nv-bubble-img {
+  width: 100%;
   height: auto;
   display: block;
 }
-.nv-bubble-note {
-  font-size: 16px;
-  line-height: 1.5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
+/* Responsive: stack on mobile */
+@media (max-width: 980px) {
+  .nv-bubbles {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
 }
 
 /* ========= CTA / INSTRUCTIONS ========= */
