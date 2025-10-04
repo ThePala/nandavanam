@@ -20,7 +20,7 @@ export default function NandavanamLanding() {
         </div>
         <div className="nv-hero-image">
           <img
-            src="/images/pappakudi.png"
+            src="/images/graph.png"
             alt="Temple campus aerial"
             loading="eager"
           />
