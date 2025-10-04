@@ -16,6 +16,7 @@ export default function NandavanamLanding() {
             In 2023, ATREE - Agasthyamalai Community-based Conservation Center,
             along with volunteers, surveyed existing Nandavanams in 162 temples
             across the 9 Blocks of Tirunelveli District. Here is what we found:
+            This is a graph showing the number of Nandavanams and No. of Nandavanam Trees, breaking it down by block.
           </p>
         </div>
         <div className="nv-hero-image">
@@ -50,7 +51,7 @@ export default function NandavanamLanding() {
       <section className="nv-cta">
         <div className="nv-instructions">
           <h3>
-            We have made a Web Map Tool, so that you may see our data. Here you
+            We have made a Web Map Tool, so that you may see our data. Read the Instructions. Here you
             go!
           </h3>
           <ol>

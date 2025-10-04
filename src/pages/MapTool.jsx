@@ -469,54 +469,61 @@ function MapTool() {
         <div id="map" />
 
         <div className="sidebar">
-          {/* Removed reset button from sidebar */}
+          <button onClick={resetAll} className="reset-button">
+            <span className="material-icons">refresh</span>
+          </button>
 
+          {/* Block Dropdown always visible */}
+          <h2 onClick={() => setblockDetailsOpen(!blockDetailsOpen)}>
+            Block Details
+            <span className="material-icons" style={{ fontSize: '18px' }}>
+              {blockDetailsOpen ? 'expand_more' : 'chevron_right'}
+            </span>
+          </h2>
           <select value={selectedblock} onChange={(e) => setSelectedblock(e.target.value)}>
             <option value="">Select block</option>
             {[...blockSet].map(v => (
               <option key={v} value={v}>{v}</option>
             ))}
           </select>
-
-          <div className="block-section">
-            <h2 onClick={() => setblockDetailsOpen(!blockDetailsOpen)}>
-              Block Details
-              <span className="material-icons" style={{ fontSize: '18px' }}>
-                {blockDetailsOpen ? 'expand_more' : 'chevron_right'}
-              </span>
-            </h2>
-            {blockDetailsOpen && selectedblock && (
-              <div>
-                <p><b>No. of Nandhavanam:</b> {templeCount}</p>
-                <p><b>Species wise Distribution of Trees:</b> {totalTrees}</p>
-                <PieChart width={200} height={200}>
-                  <Pie
-                    data={speciesDistribution}
-                    dataKey="value"
-                    nameKey="name"
-                    cx="50%"
-                    cy="50%"
-                    outerRadius={80}
-                    label={false}
-                  >
-                    {speciesDistribution.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.color} />
-                    ))}
-                  </Pie>
-                  <Tooltip formatter={(value, name) => [`${value} trees`, name]} />
-                </PieChart>
-                <ul className="legend">
-                  {speciesDistribution.map(entry => (
-                    <li key={entry.name} style={{ marginBottom: '4px' }}>
-                      <span style={{ background: entry.color, width: 12, height: 12, display: 'inline-block', marginRight: 6, borderRadius: '50%' }}></span>
-                      {entry.name}
-                    </li>
+          {blockDetailsOpen && selectedblock && (
+            <div>
+              <p><b>No. of Nandhavanam:</b> {templeCount}</p>
+              <p><b>Species wise Distribution of Trees:</b> {totalTrees}</p>
+              <PieChart width={200} height={200}>
+                <Pie
+                  data={speciesDistribution}
+                  dataKey="value"
+                  nameKey="name"
+                  cx="50%"
+                  cy="50%"
+                  outerRadius={80}
+                  label={false}
+                >
+                  {speciesDistribution.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
-                </ul>
-              </div>
-            )}
-          </div>
+                </Pie>
+                <Tooltip formatter={(value, name) => [`${value} trees`, name]} />
+              </PieChart>
+              <ul className="legend">
+                {speciesDistribution.map(entry => (
+                  <li key={entry.name} style={{ marginBottom: '4px' }}>
+                    <span style={{ background: entry.color, width: 12, height: 12, display: 'inline-block', marginRight: 6, borderRadius: '50%' }}></span>
+                    {entry.name}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
+          {/* Temple Dropdown always visible */}
+          <h2 onClick={() => setTempleDetailsOpen(!templeDetailsOpen)}>
+            Temple Details
+            <span className="material-icons">
+              {templeDetailsOpen ? 'expand_more' : 'chevron_right'}
+            </span>
+          </h2>
           <select value={selectedTempleId} onChange={(e) => setSelectedTempleId(e.target.value)}>
             <option value="">Select Temple</option>
             {availableTemples.map(tid => (
@@ -525,76 +532,64 @@ function MapTool() {
               </option>
             ))}
           </select>
-
-          <div className="temple-section">
-            <h2 onClick={() => setTempleDetailsOpen(!templeDetailsOpen)}>
-              Temple Details
-              <span className="material-icons">
-                {templeDetailsOpen ? 'expand_more' : 'chevron_right'}
-              </span>
-            </h2>
-
-            {templeDetailsOpen && selectedTempleId && (
-              <div>
-                <p><b>Temple:</b> {templeNameMap[selectedTempleId] || selectedTempleId}</p>
-                <p><b>Total Trees:</b> {templeTotalTrees}</p>
-                {templeTotalTrees > 0 && (
-                  <>
-                    <PieChart width={200} height={200}>
-                      <Pie
-                        data={templeSpeciesDistribution}
-                        dataKey="value"
-                        nameKey="name"
-                        cx="50%"
-                        cy="50%"
-                        outerRadius={80}
-                        label={false}
-                      >
-                        {templeSpeciesDistribution.map((entry, index) => (
-                          <Cell key={`cell-${index}`} fill={entry.color} />
-                        ))}
-                      </Pie>
-                      <Tooltip formatter={(value, name) => [`${value} trees`, name]} />
-                    </PieChart>
-                    <ul className="legend">
-                      {templeSpeciesDistribution.map(entry => (
-                        <li key={entry.name} style={{ marginBottom: '4px' }}>
-                          <span style={{
-                            background: entry.color,
-                            width: 12,
-                            height: 12,
-                            display: 'inline-block',
-                            marginRight: 6,
-                            borderRadius: '50%'
-                          }}></span>
-                          {entry.name}
-                        </li>
+          {templeDetailsOpen && selectedTempleId && (
+            <div>
+              <p><b>Temple:</b> {templeNameMap[selectedTempleId] || selectedTempleId}</p>
+              <p><b>Total Trees:</b> {templeTotalTrees}</p>
+              {templeTotalTrees > 0 && (
+                <>
+                  <PieChart width={200} height={200}>
+                    <Pie
+                      data={templeSpeciesDistribution}
+                      dataKey="value"
+                      nameKey="name"
+                      cx="50%"
+                      cy="50%"
+                      outerRadius={80}
+                      label={false}
+                    >
+                      {templeSpeciesDistribution.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={entry.color} />
                       ))}
-                    </ul>
-                  </>
-                )}
-              </div>
-            )}
-          </div>
+                    </Pie>
+                    <Tooltip formatter={(value, name) => [`${value} trees`, name]} />
+                  </PieChart>
+                  <ul className="legend">
+                    {templeSpeciesDistribution.map(entry => (
+                      <li key={entry.name} style={{ marginBottom: '4px' }}>
+                        <span style={{
+                          background: entry.color,
+                          width: 12,
+                          height: 12,
+                          display: 'inline-block',
+                          marginRight: 6,
+                          borderRadius: '50%'
+                        }}></span>
+                        {entry.name}
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )}
+            </div>
+          )}
 
-          <div className="tree-section">
-            <h2 onClick={() => setTreeDetailsOpen(!treeDetailsOpen)}>
-              Tree Details
-              <span className="material-icons">
-                {treeDetailsOpen ? 'expand_more' : 'chevron_right'}
-              </span>
-            </h2>
-
-            {treeDetailsOpen && selectedTree && (
-              <div>
-                <p><b>Species:</b> {selectedTree['data-details-species'] || 'Unknown'}</p>
-                <p><b>Block:</b> {selectedTree['data-details-block']}</p>
-                <p><b>Temple:</b> {templeNameMap[selectedTree['Temple']] || selectedTree['Temple']}</p>
-                <p><b>GBH (Base Level):</b> {selectedTree['data-details-gbh-base-level'] || 'N/A'}</p>
-                <p><b>Temple ID:</b> {selectedTree['Temple'] || 'N/A'}</p>
-              </div>
-            )}
-          </div>
+          {/* Tree Details Section */}
+          <h2 onClick={() => setTreeDetailsOpen(!treeDetailsOpen)}>
+            Tree Details
+            <span className="material-icons">
+              {treeDetailsOpen ? 'expand_more' : 'chevron_right'}
+            </span>
+          </h2>
+          {treeDetailsOpen && selectedTree && (
+            <div>
+              <p><b>Species:</b> {selectedTree['data-details-species'] || 'Unknown'}</p>
+              <p><b>Block:</b> {selectedTree['data-details-block']}</p>
+              <p><b>Temple:</b> {templeNameMap[selectedTree['Temple']] || selectedTree['Temple']}</p>
+              <p><b>GBH (Base Level):</b> {selectedTree['data-details-gbh-base-level'] || 'N/A'}</p>
+              <p><b>Temple ID:</b> {selectedTree['Temple'] || 'N/A'}</p>
+            </div>
+          )}
         </div>
       </div>
     </>
