@@ -5,17 +5,17 @@ const PLACEHOLDER = "/images/team/placeholder.png"; // add a simple silhouette h
 
 const TEAM = [
   { name: "M. Mathivanan", role: "Coordinator", photo: "/images/team/mathivanan.jpg" },
-  { name: "A. Thanigaivel", photo: "/images/team/thanigaivel.jpg" },
+  { name: "A. Thanigaivel", photo: "/images/team/thanigaivel.JPG" },
   { name: "A. Saravanan", photo: "/images/team/saravanan.jpg" },                          // no role, no photo
   { name: "S. Thalavaipandi", photo: "/images/team/thalavaipandi.jpg" }, // no role
   { name: "S. Thamizhazhagan", photo: "/images/team/tamizhazhagan.jpg" },
   { name: "Maria Antony", photo: "/images/team/antont.jpg" },
   { name: "K. Thiraviam", photo: "/images/team/thiraviam.png" },
-  { name: "A. Arunachalam"},
+  { name: "A. Arunachalam", photo: "/images/team/arunachalam.jpg"},
   { name: "M. Ganesan", photo: "/images/team/ganesan.png" },
   { name: "Vinod M Kumar", photo: "/images/team/vinod.png" },
-  { name: "Geethu Ganga Sankar", role: "Intern" },
-  { name: "Arshak", role: "Intern" },
+  { name: "Geethu Ganga Sankar", role: "Intern", photo: "/images/team/geethu.jpg" },
+  { name: "Arshak", role: "Intern", photo: "/images/team/Arshak.JPG" },
   { name: "Pala Adithyan", role: "Website Design & Dev", photo: "/images/team/adithyan.png"  },
 ];
 
