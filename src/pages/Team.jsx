@@ -5,7 +5,7 @@ const PLACEHOLDER = "/images/team/placeholder.png"; // add a simple silhouette h
 
 const TEAM = [
   { name: "M. Mathivanan", role: "Coordinator", photo: "/images/team/mathivanan.jpg" },
-  { name: "A. Thanigaivel", photo: "/images/team/thanigaivel.JPG" },
+  { name: "A. Thanigaivel", photo: "/images/team/thanigaivel.jpg" },
   { name: "A. Saravanan", photo: "/images/team/saravanan.jpg" },                          // no role, no photo
   { name: "S. Thalavaipandi", photo: "/images/team/thalavaipandi.jpg" }, // no role
   { name: "S. Thamizhazhagan", photo: "/images/team/tamizhazhagan.jpg" },
