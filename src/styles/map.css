@@ -53,7 +53,7 @@ body, html, #root {
 .reset-button {
   background: transparent;
   border: none;
-  color: white;
+  color: #C6DC7E;
   font-size: 22px;
   cursor: pointer;
   display: flex;

@@ -22,7 +22,7 @@ export default function Footer() {
           <Link to="/team" className="footer-link">Our Team</Link>
           <Link to="/partners" className="footer-link">Our Partners</Link>
           <a href="https://www.atree.org" target="_blank" rel="noreferrer" className="footer-link">ATREE</a>
-          <a href="mailto:info@atree.org" className="footer-link">Contact Us</a>
+          <a href="mailto:accc@atree.org" className="footer-link">Contact Us</a>
         </nav>
 
         {/* Col 3 (icons + text) */}
