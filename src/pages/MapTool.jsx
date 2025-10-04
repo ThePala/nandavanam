@@ -19,9 +19,9 @@ function MapTool() {
   const [treeDetailsOpen, setTreeDetailsOpen] = useState(true);
   const [speciesColorMap, setSpeciesColorMap] = useState({});
   const [templeNameMap, setTempleNameMap] = useState({}); 
-  const [templeBlockMap, setTempleBlockMap] = useState({}); // New: Temple ID → Block Name mapping 
+  const [templeBlockMap, setTempleBlockMap] = useState({});
 
-    // Orientation handling
+  // Orientation handling
   const [showOrientationPopup, setShowOrientationPopup] = useState(false);
 
   useEffect(() => {
@@ -38,77 +38,57 @@ function MapTool() {
     };
   }, []);
 
-
   const blockMarkersRef = useRef({});
   const templeMarkersRef = useRef({});
   const blockPolygonsRef = useRef(null);
   const treeLayerRef = useRef(null);
   const blockLabelsRef = useRef([]);
 
-useEffect(() => {
-  fetch('/templenameslist.csv')
-    .then(res => res.text())
-    .then(text => {
-      console.log('CSV Raw text:', text.substring(0, 200)); // First 200 chars
-      const lines = text.trim().split('\n');
-      console.log('CSV Lines:', lines.slice(0, 5)); // First 5 lines
-      
-      const nameMap = {};
-      const blockMap = {};
-      
-      // Function to properly parse CSV line with quoted fields
-      const parseCSVLine = (line) => {
-        const result = [];
-        let current = '';
-        let inQuotes = false;
-        
-        for (let i = 0; i < line.length; i++) {
-          const char = line[i];
-          
-          if (char === '"') {
-            // Handle escaped quotes (double quotes within quotes)
-            if (inQuotes && line[i + 1] === '"') {
-              current += '"';
-              i++; // Skip the next quote
+  useEffect(() => {
+    fetch('/templenameslist.csv')
+      .then(res => res.text())
+      .then(text => {
+        const lines = text.trim().split('\n');
+        const nameMap = {};
+        const blockMap = {};
+
+        const parseCSVLine = (line) => {
+          const result = [];
+          let current = '';
+          let inQuotes = false;
+          for (let i = 0; i < line.length; i++) {
+            const char = line[i];
+            if (char === '"') {
+              if (inQuotes && line[i + 1] === '"') {
+                current += '"';
+                i++;
+              } else {
+                inQuotes = !inQuotes;
+              }
+            } else if (char === ',' && !inQuotes) {
+              result.push(current.trim());
+              current = '';
             } else {
-              inQuotes = !inQuotes;
+              current += char;
             }
-          } else if (char === ',' && !inQuotes) {
-            result.push(current.trim());
-            current = '';
-          } else {
-            current += char;
           }
+          result.push(current.trim());
+          return result;
+        };
+
+        for (let i = 1; i < lines.length; i++) {
+          const cols = parseCSVLine(lines[i]);
+          if (cols.length < 3) continue;
+          const templeId = cols[0]?.trim();
+          const templeName = cols[1]?.trim();
+          const blockName = cols[2]?.trim();
+          if (templeId && templeName) nameMap[templeId] = templeName;
+          if (templeId && blockName) blockMap[templeId] = blockName;
         }
-        
-        // Add the last field
-        result.push(current.trim());
-        return result;
-      };
-      
-      for (let i = 1; i < lines.length; i++) {
-        const cols = parseCSVLine(lines[i]);
-        if (cols.length < 3) continue;
-        
-        const templeId = cols[0]?.trim();
-        const templeName = cols[1]?.trim();
-        const blockName = cols[2]?.trim();
-        
-        if (templeId && templeName) {
-          nameMap[templeId] = templeName;
-        }
-        if (templeId && blockName) {
-          blockMap[templeId] = blockName;
-        }
-      }
-      
-      console.log('Temple Name Map sample:', Object.entries(nameMap).slice(0, 3));
-      console.log('Temple Block Map sample:', Object.entries(blockMap).slice(0, 3));
-      
-      setTempleNameMap(nameMap);
-      setTempleBlockMap(blockMap);
-    });
-}, []);
+        setTempleNameMap(nameMap);
+        setTempleBlockMap(blockMap);
+      });
+  }, []);
 
   const colorPalette = [
     '#e6194b', '#3cb44b', '#ffe119', '#4363d8', '#f58231',
@@ -122,61 +102,47 @@ useEffect(() => {
     setSelectedblock('');
     setSelectedTempleId('');
     setAvailableTemples([]);
-    
-    // Remove tree layer when resetting
+
     if (treeLayerRef.current && mapRef.current) {
       mapRef.current.removeLayer(treeLayerRef.current);
       treeLayerRef.current = null;
     }
-    
-    // Show block labels again
+
     showBlockLabels();
-    
-    // Reset map view to show all polygons
+
     if (blockPolygonsRef.current && mapRef.current) {
       mapRef.current.fitBounds(blockPolygonsRef.current.getBounds());
     }
   };
 
-// Replace the highlightMarkers function and add new highlighting functions
+  const highlightMarkers = (highlightedMarkers) => {
+    Object.values(blockMarkersRef.current).flat().forEach(marker =>
+      marker.setStyle({ weight: 0.5, color: '#000' })
+    );
+    highlightedMarkers.forEach(marker =>
+      marker.setStyle({ weight: 3, color: '#fff' })
+    );
+  };
 
-const highlightMarkers = (highlightedMarkers) => {
-  // Reset all markers to default style first
-  Object.values(blockMarkersRef.current).flat().forEach(marker =>
-    marker.setStyle({ weight: 0.5, color: '#000' })
-  );
+  const highlightBlockTrees = (blockName) => {
+    const markersToHighlight = [];
+    const templesInBlock = Object.entries(templeBlockMap)
+      .filter(([tid, block]) => block === blockName)
+      .map(([tid]) => tid);
+    templesInBlock.forEach(templeId => {
+      if (templeMarkersRef.current[templeId]) {
+        markersToHighlight.push(...templeMarkersRef.current[templeId]);
+      }
+    });
+    highlightMarkers(markersToHighlight);
+  };
 
-  // Highlight the specified markers
-  highlightedMarkers.forEach(marker =>
-    marker.setStyle({ weight: 3, color: '#fff' })
-  );
-};
-
-const highlightBlockTrees = (blockName) => {
-  const markersToHighlight = [];
-  
-  // Get all temples in this block
-  const templesInBlock = Object.entries(templeBlockMap)
-    .filter(([tid, block]) => block === blockName)
-    .map(([tid]) => tid);
-  
-  // Collect all markers for temples in this block
-  templesInBlock.forEach(templeId => {
-    if (templeMarkersRef.current[templeId]) {
-      markersToHighlight.push(...templeMarkersRef.current[templeId]);
-    }
-  });
-  
-  highlightMarkers(markersToHighlight);
-};
-
-const highlightTempleTree = (templeId) => {
-  const markers = templeMarkersRef.current[templeId] || [];
-  highlightMarkers(markers);
-};
+  const highlightTempleTree = (templeId) => {
+    const markers = templeMarkersRef.current[templeId] || [];
+    highlightMarkers(markers);
+  };
 
   const showBlockLabels = () => {
-    // Clear existing labels
     blockLabelsRef.current.forEach(label => {
       if (mapRef.current && mapRef.current.hasLayer(label)) {
         mapRef.current.removeLayer(label);
@@ -184,16 +150,15 @@ const highlightTempleTree = (templeId) => {
     });
     blockLabelsRef.current = [];
 
-    // Add new labels
     if (blockPolygonsRef.current) {
       blockPolygonsRef.current.eachLayer(layer => {
         const bounds = layer.getBounds();
         const center = bounds.getCenter();
         const blockName = layer.feature.properties.Block_Name || 
-                         layer.feature.properties.BLOCK_NAME || 
-                         layer.feature.properties.block_name || 
-                         layer.feature.properties.name || 
-                         'Unknown Block';
+                          layer.feature.properties.BLOCK_NAME || 
+                          layer.feature.properties.block_name || 
+                          layer.feature.properties.name || 
+                          'Unknown Block';
 
         const label = L.marker(center, {
           icon: L.divIcon({
@@ -219,7 +184,6 @@ const highlightTempleTree = (templeId) => {
   };
 
   const loadTreesForBlock = (blockName) => {
-    // Remove existing tree layer
     if (treeLayerRef.current && mapRef.current) {
       mapRef.current.removeLayer(treeLayerRef.current);
     }
@@ -234,7 +198,6 @@ const highlightTempleTree = (templeId) => {
         const blockMarkers = {};
         const templeMarkers = {};
 
-        // Load ALL trees (no filtering for now)
         const filteredFeatures = data.features;
 
         const layer = L.geoJSON({ type: 'FeatureCollection', features: filteredFeatures }, {
@@ -290,8 +253,6 @@ const highlightTempleTree = (templeId) => {
         setSpeciesColorMap(prev => ({ ...prev, ...colorMap }));
         blockMarkersRef.current = blockMarkers;
         templeMarkersRef.current = templeMarkers;
-
-        // Hide block labels when trees are loaded
         hideBlockLabels();
       });
   };
@@ -313,7 +274,6 @@ const highlightTempleTree = (templeId) => {
     });
     mapRef.current = map;
 
-    // Load district block polygons
     fetch('/district_blocks.geojson')
       .then(res => res.json())
       .then(data => {
@@ -326,77 +286,64 @@ const highlightTempleTree = (templeId) => {
             fillOpacity: 0.1
           },
           onEachFeature: (feature, layer) => {
-            // Make polygons clickable to select block
             layer.on('click', () => {
               const blockName = feature.properties.Block_Name || 
-                               feature.properties.BLOCK_NAME || 
-                               feature.properties.block_name || 
-                               feature.properties.name || 
-                               'Unknown Block';
+                                feature.properties.BLOCK_NAME || 
+                                feature.properties.block_name || 
+                                feature.properties.name || 
+                                'Unknown Block';
               setSelectedblock(blockName);
             });
           }
         }).addTo(map);
-        
         blockPolygonsRef.current = polygonLayer;
-        
-        // Get all block names from polygons and show labels
+
         const blockNames = new Set();
         data.features.forEach(feature => {
           const blockName = feature.properties.Block_Name || 
-                           feature.properties.BLOCK_NAME || 
-                           feature.properties.block_name || 
-                           feature.properties.name || 
-                           'Unknown Block';
+                            feature.properties.BLOCK_NAME || 
+                            feature.properties.block_name || 
+                            feature.properties.name || 
+                            'Unknown Block';
           blockNames.add(blockName);
         });
-        
+
         setblockSet(blockNames);
         showBlockLabels();
       })
       .catch(err => console.log('District blocks not found:', err));
   }, []);
 
-// Updated useEffect for selectedblock
-useEffect(() => {
-  if (selectedblock) {
-    // Load trees for selected block
-    loadTreesForBlock(selectedblock);
+  useEffect(() => {
+    if (selectedblock) {
+      loadTreesForBlock(selectedblock);
+      if (blockPolygonsRef.current) {
+        blockPolygonsRef.current.eachLayer(layer => {
+          const blockName = layer.feature.properties.Block_Name || 
+                            layer.feature.properties.BLOCK_NAME || 
+                            layer.feature.properties.block_name || 
+                            layer.feature.properties.name || 
+                            'Unknown Block';
+          if (blockName === selectedblock) {
+            mapRef.current.fitBounds(layer.getBounds().pad(0.02));
+          }
+        });
+      }
 
-    // Zoom to selected block
-    if (blockPolygonsRef.current) {
-      blockPolygonsRef.current.eachLayer(layer => {
-        const blockName = layer.feature.properties.Block_Name || 
-                         layer.feature.properties.BLOCK_NAME || 
-                         layer.feature.properties.block_name || 
-                         layer.feature.properties.name || 
-                         'Unknown Block';
-        if (blockName === selectedblock) {
-          mapRef.current.fitBounds(layer.getBounds().pad(0.02));
-        }
-      });
+      const templesInBlock = Object.entries(templeBlockMap)
+        .filter(([tid, block]) => block === selectedblock)
+        .map(([tid]) => tid);
+      setAvailableTemples(templesInBlock);
+
+      setTimeout(() => {
+        highlightBlockTrees(selectedblock);
+      }, 500);
+    } else {
+      setAvailableTemples([]);
+      showBlockLabels();
+      highlightMarkers([]);
     }
-
-    // Get temples from the CSV-based map
-    const templesInBlock = Object.entries(templeBlockMap)
-      .filter(([tid, block]) => block === selectedblock)
-      .map(([tid]) => tid);
-
-    setAvailableTemples(templesInBlock);
-    
-    // Highlight all trees in the selected block after a short delay
-    // (to ensure trees are loaded first)
-    setTimeout(() => {
-      highlightBlockTrees(selectedblock);
-    }, 500);
-    
-  } else {
-    setAvailableTemples([]);
-    showBlockLabels();
-    // Reset highlighting when no block is selected
-    highlightMarkers([]);
-  }
-}, [selectedblock, templeBlockMap]);
+  }, [selectedblock, templeBlockMap]);
 
   useEffect(() => {
     const markers = templeMarkersRef.current[selectedTempleId];
@@ -436,7 +383,7 @@ useEffect(() => {
 
   const getTempleStats = () => {
     if (!selectedTempleId) return { totalTrees: 0, speciesDistribution: [] };
-    
+
     const filtered = templeLookup.filter(t => t.Temple === selectedTempleId);
     const totalTrees = filtered.length;
 
@@ -459,157 +406,199 @@ useEffect(() => {
   const { totalTrees: templeTotalTrees, speciesDistribution: templeSpeciesDistribution } = getTempleStats();
 
   return (
-  <>
-    {showOrientationPopup && (
-      <div className="orientation-popup">
-        <div className="orientation-popup-box">
-          <p>Switch to Landscape for better usability</p>
+    <>
+      {showOrientationPopup && (
+        <div className="orientation-popup">
+          <div className="orientation-popup-box">
+            <p>Switch to Landscape for better usability</p>
+          </div>
         </div>
-      </div>
-    )}
-     <div className="container">
-      <Link to="/" className="home-icon" style={{ position: 'absolute', top: 16, left: 16, zIndex: 1002, background: '#fff', borderRadius: '50%', boxShadow: '0 2px 8px rgba(0,0,0,0.12)', width: 44, height: 44, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <span className="material-icons" style={{ fontSize: 28, color: '#2f5d2f' }}>home</span>
-      </Link>
-      <div id="map" />
-      <div className="sidebar">
-        <button onClick={resetAll} className="reset-button">
-  <span className="material-icons">refresh</span>
-</button>
-
-        <select value={selectedblock} onChange={(e) => setSelectedblock(e.target.value)}>
-          <option value="">Select block</option>
-          {[...blockSet].map(v => (
-            <option key={v} value={v}>{v}</option>
-          ))}
-        </select>
-
-        <div className="block-section">
-<h2 onClick={() => setblockDetailsOpen(!blockDetailsOpen)}>
-  Block Details
-  <span className="material-icons" style={{ fontSize: '18px' }}>
-    {blockDetailsOpen ? 'expand_more' : 'chevron_right'}
-  </span>
-</h2>
-          {blockDetailsOpen && selectedblock && (
-            <div>
-              <p><b>No. of Nandhavanam:</b> {templeCount}</p>
-              <p><b>Species wise Distribution of Trees:</b> {totalTrees}</p>
-              <PieChart width={200} height={200}>
-                <Pie
-                  data={speciesDistribution}
-                  dataKey="value"
-                  nameKey="name"
-                  cx="50%"
-                  cy="50%"
-                  outerRadius={80}
-                  label={false}
-                >
-                  {speciesDistribution.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
-                </Pie>
-                <Tooltip formatter={(value, name) => [`${value} trees`, name]} />
-              </PieChart>
-              <ul className="legend">
-                {speciesDistribution.map(entry => (
-                  <li key={entry.name} style={{ marginBottom: '4px' }}>
-                    <span style={{ background: entry.color, width: 12, height: 12, display: 'inline-block', marginRight: 6, borderRadius: '50%' }}></span>
-                    {entry.name}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
-
-        <select value={selectedTempleId} onChange={(e) => setSelectedTempleId(e.target.value)}>
-          <option value="">Select Temple</option>
-          {availableTemples.map(tid => (
-            <option key={tid} value={tid}>
-              {templeNameMap[tid] || tid}
-            </option>
-          ))}
-        </select>
-
-<div className="temple-section">
-<h2
-  onClick={() => setTempleDetailsOpen(!templeDetailsOpen)}
->
-  Temple Details
-  <span className="material-icons">
-    {templeDetailsOpen ? 'expand_more' : 'chevron_right'}
-  </span>
-</h2>
-
-  {templeDetailsOpen && selectedTempleId && (
-    <div>
-      <p><b>Temple:</b> {templeNameMap[selectedTempleId] || selectedTempleId}</p>
-      <p><b>Total Trees:</b> {templeTotalTrees}</p>
-      {templeTotalTrees > 0 && (
-        <>
-          <PieChart width={200} height={200}>
-            <Pie
-              data={templeSpeciesDistribution}
-              dataKey="value"
-              nameKey="name"
-              cx="50%"
-              cy="50%"
-              outerRadius={80}
-              label={false}
-            >
-              {templeSpeciesDistribution.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={entry.color} />
-              ))}
-            </Pie>
-            <Tooltip formatter={(value, name) => [`${value} trees`, name]} />
-          </PieChart>
-          <ul className="legend">
-            {templeSpeciesDistribution.map(entry => (
-              <li key={entry.name} style={{ marginBottom: '4px' }}>
-                <span style={{
-                  background: entry.color,
-                  width: 12,
-                  height: 12,
-                  display: 'inline-block',
-                  marginRight: 6,
-                  borderRadius: '50%'
-                }}></span>
-                {entry.name}
-              </li>
-            ))}
-          </ul>
-        </>
       )}
-    </div>
-  )}
-</div>
 
+      <div className="container">
+        {/* Home button (top-left) */}
+        <Link
+          to="/"
+          className="home-icon"
+          style={{
+            position: 'absolute',
+            top: 16,
+            left: 16,
+            zIndex: 1002,
+            background: '#fff',
+            borderRadius: '50%',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.12)',
+            width: 44,
+            height: 44,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+          aria-label="Go to home"
+          title="Home"
+        >
+          <span className="material-icons" style={{ fontSize: 28, color: '#2f5d2f' }}>home</span>
+        </Link>
 
-<div className="tree-section">
-<h2
-  onClick={() => setTreeDetailsOpen(!treeDetailsOpen)}
->
-  Tree Details
-  <span className="material-icons">
-    {treeDetailsOpen ? 'expand_more' : 'chevron_right'}
-  </span>
-</h2>
+        {/* Reset button (top-right) */}
+        <button
+          onClick={resetAll}
+          className="reset-icon"
+          style={{
+            position: 'absolute',
+            top: 16,
+            right: 340,
+            zIndex: 1002,
+            background: '#fff',
+            borderRadius: '50%',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.12)',
+            width: 44,
+            height: 44,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            border: 'none',
+            cursor: 'pointer'
+          }}
+          aria-label="Reset map"
+          title="Reset"
+        >
+          <span className="material-icons" style={{ fontSize: 24, color: '#2f5d2f' }}>refresh</span>
+        </button>
 
-  {treeDetailsOpen && selectedTree && (
-    <div>
-      <p><b>Species:</b> {selectedTree['data-details-species'] || 'Unknown'}</p>
-      <p><b>Block:</b> {selectedTree['data-details-block']}</p>
-      <p><b>Temple:</b> {templeNameMap[selectedTree['Temple']] || selectedTree['Temple']}</p>
-      <p><b>GBH (Base Level):</b> {selectedTree['data-details-gbh-base-level'] || 'N/A'}</p>
-      <p><b>Temple ID:</b> {selectedTree['Temple'] || 'N/A'}</p>
-    </div>
-  )}
-</div>
+        <div id="map" />
 
+        <div className="sidebar">
+          {/* Removed reset button from sidebar */}
+
+          <select value={selectedblock} onChange={(e) => setSelectedblock(e.target.value)}>
+            <option value="">Select block</option>
+            {[...blockSet].map(v => (
+              <option key={v} value={v}>{v}</option>
+            ))}
+          </select>
+
+          <div className="block-section">
+            <h2 onClick={() => setblockDetailsOpen(!blockDetailsOpen)}>
+              Block Details
+              <span className="material-icons" style={{ fontSize: '18px' }}>
+                {blockDetailsOpen ? 'expand_more' : 'chevron_right'}
+              </span>
+            </h2>
+            {blockDetailsOpen && selectedblock && (
+              <div>
+                <p><b>No. of Nandhavanam:</b> {templeCount}</p>
+                <p><b>Species wise Distribution of Trees:</b> {totalTrees}</p>
+                <PieChart width={200} height={200}>
+                  <Pie
+                    data={speciesDistribution}
+                    dataKey="value"
+                    nameKey="name"
+                    cx="50%"
+                    cy="50%"
+                    outerRadius={80}
+                    label={false}
+                  >
+                    {speciesDistribution.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
+                  </Pie>
+                  <Tooltip formatter={(value, name) => [`${value} trees`, name]} />
+                </PieChart>
+                <ul className="legend">
+                  {speciesDistribution.map(entry => (
+                    <li key={entry.name} style={{ marginBottom: '4px' }}>
+                      <span style={{ background: entry.color, width: 12, height: 12, display: 'inline-block', marginRight: 6, borderRadius: '50%' }}></span>
+                      {entry.name}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+
+          <select value={selectedTempleId} onChange={(e) => setSelectedTempleId(e.target.value)}>
+            <option value="">Select Temple</option>
+            {availableTemples.map(tid => (
+              <option key={tid} value={tid}>
+                {templeNameMap[tid] || tid}
+              </option>
+            ))}
+          </select>
+
+          <div className="temple-section">
+            <h2 onClick={() => setTempleDetailsOpen(!templeDetailsOpen)}>
+              Temple Details
+              <span className="material-icons">
+                {templeDetailsOpen ? 'expand_more' : 'chevron_right'}
+              </span>
+            </h2>
+
+            {templeDetailsOpen && selectedTempleId && (
+              <div>
+                <p><b>Temple:</b> {templeNameMap[selectedTempleId] || selectedTempleId}</p>
+                <p><b>Total Trees:</b> {templeTotalTrees}</p>
+                {templeTotalTrees > 0 && (
+                  <>
+                    <PieChart width={200} height={200}>
+                      <Pie
+                        data={templeSpeciesDistribution}
+                        dataKey="value"
+                        nameKey="name"
+                        cx="50%"
+                        cy="50%"
+                        outerRadius={80}
+                        label={false}
+                      >
+                        {templeSpeciesDistribution.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={entry.color} />
+                        ))}
+                      </Pie>
+                      <Tooltip formatter={(value, name) => [`${value} trees`, name]} />
+                    </PieChart>
+                    <ul className="legend">
+                      {templeSpeciesDistribution.map(entry => (
+                        <li key={entry.name} style={{ marginBottom: '4px' }}>
+                          <span style={{
+                            background: entry.color,
+                            width: 12,
+                            height: 12,
+                            display: 'inline-block',
+                            marginRight: 6,
+                            borderRadius: '50%'
+                          }}></span>
+                          {entry.name}
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                )}
+              </div>
+            )}
+          </div>
+
+          <div className="tree-section">
+            <h2 onClick={() => setTreeDetailsOpen(!treeDetailsOpen)}>
+              Tree Details
+              <span className="material-icons">
+                {treeDetailsOpen ? 'expand_more' : 'chevron_right'}
+              </span>
+            </h2>
+
+            {treeDetailsOpen && selectedTree && (
+              <div>
+                <p><b>Species:</b> {selectedTree['data-details-species'] || 'Unknown'}</p>
+                <p><b>Block:</b> {selectedTree['data-details-block']}</p>
+                <p><b>Temple:</b> {templeNameMap[selectedTree['Temple']] || selectedTree['Temple']}</p>
+                <p><b>GBH (Base Level):</b> {selectedTree['data-details-gbh-base-level'] || 'N/A'}</p>
+                <p><b>Temple ID:</b> {selectedTree['Temple'] || 'N/A'}</p>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
-    </div>
-  </>
-)};
+    </>
+  );
+}
 
 export default MapTool;
