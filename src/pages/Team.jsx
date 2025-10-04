@@ -30,7 +30,7 @@ export default function Team() {
       <section className="team-wrap">
         <ul className="team-grid team-grid--1-4">
           {TEAM.map((m, i) => {
-            const imgSrc = m.photo || PLACEHOLDER;
+            const imgSrc = m.photo;
             return (
               <li key={i} className="member-card">
                 <div className="member-photo" aria-hidden="true">
