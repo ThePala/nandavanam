@@ -1,8 +1,8 @@
 :root {
-  --green-600: #2f5d2f;
-  --green-500: #356a35;    /* lighter on hover */
-  --panel: #244a24;        /* dropdown bg */
-  --panel-hover: #356a35;  /* hover inside dropdown */
+  --green-600: #292929;
+  --green-500: #1a1a1a;    /* lighter on hover */
+  --panel: #1a1a1a;        /* dropdown bg */
+  --panel-hover: #292929;  /* hover inside dropdown */
   --white: #fff;
   --shadow: 0 16px 40px rgba(0,0,0,.35);
   --radius: 10px;
@@ -29,7 +29,7 @@
 .brand {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 4px;
   text-decoration: none;
   color: inherit;
 }
