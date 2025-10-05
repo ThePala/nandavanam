@@ -29,7 +29,7 @@
 .brand {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 12px;
   text-decoration: none;
   color: inherit;
 }
@@ -138,7 +138,7 @@
   /* padding: 14px 16px; */
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 4px;
 }
 .panel-link {
   color: #fff;
