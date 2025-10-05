@@ -156,6 +156,23 @@
     box-shadow: none;
  }
 
+/* Remove border-radius on all elements */
+* {
+  outline: none !important;
+  border-radius: 0 !important;
+}
+
+/* Remove border-radius and outline on focus/active for nav and dropdowns */
+.nav-link:focus,
+.nav-link:active,
+.panel-link:focus,
+.panel-link:active,
+.section-header:focus,
+.section-header:active {
+  border-radius: 0 !important;
+  outline: none !important;
+}
+
 /* DESKTOP ≥ 960px */
 @media (min-width: 960px) {
   .hamburger { display: none; }
