@@ -42,6 +42,7 @@
 .home-hero-content p {
   font-size: 0.8rem;
   line-height: 1.7;
+  text-align: justify;
 }
 
 /* Responsive */

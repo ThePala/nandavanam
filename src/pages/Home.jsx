@@ -22,6 +22,7 @@ Key features of historic Nandavanams include the presence of  Sacred Trees (Stha
 Cultural Practices  were deeply embedded in these gardens, with stone platforms  (Poo Palagai) serving as spaces for gathering flowers and weaving  garlands, combining both practical and cultural roles. 
 Additionally,  Historical Inscriptions highlight that lands were explicitly donated  for the upkeep of temple gardens, underscoring their significant  historical and spiritual importance. 
 In recent times, though, the importance given to temple  architecture, artistic sculptures, and history is unfortunately not  extended to the sacred plants within temple grounds, which is  disheartening. 
+<br />
 Traditionally, sanctuaries for deities were established beneath  sacred trees (Sthala Vrikshas), with worship taking place in  their shade. A notable example is the Arulmigu Courtallanathar  Temple in Tenkasi district, where a lingam placed beneath  the Kurumbala (Jackfruit) tree is immortalized in sculpture.  Thirugnanasambandar’s Thiruppathigam also includes 11 verses,  known as Kurumbalapathigam, dedicated to the Kurumbala tree.  Even today, the deity Kurumbala Nathar, located beneath the tree,  continues to receive significant reverence and worship.
             </p>
           </div>
