@@ -33,8 +33,26 @@
   text-decoration: none;
   color: inherit;
 }
-.brand img { height: 44px; }
-.brand-text { font: 700 12px/1.1 system-ui; }
+
+.brand img {
+  height: 44px;
+}
+
+.brand-text {
+  font: 12px system-ui;
+  font-family: "Roboto", sans-serif;
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Ensure absolutely NO hover/focus change */
+.brand:hover .brand-text,
+.brand:focus .brand-text,
+.brand:hover,
+.brand:focus {
+  color: inherit;
+  text-decoration: none;
+}
 
 /* hamburger (mobile only) */
 .hamburger {

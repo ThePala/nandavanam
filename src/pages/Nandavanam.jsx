@@ -8,7 +8,7 @@ const templeData = {
     noOfTrees: 57,
     area: "0.33 acres",
     speciesCount: 41,
-    datePlanted: "11 December 2021",
+    datePlanted: "11 Dec 2021",
     trees: [
       { species: "Mango tree", count: 6 },
       { species: "Star jasmine", count: 3 },
