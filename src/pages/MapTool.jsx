@@ -163,11 +163,16 @@ function MapTool() {
         const label = L.marker(center, {
           icon: L.divIcon({
             className: 'block-label',
-            html: `<div style="background: rgba(255, 255, 255, 0.8); padding: 2px 12px; border-radius: 3px; font-size: 12px; font-weight: bold; text-align: center; border: 1px solid #333;">${blockName}</div>`,
+            html: `<div style="background: rgba(255, 255, 255, 0.8); padding: 2px 12px; border-radius: 3px; font-size: 12px; font-weight: bold; text-align: center; border: 1px solid #333; cursor: pointer;">${blockName}</div>`,
             iconSize: [120, 20],
             iconAnchor: [50, 10]
           })
         }).addTo(mapRef.current);
+
+        // Add click handler to label
+        label.on('click', () => {
+          setSelectedblock(blockName);
+        });
 
         blockLabelsRef.current.push(label);
       });
