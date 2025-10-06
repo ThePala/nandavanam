@@ -70,3 +70,9 @@
     font-size: 3rem;
   }
 }
+
+@media (max-width: 600px) {
+  .home-hero-content p {
+    font-size: 1.15rem;
+  }
+}
