@@ -73,6 +73,17 @@ export default function Footer() {
         <div className="bottom-inner">
           <span className="copyright-ico" aria-hidden="true">©</span>
           <span>{year}. All rights reserved</span>
+          <span style={{ marginLeft: 12 }}>
+            Designed and Developed by{' '}
+            <a
+              href="https://www.linkedin.com/in/palaadithyan/"
+              target="_blank"
+              rel="noreferrer"
+              style={{ textDecoration: 'underline', color: 'inherit', fontWeight: 500 }}
+            >
+              Pala Adithyan
+            </a>
+          </span>
         </div>
       </div>
     </footer>
