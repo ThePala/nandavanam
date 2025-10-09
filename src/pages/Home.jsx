@@ -1,5 +1,5 @@
 // src/pages/Home.jsx
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import "../styles/home.css";
@@ -25,6 +25,37 @@ In recent times, though, the importance given to temple  architecture, artistic 
 <br /><br />
 
 Traditionally, sanctuaries for deities were established beneath  sacred trees (Sthala Vrikshas), with worship taking place in  their shade. A notable example is the Arulmigu Courtallanathar  Temple in Tenkasi district, where a lingam placed beneath  the Kurumbala (Jackfruit) tree is immortalized in sculpture.  Thirugnanasambandar’s Thiruppathigam also includes 11 verses,  known as Kurumbalapathigam, dedicated to the Kurumbala tree.  Even today, the deity Kurumbala Nathar, located beneath the tree,  continues to receive significant reverence and worship.
+            </p>
+          </div>
+        </section>
+
+        {/* Section: Star Plants */}
+        <section
+          className="home-hero section-divider"
+          style={{ backgroundImage: "url('/images/poopalagai.JPG')" }}
+        >
+          <div className="home-hero-content">
+            <h2>What are Star Plants?</h2>
+
+            <StarPlantsCarousel />
+
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
+              vitae eros eget tellus tristique bibendum. Donec rutrum sed sem quis
+              venenatis. Proin viverra risus a eros volutpat tempor. In quis arcu et
+              eros porta lobortis sit amet at magna.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
+              vitae eros eget tellus tristique bibendum. Donec rutrum sed sem quis
+              venenatis. Proin viverra risus a eros volutpat tempor. In quis arcu et
+              eros porta lobortis sit amet at magna.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
+              vitae eros eget tellus tristique bibendum. Donec rutrum sed sem quis
+              venenatis. Proin viverra risus a eros volutpat tempor. In quis arcu et
+              eros porta lobortis sit amet at magna.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
+              vitae eros eget tellus tristique bibendum. Donec rutrum sed sem quis
+              venenatis. Proin viverra risus a eros volutpat tempor. In quis arcu et
+              eros porta lobortis sit amet at magna.
             </p>
           </div>
         </section>
@@ -61,3 +92,91 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor i
 };
 
 export default Home;
+
+function StarPlantsCarousel() {
+  const [images, setImages] = useState([]);
+  const trackRef = React.useRef(null);
+  const hoverRef = React.useRef(false);
+
+  useEffect(() => {
+    let mounted = true;
+    fetch('/images/starplants/manifest.json')
+      .then(res => res.json())
+      .then(list => {
+        if (!mounted) return;
+        if (!Array.isArray(list)) return;
+
+        const parsed = list.map(item => {
+          if (typeof item === 'string') {
+            const file = item;
+            const name = file.split('/').pop().replace(/\.[^/.]+$/, '');
+            return { file: `/images/starplants/${file}`, name, star: '' };
+          }
+
+          // object form
+          const fileField = item.file || item.filename || item.src || '';
+          const file = fileField || '';
+          const name = item.name || (file ? file.split('/').pop().replace(/\.[^/.]+$/, '') : '');
+          const star = item.star || item.starName || '';
+          const fileUrl = file.startsWith('/') ? file : `/images/starplants/${file}`;
+          return { file: fileUrl, name, star };
+        });
+
+        setImages(parsed.filter(Boolean));
+      })
+      .catch(() => {
+        if (!mounted) return;
+        setImages([
+          { file: '/images/starplants/templ2.JPG', name: 'templ2', star: '' },
+          { file: '/images/starplants/templ3.JPG', name: 'templ3', star: '' },
+          { file: '/images/starplants/templ4.jpg', name: 'templ4', star: '' },
+          { file: '/images/starplants/templ5.jpg', name: 'templ5', star: '' }
+        ]);
+      });
+
+    return () => { mounted = false; };
+  }, []);
+
+  // Manual scroll handlers -- disable auto-scroll
+  const scrollBy = (amount) => {
+    const el = trackRef.current;
+    if (!el) return;
+    // smooth scroll by amount pixels
+    el.scrollBy({ left: amount, behavior: 'smooth' });
+  };
+
+  const handlePrev = () => scrollBy(-200);
+  const handleNext = () => scrollBy(200);
+
+  if (!images.length) return <p>Loading star plants...</p>;
+
+  return (
+    <div className="starplants-wrap">
+      <button className="carousel-arrow left" onClick={handlePrev} aria-label="Previous">←</button>
+      <div
+        className="starplants-carousel"
+        ref={trackRef}
+        onMouseEnter={() => { hoverRef.current = true; }}
+        onMouseLeave={() => { hoverRef.current = false; }}
+      >
+        {images.map((it, i) => {
+          const src = it.file;
+          const name = it.name || (src ? src.split('/').pop().replace(/\.[^/.]+$/, '') : '');
+          const starName = it.star || '';
+          return (
+            <figure key={i} className="starplant-item">
+              <div className="starplant-card">
+                <div className="starplant-image-wrap">
+                  <img src={src} alt={name} loading="lazy" />
+                </div>
+                <div className="starplant-name">{name}</div>
+                <div className="starplant-starname">{starName}</div>
+              </div>
+            </figure>
+          );
+        })}
+      </div>
+      <button className="carousel-arrow right" onClick={handleNext} aria-label="Next">→</button>
+    </div>
+  );
+}

@@ -159,7 +159,7 @@
 /* Remove border-radius on all elements */
 * {
   outline: none !important;
-  border-radius: 0 !important;
+  border-radius: 0;
 }
 
 /* Remove border-radius and outline on focus/active for nav and dropdowns */
@@ -169,7 +169,7 @@
 .panel-link:active,
 .section-header:focus,
 .section-header:active {
-  border-radius: 0 !important;
+  border-radius: 0;
   outline: none !important;
 }
 
