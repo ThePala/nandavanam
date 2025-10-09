@@ -1,0 +1,161 @@
+﻿TempleID,TempleName,Block_Name,TempleNameTamil
+t1,Uchinimakaliamman Temple,unknown,அருள்மிகு உச்சினிமாகாளியம்மன் திருக்கோயில்
+t2,"Sundararaja Perumal Temple, Sattupattu",Pappakudi,"அருள்மிகு சுந்தரராஜ பெருமாள் திருக்கோயில், சாட்டுபத்து"
+t3,"Narasinga Perumal Temple, Pallakkal",Pappakudi,"அருள்மிகு நரசிங்கப்பெருமாள் திருக்கோயில், பள்ளக்கால்"
+t4,"Velakurichi Madam, Kallidaikurichi",Cheranmahadevi,வேளாக்குறிச்சி மடம் கல்லிடைகுறிச்சி
+t5,"Papanasaswami Temple, Papanasam",Ambasamudram,"அருள்மிகு பாபநாசசுவாமி திருக்கோயில், பாபநாசம்"
+t6,"Rajagopala Kulasekara Azhwar Temple, Mannarkovil",Ambasamudram,"அருள்மிகு இராஜகோபாலகுலசேகர ஆழ்வார் திருக்கோயில், மன்னார்கோவில்"
+t7,"Sivandiyappar Temple, Vikramasingapuram",Ambasamudram,அருள்மிகு சிவந்தியப்பர் திருக்கோயில் விக்கிரமசிங்கபுரம்
+t8,Kasinathaswami Temple,Ambasamudram,அருள்மிகு காசிநாதசுவாமி திருக்கோயில்
+t9,"Ariyanathaswami Temple, Arikesavanallur",unknown,"அருள்மிகு அரியநாதசுவாமி திருக்கோயில், அரிகேசவநல்லூர்"
+t10,"Kailasanathaswami Temple, Brahmadesam",Ambasamudram,"அருள்மிகு கைலாசநாதசுவாமி திருக்கோயில், பிரம்மதேசம்"
+t11,"Bala Subramanya Swami Temple, Vikramasingapuram",Ambasamudram,அருள்மிகு பாலசுப்பிரமணிய சுவாமி திருக்கோயில் விக்கிரமசிங்கபுரம்
+t12,Manendiyappar Temple,Cheranmahadevi,அருள்மிகு மானேந்தியப்பர் திருக்கோயில்
+t13,Vilapoojai Kattalai Arulmigu Manendiyappar Temple,unknown,அருள்மிகு விளாபூஜைகட்டளை(இ)அருள்மிகு மானேந்தியப்பர் திருக்கோயில்
+t14,Sankara Lingaswami Temple,Ambasamudram,அருள்மிகு சங்கரலிங்கசுவாமி திருக்கோயில்
+t15,"Agasteeswarar Temple, Kallidaikurichi",Pappakudi,அருள்மிகு அகஸ்தீஸ்வரர் திருக்கோயில் கல்லிடைக்குறிச்சி
+t16,Thirukadugai Moondreeswarar Temple,Ambasamudram,அருள்மிகு திருக்கடுகை மூன்றீஸ்வரர் திருக்கோயில்
+t17,Krishna Swami Vakaiyara Temple,unknown,அருள்மிகு கிருஷ்ணசுவாமி வகையறா திருக்கோயி
+t18,Agasteeswarar Temple,unknown,அருள்மிகு அகஸ்தீஸ்வரர் திருக்கோயில்
+t19,"Viswanathaswami Temple, Aladiyur",unknown,"அருள்மிகு விசுவநாதசுவாமி திருக்கோயில், ஆலடியூர்"
+t20,"Adithyavarneswarar Temple, Thuppakudi",unknown,"அருள்மிகு ஆதித்தவர்னேஸ்வரர் திருக்கோயில், துப்பாக்குடி"
+t21,"Samuga Madam Kulathur Ayyan Sastha Temple, Veeravanallur",Ambasamudram,"அருள்மிகு சமூகமடம் குளத்தூரய்யன் சாஸ்தா திருக்கோயில், வீரவநல்லூர்"
+t22,"Krishna Swami Temple, Vikramasingapuram",Cheranmahadevi,"அருள்மிகு கிருஷ்ணசுவாமி திருக்கோயில், விக்கிரமசிங்கபுரம்"
+t23,"Pitchaikattalai, Inaippu Papanasaswami Temple, Papanasam",unknown,"பிச்சைக்கட்டளை, இணைப்பு பாபநாசசுவாமி திருக்கோயில், பாபநாசம்"
+t24,"Muthumalai Amman Temple, Mukkudal",Pappakudi,அருள்மிகு முத்துமாலையம்மன திருக்கோயில் முக்கூடல்
+t25,"Uchikala Paal Kattalai, Tirunelveli",unknown,உச்சிகாலபால்கட்டளை திருநெல்வேலி
+t26,"Pagazhikoothar Temple, Kallidaikurichi",Cheranmahadevi,"பகழிகூத்தர் திருக்கோயில், கல்லிடைக்குறிச்சி"
+t27,"Marthanda Vinayagar Temple, Valuthur",unknown,"மார்த்தாண்ட விநாயகர் திருக்கோயில், வழுதூர்"
+t28,"Sokkalingaswami Temple, Adaichani",Tenkasi,"சொக்கலிங்கசுவாமி திருக்கோயில், அடைச்சாணி"
+t29,"Venkatachalapathi Temple, Rengasamuthiram",Pappakudi,"வெங்கடாசலபதி திருக்கோயில், ரெங்கசமுத்திரம்"
+t30,"Sevugapperumal Sastha Temple, Pallakkal",Pappakudi,"சேவுகப் பெருமாள் சாஸ்தா திருக்கோயில், பள்ளக்கால்"
+t31,Vadakkuvachelviyamman Temple,Pappakudi,வடக்குவாச்செல்வியம்மன் திருக்கோயில்
+t32,"Thyagarajaswami Temple, Idaikal",Pappakudi,"தியாகராஜசுவாமி திருக்கோயில், இடைகால்"
+t33,"Thiru Valeesevarar Temple, Thirualeesevaram",Ambasamudram,"திருவாலீஸ்வரர் திருக்கோயில், திருவாலீஸ்வரம்"
+t34,"Aanaipparai Vinayagar Temple, Sattupathu",Pappakudi,"ஆனைப்பாறை விநாயகர் திருக்கோயில், சாட்டுப்பத்து"
+t35,"Sokkalingaswami Temple, Pallakkal",unknown,"சொக்கலிங்கசுவாமி திருக்கோயில், பள்ளக்கால்"
+t36,"Krishnasamy Temple, Brahmadesam",Ambasamudram,"கிருஷ்ணசாமி திருக்கோயில், பிரம்மதேசம்"
+t37,"Kulasekaramudaiyar Temple, Kallidaikurichi",Cheranmahadevi,"குலசேகரமுடையார் திருக்கோயில், கல்லிடைக்குறிச்சி"
+t38,"Adhi Varaha Perumal Temple, Kallidaikurichi",Cheranmahadevi,"ஆதிவராகப் பெருமாள் திருக்கோயில், கல்லிடைக்குறிச்சி"
+t39,"Lakshmi Narayana Perumal Temple, Pappakudi",unknown,"லெட்சுமி நாராயணப் பெருமாள் திருக்கோயில், பாப்பாக்குடி"
+t40,"Thiripurasundari Amman Temple, Pudupatti",unknown,"திரிபுரசுந்தரியம்மன் திருக்கோயில், புதுப்பட்டி"
+t41,"Kariyamanicka Perumal Temple, Idaikal",Pappakudi,"கரியமாணிக்க பெருமாள் திருக்கோயில், இடைகால்"
+t42,"Vaitheeswarar Temple, Ambasamudram",Cheranmahadevi,"அருள்மிகு வைத்தியநாதசுவாமி திருக்கோயில், அம்பாசமுத்திரம்"
+t43,"Salaim Perumal Temple, Mukkudal",Pappakudi,"சாலையம்பெருமாள் திருக்கோயில், முக்கூடல்"
+t44,"Arthasama Kattalai (i) Narumboonatha Swami Temple, Thiruppudaimaruthur, Ambasamudram",unknown,"அருள்மிகு அர்த்தசாமக்கட்டளை (இ) அருள்மிகு நாறும்பூநாதசுவாமி திருக்கோயில், திருப்புடைமருதூர், அம்பாசமுத்திரம்"
+t45,"Appan Venkatachalapathi Temple with Kannadian Chathiram, Cheranmahadevi, Ambasamudram",Cheranmahadevi,"அருள்மிகு அப்பன்வெங்கிடாசலபதி திருக்கோயிலுடன்(ம)கன்னடியன் சத்திரம் சேரன்மகாதேவி,அம்பாசமுத்திரம்"
+t46,"Ramasamy Temple, Cheranmahadevi, Ambasamudram",Cheranmahadevi,"அருள்மிகு ராமசாமி திருக்கோயில், சேரன்மகாதேவி, அம்பாசமுத்திரம்"
+t47,"Gajendra Varadhar Temple, Athalanallur, Ambasamudram",Pappakudi,"அருள்மிகு கஜேந்திரவரதர் திருக்கோயில், அத்தாளநல்லூர், அம்பாசமுத்திரம்"
+t48,"Ammanatha Swami Temple, Cheranmahadevi, Ambasamudram",Cheranmahadevi,"அருள்மிகு அம்மநாதசுவாமி திருக்கோயில், சேரன்மகாதேவி, அம்பாசமுத்திரம்"
+t49,"Narumboonatha Swami Temple, Thiruppudaimaruthur, Ambasamudram",Pappakudi,"அருள்மிகு நாறும்பூநாதசுவாமி திருக்கோயில், திருப்புடைமருதூர், அம்பாசமுத்திரம்"
+t50,"Sattupalai Vinayagar Temple, Cheranmahadevi, Ambasamudram",unknown,"அருள்மிகு சாட்டுப்பாலவிநாயகர் திருக்கோயில், சேரன்மகாதேவி, அம்பாசமுத்திரம்"
+t51,"Venkatachalapathi Temple, Cheranmahadevi, Ambasamudram",Cheranmahadevi,"அருள்மிகு வெங்கிடாசலபதி திருக்கோயில், சேரன்மகாதேவி, அம்பாசமுத்திரம்"
+t52,"Adithyavarneswarar Temple, Melacheval, Ambasamudram",Cheranmahadevi,"அருள்மிகு ஆதித்தவர்னேஸ்வர் திருக்கோயில், மேலச்செவல், அம்பாசமுத்திரம்"
+t53,"Sundararaja Perumal Temple, Veeravanallur, Ambasamudram",Cheranmahadevi,"அருள்மிகு சுந்தரராஜபெருமாள் திருக்கோயில், வீரவநல்லூர், அம்பாசமுத்திரம்"
+t54,"Vikramapandeeswarar Temple, Veeravanallur, Ambasamudram",Cheranmahadevi,"அருள்மிகு விக்கிரமபாண்டீஸ்வரர் திருக்கோயில், வீரவநல்லூர், அம்பாசமுத்திரம்"
+t55,"Narasimha Vinayagar Temple, Athalanallur",Cheranmahadevi,"நரசிங்க விநாயகர்திருக்கோயில், அத்தாளநல்லூர்"
+t56,"Pasungili Ayyan Sastha Temple, Gopalasamuthiram, Ambasamudram",Pappakudi,"அருள்மிகு பசுங்கிளி அய்யன் சாஸ்தா திருக்கோயில், கோபாலசமுத்திரம், அம்பாசமுத்திரம்"
+t57,"Kailasanatha Swami Temple, Ariyanayagipuram, Ambasamudram",Cheranmahadevi,"அருள்மிகு கைலாசநாதசுவாமி திருக்கோயில், அரியநாயகிபுரம், அம்பாசமுத்திரம்"
+t58,"Vandimalachiyamman Temple, Veeravanallur, Ambasamudram",Pappakudi,"அருள்மிகு வண்டிமலைச்சியம்மன் திருக்கோயில். வீரவநல்லூர், அம்பாசமுத்திரம்"
+t59,"Moondreeswaramudaiyar Temple, Athalanallur",Pappakudi,"மூன்றீஸ்வரமுடையார் திருக்கோயில், அத்தாளநல்லூர்"
+t60,"Vilvanathar Swami Temple, Pathamadai",Cheranmahadevi,"வில்வநாதர் சுவாமி திருக்கோயில், பத்தமடை"
+t61,"Venkatachalapathi Temple, Gopalasamuthiram",Cheranmahadevi,"வெங்கடாசலபதி திருக்கோயில், கோபாலசமுத்திரம்"
+t62,"Puravelinathar Temple, Veeravanallur",unknown,"புறவேலிநாதர் திருக்கோயில், வீரவநல்லூர்"
+t63,"Venkatachalapathi Temple, Karisoolndhamangalam",Cheranmahadevi,"வெங்கடாசலபதி திருக்கோயில், கரிசூழ்ந்தமங்கலம்"
+t64,"Boominatha Swami Temple, Veeravanallur",Cheranmahadevi,பூமிநாதசுவாமி திருக்கோயில் வீரவநல்லூர்
+t65,"Kanagasabapathi Temple, Karisoolndhamangalam",Cheranmahadevi,"கனகசபாபதி திருக்கோயில், கரிசூழ்ந்தமங்கலம்"
+t66,"Venkatachalapathi Temple, Pathamadai",Cheranmahadevi,"வெங்கடாசலபதி திருக்கோயில், பத்தமடை"
+t67,"Appan Venkatachalapathi Temple, Cheranmahadevi",unknown,"அப்பன் வெங்கடாசலபதி திருக்கோயில், சேரன்மகாதேவி"
+t68,Bhaktavatsala Perumal Temple,Cheranmahadevi,பக்தவச்சலப் பெருமாள் திருக்கோயில்
+t69,Deiveeswaramudaiyar Temple,Cheranmahadevi,தெய்வீஸ்வரமுடையார் திருக்கோயில்
+t70,Viswanatha Swami Temple,Cheranmahadevi,விஸ்வநாதசுவாமி திருக்கோயில்
+t71,Naduvulappar Temple,Cheranmahadevi,நடுவுளப்பர் திருக்கோயில்
+t72,"Navaneetha Krishna Swami Temple, Melacheval",Cheranmahadevi,"நவநீதகிருஷ்ணசுவாமி திருக்கோயில், மேலச்செவல்"
+t73,"Sokkanatha Swami Temple, Desamanickam",Cheranmahadevi,"சொக்கநாதசுவாமி திருக்கோயில், தேசமாணிக்கம்"
+t74,"Dharmaraja Draupathi Amman Temple, Railway Feeder Road, Veeravanallur",Cheranmahadevi,"தர்மராஜா திரௌபதியம்மன் திருக்கோயில், ரயில்வே பீடர் ரோடு, வீரவநல்லூர்"
+t75,"Aayirath Amman Temple, Kesavasamuthiram District",Cheranmahadevi,"ஆயிரத்தம்மன் திருக்கோயில், கேசவசமுத்திரம் மாவட்டம்"
+t76,"Venkatachalapathi Temple, Keelacheval",unknown,"வெங்கடாசலபதி திருக்கோயில், கீழச்செவல்"
+t77,"Viswanatha Swami Temple, Perumal Sannathi, Gopalasamuthiram",Cheranmahadevi,"விஸ்வநாதசுவாமி திருக்கோயில், பெருமாள் சன்னதி, கோபாலசமுத்திரம்"
+t78,"Navaneetha Krishna Swami Temple, Railway Feeder Road, Veeravanallur",Cheranmahadevi,"நவநீத கிருஷ்ணசுவாமி திருக்கோயில், ரயில்வே பீடர் ரோடு, வீரவநல்லூர்"
+t79,Kuthupirai Isakki Amman Temple,Nanguneri,அருள்மிகு குத்துப்பிறை இசக்கியம்மன திருக்கோயில்
+t80,"Jeyar Madam, Thirukkurungudi, Nanguneri",unknown,"ஜீயர் மடம், திருக்குறுங்குடி, நாங்குனேரி"
+t81,Vasudeva Perumal Temple,Kalakadu,அருள்மிகு வாசுதேவப்பெருமாள் திருக்கோயில்
+t82,Sathyavakeeswarar Temple,Kalakadu,அருள்மிகு சத்தியவாகீஸ்வரர் திருக்கோயில்
+t83,"Vanamamalai Madam, Nanguneri",unknown,"வானமாமலை மடம், நாங்குனேரி"
+t84,"Thiruvazhudeeswarar Temple, Koil Ervadi",Kalakadu,அருள்மிகு திருவழுதீஸ்வரர் திருக்கோயில். கோயில் ஏர்வாடி
+t85,"Meenakshi Sundareswarar and Navaneetha Krishna Swami Temple, Cheranmahadevi, Ambasamudram",unknown,"அருள்மிகு மீனாட்சி சுந்தரேஸ்வரர் மற்றும் நவநீதிகிருஷ்ணசுவாமி திருக்கோயில் சேரன்மகாதேவி, அம்பாசமுத்திரம்"
+t86,"Azhagiya Nambi Rayar Temple, Thirukkurungudi",Kalakadu,அருள்மிகு அழகிய நம்பிராயர் திருக்கோயி திருக்குறுங்குடி
+t87,"Vanamamalai Perumal Temple, Nanguneri",unknown,அருள்மிகு வானமாமலை பெருமாள் திருக்கோயில் நாங்குனேரி
+t88,"Somanatha Swami Temple, Devanallur",Kalakadu,அருள்மிகு சோமநாதசுவாமி திருக்கோயில் தேவநல்லூர்
+t89,Varadaraja Perumal Temple,Kalakadu,வரதராஜ பெருமாள் திருக்கோயில்
+t90,"Soundarapandiswarar Temple, Melakkaru Velaankulam, Nanguneri",Kalakadu,அருள்மிகு சௌந்திரபாண்டீஸ்வரர் திருக்கோயில் மேலக்கரு வேளாண்குலம் நாங்குநேரி
+t91,"Nellaiappar Temple, Vadamalaisathiram",Kalakadu,"நெல்லையப்பர் திருக்கோயில், வடமலைசத்திரம்"
+t92,"Mazhuvendheeswarar Temple, Pulam",Nanguneri,"மழுவேந்தீஸ்வரர் திருக்கோயில்அ, பூலம்"
+t93,"Kailasanathar and Venkatachalapathi Temple, Kadamboodu Vazhuvu",Kalakadu,"கைலாசநாதர் மற்றும் வெங்கடாசலபதி திருக்கோயில், கடம்போடு வாழ்வு"
+t94,"Kulasekaranathar Temple, Keelappathai",Kalakadu,"குலசேகரநாதர் திருக்கோயில், கீழப்பத்தை"
+t95,"Nellaiappar Gandhimathi Amman Temple, Padmaneri",unknown,"நெல்லையப்பர் காந்திமதியம்பாள் திருக்கோயில், பத்மனேரி"
+t96,Vetri Vinayagar Temple,Nanguneri,வெற்றி விநாயகர் திருக்கோயில்
+t97,"Varadaraja Perumal Temple, Singikulam",Kalakadu,"வரதராஜ பெருமாள் திருக்கோயில், சிங்கிகுளம்"
+t98,"Ramasamy Temple, Palayamkottai Town",Palayamkottai,"அருள்மிகு ராமசாமி திருக்கோயில், பாளையங்கோட்டை நகர்"
+t99,"Agneeswarar Temple with Angisathu Kattalai, Rajavallipuram, Palayamkottai",unknown,"அருள்மிகு அக்னீஸ்வரர் திருக்கோயிலுடன் இணைந்த அங்கிசாத்துக்கட்டளை, ராஜவல்லிபுரம், பாளையங்கோட்டை"
+t100,"M.S. Sundaram Pillai Kattalai (i) Ramasamy Temple, Palayamkottai",unknown,"எம்.எஸ்.சுந்தரம்பிள்ளை கட்டளை (இ) ராமசாமி திருக்கோயில், பாளையங்கோட்டை"
+t101,"Venugopalaswami Temple, Keelanatham",Palayamkottai,"அருள்மிகு வேணுகோபாலசுவாமி திருக்கோயில், கீழநத்தம்"
+t102,"Sayaratchai Arthasama Kattalai (i) Thiripurandheeswarar Temple, Palayamkottai Town",Palayamkottai,சாயராட்சை அர்த்தசாமக்கட்டளை (இ) திரிபுராந்தீஸ்வரர் திருக்கோயில். பாளையங்கோட்டை நகர்
+t103,"Venkatachalapathi Temple, Thimmarajapuram",Palayamkottai,"அருள்மிகு வெங்கிடாசலபதி திருக்கோயில், திம்மராஜபுரம்"
+t104,"Sudalaimadaswami Temple, Sivalaperi",Palayamkottai,"அருள்மிகு சுடலைமாடசுவாமி திருக்கோயில், சீவலப்பேரி"
+t105,"Venkatachalapathi Temple, Krishnapuram",Palayamkottai,"அருள்மிகு வெங்கடாசலபதி திருக்கோயில், கிருஷ்ணாபுரம்"
+t106,"Pooludaiyar Sastha Temple, Marugal Thalaigramam",Palayamkottai,"அருள்மிகு பூலுடையார் சாஸ்தா திருக்கோயில், மருகால் தலைகிராமம்"
+t107,"Thirumalaippar Temple, Thiruthu",Palayamkottai,"திருமலையப்பர் திருக்கோயில், திருத்து"
+t108,"Rettai Vinayagar Temple, Madathupatti, Sivalaperi Road",Palayamkottai,"இரட்டை விநாயகர் திருக்கோயில், மடத்துப்பட்டி, சீவலப்பேரி வழி"
+t109,"Moondreeswaramudaiyar Temple, Manapadaiveedu",Palayamkottai,"மூன்றீஸ்வரமுடையார் திருக்கோயில், மணப்படைவீடு"
+t110,"Sokkanatha Swami Temple, Melaputhaneri",Palayamkottai,"சொக்கநாதசுவாமி திருக்கோயில், மேலப்புத்தனேரி"
+t111,Udaya Marthanda Kattalai (i) Subramania Swami Temple,Valliyoor,அருள்மிகு உதயமார்த்தாண்ட கட்டளை (இ)அருள்மிகு சுப்பிரமணிய சுவாமி திருக்கோயில்
+t112,"Varaguna Pandiswarar Temple, Radhapuram",Radhapuram,"அருள்மிகு வரகுணபாண்டீஸ்வரர் திருக்கோயில், இராதாபுரம்"
+t113,"Suyambulinga Swami Temple, Uvari, Radhapuram",Radhapuram,"அருள்மிகு சுயம்புலிங்க சுவாமி திருக்கோயில்.. உவரி, இராதாபுரம்"
+t114,"Narumboonatha Swami Temple, Palavur",Valliyoor,"அருள்மிகு நாறும்பூநாதசுவாமி திருக்கோயில், பழவூர்"
+t115,Thiruppani Vinayagar Temple,unknown,அருள்மிகு திருப்பணி விநாயகர் திருக்கோயில்
+t116,Sri Gandhimathi Amman Bhathiradheepa Lakshadheepa Kattalai Town,unknown,அருள்மிகு ஸ்ரீ காந்திமதியம்பாள் பத்திரதீப லட்சதீப கட்டளை நகர்
+t117,Dharmasasana Kattalai (i) Nellaiappar Temple,unknown,அருள்மிகு தர்மசாசன கட்டளை (இ) அருள்மிகு நெல்லையப்பர் திருக்கோயில்
+t118,"Bhagadeeswarar Temple, Suthamalli",Manur,"அருள்மிகு பகவதீஸ்வரர் திருக்கோயில், சுத்தமல்லி"
+t119,"Arubathumoovar Annadhana Dharmam Kattalai, Tirunelveli Town",unknown,அருள்மிகு அறுபத்துமூவர் அன்னதான தர்மம் கட்டளை. திருநெல்வேலி நகர்
+t120,Kasukkadai Mahamai Sangam (i) Nellaiappar Temple,unknown,காசுக்கடை மகமை சங்கம் (இ) அருள்மிகு நெல்லையப்பர் திருக்கோயில்
+t121,Arulmigu Pillaiyar Kattalaigal Temple,Palayamkottai,அருள்மிகு பிள்ளையன் கட்டளைகள்
+t122,Nellaiappar and Gandhimathi Amman Temple Town,Palayamkottai,அருள்மிகு நெல்லையப்பர் அருள்தரும் காந்திமதி அம்பாள் திருக்கோயில் நகர்
+t123,"Subramania Swami Temple, Kuruthuthurai",Palayamkottai,"அருள்மிகு சுப்பிரமணிய சுவாமி திருக்கோயில், குறுத்துத்துறை"
+t124,"Mariamman Temple, Thiruppani Karisalkulam",Manur,"அருள்மிகு மாரியம்மன் திருக்கோயில், திருப்பணிகரிசல்குளம்"
+t125,Ambalavana Natha Swami Temple,Manur,அருள்மிகு அம்பலவாணநாதசுவாமி திருக்கோயில்
+t126,Thirugnana Sambandhamoorthi Temple,Palayamkottai,அருள்மிகு திருஞானசம்பந்தமூர்த்தி திருக்கோயில்
+t127,Thondargal Naynar Temple,Palayamkottai,தொண்டர்கள் நயினார் திருக்கோயில்
+t128,Lakshmi Narasimha Perumal Temple,unknown,லட்சுமிநரசிங்கபெருமாள் திருக்கோயில்
+t129,"Kallapiran Swami Temple, Gangaikondan",Manur,"கள்ளபிரான்சுவாமி திருக்கோயில், கங்கைகொண்டான்"
+t130,"Sokkanatha Swami Temple, Melaveeraragavapuram",Palayamkottai,"அருள்மிகு சொக்கநாதசாமி திருக்கோயில், மேலவீரராகவபுரம்"
+t131,Sandhi Vinayagar Temple,unknown,அருள்மிகு சந்திவிநாயகர் திருக்கோயில்
+t132,"Kailasanatha Swami Temple, Kailasapuram",Palayamkottai,"கைலாசநாதசுவாமி திருக்கோயில், கைலாசபுரம்"
+t133,"Venkatachalapathi Temple, Melathiruvengadanathapuram",Palayamkottai,"அருள்மிகு வெங்கடாசலபதி திருக்கோயில், மேலத்திருவேங்கடநாதபுரம்"
+t134,"Varadaraja Perumal Temple, Melaveeraragavapuram",Palayamkottai,"அருள்மிகு வரதராஜபெருமாள் திருக்கோயில், மேலவீரராகவபுரம்"
+t135,"Kannamman Puthu Amman Temple, Melaveeraragavapuram",Palayamkottai,"அருள்மிகு கண்ணம்மன் புதுஅம்மன் திருக்கோயில், மேலவீரராகவபுரம்"
+t136,"Annadhana Vinayagar and Thiripurasundari Amman Temple, Pettai",Palayamkottai,"அருள்மிகு அன்னதானவிநாயகர் மற்றும் திரிபுரசுந்தரி அம்மன், திருக்கோயில் பேட்டை"
+t137,"Palayanchalai Kumara Swami Temple, Sindhupoonthurai",unknown,"பாளையஞ்சாலைக்குமார சுவாமி திருக்கோயில், சிந்துப்பூந்துறை"
+t138,"Ramaliga Chettiar Dharmam (i) Venkatachalapathi Temple, Melathiruvengadanathapuram",unknown,"அருள்மிகு ராமலிங்கசெட்டியார் தர்மம் (இ) அருள்மிகு வெங்கடாசலபதி திருக்கோயில், மேலத்திருவேங்கடநாதபுரம்"
+t139,"Adhisaya Vinayagar Temple, Vadakkankulam, Radhapuram",unknown,"அதிசயவிநாயகர் திருக்கோயில், வடக்கன்குளம், இராதாபுரம்"
+t140,"Thiripurasundari Amman Temple, Pettai",Palayamkottai,"திரிபுரசுந்தரியம்மன் திருக்கோயில், பேட்டை"
+t141,"Vazhavalla Pandiswarar Temple, Tharuvai",Palayamkottai,"வாழவல்லபாண்டீஸ்வரர் திருக்கோயில், தருவை"
+t142,"Kulasekaramudaiyar Temple, Kondanagaram",Manur,"குலசேகரமுடையார் திருக்கோயில், கொண்டாநகரம்"
+t143,"Azhagiya Koothar Temple, Sepparai",Palayamkottai,"அழகிய கூத்தர் திருக்கோயில், செப்பறை"
+t144,"Agneeswarar Temple, Rajavallipuram",Palayamkottai,"அக்னீஸ்வரர் திருக்கோயில், இராஜவல்லிபுரம்"
+t145,"Dharmaraja Draupathi Amman Temple, Netaji Road",Palayamkottai,"தர்மராஜா திரௌபதியம்மன் திருக்கோயில், நேதாஜி ரோடு"
+t146,"Thalaikavudaiyar Sastha Temple, Kalkurichi",Manur,"தலைக்காவுடையார் சாஸ்தா திருக்கோயில், கல்குறிச்சி"
+t147,"Venkatachalapathi Temple, Narasinganallur",Manur,"வெங்கடாசலபதி திருக்கோயில், நரசிங்கநல்லூர்"
+t148,"Venkatachalapathi Temple, Magalvannanathapuram",Palayamkottai,"வெங்கடாசலபதி திருக்கோயில், மகழ்வண்ணநாதபுரம்"
+t149,"Mutharamman Temple, Siva Street",Palayamkottai,"முத்தாரம்மன் திருக்கோயில், சிவா தெரு"
+t150,Arasaradi Vinayagar and Rajarajeshwari Amman Temple,Palayamkottai,அரசரடி விநாயகர் மற்றும் ராஜராஜேஸ்வரி அம்மன் திருக்கோயில்
+t151,"Kailasanathar Temple, Pillaiyar Kulam",unknown,"கைலாசநாதர் திருக்கோயில், பிள்ளையார் குளம்"
+t152,"Navaneetha Krishna Swami Temple, Pillaiyar Kulam",Manur,"நவநீத கிருஷ்ணசுவாமி திருக்கோயில், பிள்ளையார் குளம்"
+t153,"Sokkalingswami Temple, Pillaiyar Kulam",Manur,"சொக்கலிங்கசுவாமி திருக்கோயில், பிள்ளையார் குளம்"
+t162,ADIINPUT_UNKNOWN,Kalakadu,ADIINPUT_UNKNOWN
+t165,Anandavalliambal Udanarai Kailasnathaswami Temple,Manur,அருள்மிகு ஆனந்தவல்லி உடனுறை கைலாசநாதர் கோயில்
+t166,Sree Rajeshwari Amman Temple,Palayamkottai,ஶ்ரீ ராஜேஸ்வரி அம்மன் கோயில்
+t167,Kariya Manika Perumal Temple,Palayamkottai,கரிய மாணிக்க பெருமாள் கோவில்
+t164,Unknown Temple Will be Updated,Cheranmahadevi,ADIINPUT_UNKNOWN
+t163,Shri Kalahasthiswarar Temple,Cheranmahadevi,ஶ்ரீ காளகஸ்தீஸ்வரர் கோயில்
+t160,Ammaiappar Temple,Ambasamudram,அம்மையப்பர் திருக்கோயில்

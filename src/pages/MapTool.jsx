@@ -45,7 +45,7 @@ function MapTool() {
   const blockLabelsRef = useRef([]);
 
   useEffect(() => {
-    fetch('/templenameslist.csv')
+    fetch('/templenameslistworker.csv')
       .then(res => res.text())
       .then(text => {
         const lines = text.trim().split('\n');
@@ -432,6 +432,31 @@ function MapTool() {
     setTempleDetailsOpen(false);
   };
 
+  // Open Google Maps directions to the first tree in the selected temple
+  const openDirectionsToFirstTree = () => {
+    if (!selectedTempleId) {
+      window.alert('Please select a temple first.');
+      return;
+    }
+
+    // find first templeLookup entry for the selected temple that has latlng
+    const entry = templeLookup.find(t => t.Temple === selectedTempleId && t.latlng && (t.latlng.lat || t.latlng.lat === 0));
+    if (!entry) {
+      window.alert('No tree coordinates found for this temple.');
+      return;
+    }
+
+    const lat = entry.latlng.lat ?? entry.lat ?? entry.latitude;
+    const lng = entry.latlng.lng ?? entry.lng ?? entry.longitude;
+    if (typeof lat !== 'number' || typeof lng !== 'number') {
+      window.alert('Tree coordinates are invalid for this temple.');
+      return;
+    }
+
+    const url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}&travelmode=driving`;
+    window.open(url, '_blank');
+  };
+
   return (
     <>
       {showOrientationPopup && (
@@ -569,6 +594,25 @@ function MapTool() {
               {templeDetailsOpen ? 'expand_more' : 'chevron_right'}
             </span>
           </h2>
+          {/* Directions box (above the Temple field) */}
+          {selectedTempleId && (
+            <div style={{ padding: '8px 0', marginBottom: 8 }}>
+              <button
+                onClick={openDirectionsToFirstTree}
+                style={{
+                  background: '#2f5d2f',
+                  color: '#fff',
+                  border: 'none',
+                  padding: '8px 12px',
+                  borderRadius: 6,
+                  cursor: 'pointer'
+                }}
+                title="Get directions to this temple"
+              >
+                Directions
+              </button>
+            </div>
+          )}
           {templeDetailsOpen && selectedTempleId && (
             <div>
               <p><b>Temple:</b> {templeNameMap[selectedTempleId] || selectedTempleId}</p>
@@ -635,6 +679,7 @@ function MapTool() {
               }</p>
             </div>
           )}
+
         </div>
       </div>
     </>
