@@ -50,7 +50,9 @@ html, body {
 .home-hero-content { z-index: 2; }
 
 .home-hero-content p {
-  max-width: 60ch;
+  /* Allow more comfortable line-length on desktop while still wrapping
+     nicely on smaller viewports. Mobile/small-screen overrides are
+     applied later inside a media query. */
   margin: 12px auto 0;
   text-align: left;
   overflow-wrap: break-word;
@@ -243,25 +245,27 @@ html, body {
   .home-hero-content { padding-bottom: 1rem; }
 }
 
-/* Ensure the Star Plants paragraph uses the same constraints as other hero sections */
-.home-hero.section-divider .home-hero-content p {
-  max-width: 60ch !important;
-  margin: 12px auto 0 !important;
-  overflow-wrap: break-word !important;
-  word-break: break-word !important;
-  hyphens: auto !important;
-  box-sizing: border-box !important;
-}
+/* Small-screen / narrow-viewport containment: keep the strict rules
+   only for smaller devices so desktop paragraphs are not overly narrow. */
+@media (max-width: 900px) {
+  /* Ensure the Star Plants paragraph uses the same constraints as other hero sections on small screens */
+  .home-hero.section-divider .home-hero-content p {
+    max-width: 60ch !important;
+    margin: 12px auto 0 !important;
+    overflow-wrap: break-word !important;
+    word-break: break-word !important;
+    hyphens: auto !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+  }
 
-/* Additional strict containment to stop any overflow on very narrow screens */
-.home-hero.section-divider .home-hero-content {
-  padding-left: 1rem !important;
-  padding-right: 1rem !important;
-  box-sizing: border-box !important;
-  width: 100% !important;
-}
-.home-hero.section-divider .home-hero-content p {
-  width: 100% !important;
+  /* Additional strict containment to stop any overflow on very narrow screens */
+  .home-hero.section-divider .home-hero-content {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+  }
 }
 
 @media (min-width: 1024px) {
