@@ -12,6 +12,24 @@
   background-repeat: no-repeat;
 }
 
+/* Prevent element-level overflow issues */
+*, *::before, *::after { box-sizing: border-box; }
+
+/* Contain any overflow inside main layout */
+.home-container, .home-main, .home-hero { overflow-x: hidden; }
+
+/* Ensure hero content doesn't exceed viewport on narrow screens */
+.home-hero-content { padding-left: 1rem; padding-right: 1rem; }
+.home-hero-content p { max-width: 100vw; width: 100%; box-sizing: border-box; }
+
+/* Prevent flex items (cards) from forcing width */
+.starplant-item { min-width: 0; }
+
+/* Prevent page-level horizontal scrolling introduced by touch overscroll (mobile) */
+html, body {
+  overflow-x: hidden;
+}
+
 .home-hero::before {
   content: "";
   position: absolute;
@@ -26,6 +44,18 @@
   max-width: 1200px;
   text-align: center;
   color: #ffffff;
+}
+
+/* keep hero content above children and prevent text from overflowing */
+.home-hero-content { z-index: 2; }
+
+.home-hero-content p {
+  max-width: 60ch;
+  margin: 12px auto 0;
+  text-align: left;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
 }
 
 .section-divider {
@@ -108,7 +138,12 @@
   position: relative;
   display: flex;
   align-items: center;
+  width: 100%;
+  overflow: hidden; /* clip any negative-positioned arrows or extra padding */
+  -webkit-overflow-scrolling: touch;
 }
+/* contain horizontal overscroll and let the carousel handle pan gestures */
+.starplants-wrap { overscroll-behavior-x: contain; touch-action: pan-x; }
 
 .carousel-arrow {
   position: absolute;
@@ -134,11 +169,18 @@
 }
 
 .carousel-arrow:hover { background: rgba(0,0,0,0.65); transform: translateY(-50%) scale(1.05); }
-.carousel-arrow.left { left: -28px; }
-.carousel-arrow.right { right: -28px; }
+.carousel-arrow.left { left: 8px; }
+.carousel-arrow.right { right: 8px; }
 
 /* ensure the track has enough padding so arrows don't cover items; increased to push items in */
-.starplants-carousel { padding: 12px 88px; }
+.starplants-carousel { padding: 12px 48px; }
+
+/* On large viewports allow arrows to sit slightly outside the cards for visual effect */
+@media (min-width: 1024px) {
+  .carousel-arrow.left { left: -28px; }
+  .carousel-arrow.right { right: -28px; }
+  .starplants-carousel { padding: 12px 88px; }
+}
 
 /* Responsive: on small screens keep arrows inside viewport and smaller */
 @media (max-width: 480px) {
@@ -189,6 +231,37 @@
   .home-hero-content p {
     font-size: 1.15rem;
   }
+}
+
+/* Responsive adjustments to avoid content overlap on small screens */
+@media (max-width: 700px) {
+  .home-hero {
+    min-height: auto; /* allow the hero to grow with content */
+    padding: 2.25rem 1rem;
+  }
+  .home-hero-content p { font-size: 0.98rem; }
+  .home-hero-content { padding-bottom: 1rem; }
+}
+
+/* Ensure the Star Plants paragraph uses the same constraints as other hero sections */
+.home-hero.section-divider .home-hero-content p {
+  max-width: 60ch !important;
+  margin: 12px auto 0 !important;
+  overflow-wrap: break-word !important;
+  word-break: break-word !important;
+  hyphens: auto !important;
+  box-sizing: border-box !important;
+}
+
+/* Additional strict containment to stop any overflow on very narrow screens */
+.home-hero.section-divider .home-hero-content {
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+}
+.home-hero.section-divider .home-hero-content p {
+  width: 100% !important;
 }
 
 @media (min-width: 1024px) {
