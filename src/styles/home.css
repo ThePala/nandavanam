@@ -179,8 +179,8 @@ html, body {
 
 /* On large viewports allow arrows to sit slightly outside the cards for visual effect */
 @media (min-width: 1024px) {
-  .carousel-arrow.left { left: -28px; }
-  .carousel-arrow.right { right: -28px; }
+  .carousel-arrow.left { left: 2px; }
+  .carousel-arrow.right { right: 2px; }
   .starplants-carousel { padding: 12px 88px; }
 }
 
