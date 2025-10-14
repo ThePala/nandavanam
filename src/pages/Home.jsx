@@ -40,22 +40,16 @@ Traditionally, sanctuaries for deities were established beneath  sacred trees (S
             <StarPlantsCarousel />
 
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
-              vitae eros eget tellus tristique bibendum. Donec rutrum sed sem quis
-              venenatis. Proin viverra risus a eros volutpat tempor. In quis arcu et
-              eros porta lobortis sit amet at magna.
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
-              vitae eros eget tellus tristique bibendum. Donec rutrum sed sem quis
-              venenatis. Proin viverra risus a eros volutpat tempor. In quis arcu et
-              eros porta lobortis sit amet at magna.
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
-              vitae eros eget tellus tristique bibendum. Donec rutrum sed sem quis
-              venenatis. Proin viverra risus a eros volutpat tempor. In quis arcu et
-              eros porta lobortis sit amet at magna.
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
-              vitae eros eget tellus tristique bibendum. Donec rutrum sed sem quis
-              venenatis. Proin viverra risus a eros volutpat tempor. In quis arcu et
-              eros porta lobortis sit amet at magna.
+According to the Vedic system, groups of stars 
+in the sky were assigned a unique tree for 27 constellations/nakshatra 
+based on the birth of individuals. 
+It is believed that Sun and Moon have a different impact on humans 
+during their transition via 27 nakshatras/constellations. 
+Furthermore, it is assumed that the sun/moon's impact could be modulated or improved with planting or 
+worshipping a specific tree associated with nakshatra. <br></br>
+In ancient times, community leaders established nakshatra van adjacent to sacred groves with 
+characteristic trees for worshipping, honoring, and maintaining good health.
+- https://doi.org/10.1016/j.sajb.2022.08.029
             </p>
           </div>
         </section>
@@ -67,19 +61,6 @@ Traditionally, sanctuaries for deities were established beneath  sacred trees (S
         >
           <div className="home-hero-content">
             <h2>What Biodiversity does a Nandavanam Support?</h2>
-            <p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
-          </div>
-        </section>
-
-        {/* Section 3 */}
-        <section
-          className="home-hero section-divider"
-          style={{ backgroundImage: "url('/images/poopalagai.JPG')" }}
-        >
-          <div className="home-hero-content">
-            <h2>Why are Nandavanams in decline?</h2>
             <p>
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
             </p>
