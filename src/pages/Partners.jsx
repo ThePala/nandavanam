@@ -3,15 +3,15 @@ import "../styles/partners.css";
 
 // === DATA ===
 const partnerLogos = [
-  "/images/partners/Picture1",
-  "/images/partners/Picture2",
-  "/images/partners/Picture3",
-  "/images/partners/Picture4",
-  "/images/partners/Picture5",
-  "/images/partners/Picture6",
-  "/images/partners/Picture7",
-  "/images/partners/Picture8",
-  "/images/partners/Picture9",
+  "images/partners/Picture1",
+  "images/partners/Picture2",
+  "images/partners/Picture3",
+  "images/partners/Picture4",
+  "images/partners/Picture5",
+  "images/partners/Picture6",
+  "images/partners/Picture7",
+  "images/partners/Picture8",
+  "images/partners/Picture9",
 ];
 
 const partnerNames = [
@@ -25,12 +25,12 @@ const partnerNames = [
 ];
 
 const funderLogos = [
-  "/images/partners/FPicture1",
-  "/images/partners/FPicture2",
-  "/images/partners/FPicture3",
-  "/images/partners/FPicture4",
-  "/images/partners/FPicture5",
-  "/images/partners/FPicture6",
+  "images/partners/FPicture1",
+  "images/partners/FPicture2",
+  "images/partners/FPicture3",
+  "images/partners/FPicture4",
+  "images/partners/FPicture5",
+  "images/partners/FPicture6",
 ];
 
 const funderNames = [
@@ -41,7 +41,9 @@ const funderNames = [
 
 // === SMALL IMG component with extension fallback ===
 function Img({ base, className, alt }) {
-  const [src, setSrc] = React.useState(`${base}.png`);
+  // base is a relative path like "images/partners/Picture1"
+  const baseUrl = `${import.meta.env.BASE_URL}${base}`;
+  const [src, setSrc] = React.useState(`${baseUrl}.png`);
   const tried = React.useRef(new Set(["png"]));
   const exts = ["webp", "jpg", "jpeg", "svg"];
   return (
@@ -54,7 +56,7 @@ function Img({ base, className, alt }) {
         for (const e of exts) {
           if (!tried.current.has(e)) {
             tried.current.add(e);
-            setSrc(`${base}.${e}`);
+            setSrc(`${baseUrl}.${e}`);
             return;
           }
         }

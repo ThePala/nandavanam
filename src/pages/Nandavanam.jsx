@@ -3,7 +3,7 @@ import "../styles/nandavanam.css";
 
 const templeData = {
   "Thirukadugai Moondreeswarar Temple": {
-    photo: "/images/pappakudi.jpg", 
+    photo: "images/pappakudi.jpg", 
     mapEmbed: "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d1194.842001273556!2d77.49955540501362!3d8.752436415298831!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zOMKwNDUnMDcuNCJOIDc3wrAzMCcwMS4xIkU!5e1!3m2!1sen!2sin!4v1757054316170!5m2!1sen!2sin",
     noOfTrees: 57,
     area: "0.33 acres",
@@ -54,7 +54,7 @@ const templeData = {
     ],
   },
   "Abhi Muktheeswarar Temple": {
-    photo: "/images/templ2.JPG",
+    photo: "images/templ2.JPG",
     mapEmbed: "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d608.7340926831381!2d77.58892900684285!3d8.695725683868496!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zOMKwNDEnNDQuMiJOIDc3wrAzNScyMC4xIkU!5e1!3m2!1sen!2sin!4v1757063667686!5m2!1sen!2sin",
     noOfTrees: 42,
     area: "0.28 acres",
@@ -94,8 +94,8 @@ trees: [
   { species: "Coral Jasmine", count: 1 },
 ],
   },
-    "Sridevi Boodevi Sametha Venkatachalapathy Temple": {
-    photo: "/images/templ3.JPG",
+  "Sridevi Boodevi Sametha Venkatachalapathy Temple": {
+  photo: "images/templ3.JPG",
     mapEmbed: "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d629.4201102128858!2d77.46384999241488!3d8.730784453565231!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zOMKwNDMnNDkuNiJOIDc3wrAyNyc1MS4zIkU!5e1!3m2!1sen!2sin!4v1757306700647!5m2!1sen!2sin",
     noOfTrees: 98,
     area: "0.54 acres",
@@ -167,7 +167,7 @@ trees: [
 ],
   },
       "Thiruvalutheeswarar Temple": {
-    photo: "/images/templ4.jpg",
+    photo: "images/templ4.jpg",
     mapEmbed: "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d1029.5617402920493!2d77.60091050932368!3d8.43497970156411!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zOMKwMjYnMDYuMiJOIDc3wrAzNicwNi4xIkU!5e1!3m2!1sen!2sin!4v1757064485003!5m2!1sen!2sin",
     noOfTrees: 98,
     area: "0.39 acres",
@@ -229,8 +229,8 @@ trees: [
   { species: "Indian Elm", count: 1 },
 ]
   },
-        "Boominathar Temple": {
-    photo: "/images/templ5.jpg",
+    "Boominathar Temple": {
+  photo: "images/templ5.jpg",
     mapEmbed: "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3466.331495392402!2d77.52418840989513!3d8.699616194023282!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zOMKwNDEnNTguNiJOIDc3wrAzMSczNi40IkU!5e1!3m2!1sen!2sin!4v1757065020351!5m2!1sen!2sin",
     noOfTrees: 111,
     area: "0.8 acres",
@@ -306,8 +306,8 @@ trees: [
   { species: "Indian Mulberry", count: "NA" },
 ]
   },
-        "Sri Veeraraghava Perumal Temple": {
-    photo: "/images/templ6.jpg",
+    "Sri Veeraraghava Perumal Temple": {
+  photo: "images/templ6.jpg",
     mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d760.3482173181219!2d77.59926604664938!3d8.434052157878202!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b0467b12ab9c2cd%3A0xbdb8bb5e50487181!2sSri%20Veeraraagava%20Perumal%20Kovil!5e1!3m2!1sen!2sin!4v1757307717996!5m2!1sen!2sin",
     noOfTrees: 40,
     area: "NA",
@@ -317,8 +317,8 @@ trees: [
   { species: "Updated Soon", count: "Updated Soon" },
 ]
   },
-        "Azhiyapatheeshwar Temple": {
-    photo: "/images/templ7.JPG",
+    "Azhiyapatheeshwar Temple": {
+  photo: "images/templ7.JPG",
     mapEmbed: "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d1273.5644834068453!2d77.69559483823771!3d8.712263584655934!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zOMKwNDInNDMuNCJOIDc3wrA0MSc0Ny4yIkU!5e1!3m2!1sen!2sin!4v1757308940616!5m2!1sen!2sin",
     noOfTrees: 60,
     area: "NA",
@@ -329,7 +329,7 @@ trees: [
 ]
   },
       "Ariyanatha Swami Temple": {
-    photo: "/images/templ8.png",
+    photo: "images/templ8.png",
     mapEmbed: "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d1029.5617402920493!2d77.60091050932368!3d8.43497970156411!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zOMKwMjYnMDYuMiJOIDc3wrAzNicwNi4xIkU!5e1!3m2!1sen!2sin!4v1757064485003!5m2!1sen!2sin",
     noOfTrees: "30",
     area: "NA",
@@ -369,8 +369,8 @@ trees: [
 ]
 
   },
-        "Sri Soundarapandiswarar Temple": {
-    photo: "/images/templ10.jpg",
+    "Sri Soundarapandiswarar Temple": {
+  photo: "images/templ10.jpg",
     mapEmbed: "https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d619.8077912805916!2d77.55786620285167!3d8.53118543801637!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2sin!4v1757311992073!5m2!1sen!2sin",
     noOfTrees: "63",
     area: "NA",
@@ -462,7 +462,7 @@ export default function Nandavanam() {
             {/* Photo + stats */}
             <div className="photo-and-stats">
               <img
-                src={temple.photo}
+                src={`${import.meta.env.BASE_URL}${temple.photo}`}
                 alt={selectedTemple}
                 className="circle-photo"
                 style={{ cursor: 'pointer' }}
@@ -543,7 +543,7 @@ export default function Nandavanam() {
             style={{ position: 'relative', maxWidth: '90vw', maxHeight: '90vh' }}
           >
             <img
-              src={temple.photo}
+              src={`${import.meta.env.BASE_URL}${temple.photo}`}
               alt={selectedTemple}
               style={{ maxWidth: '90vw', maxHeight: '80vh', borderRadius: '12px', boxShadow: '0 8px 32px rgba(0,0,0,0.25)' }}
             />

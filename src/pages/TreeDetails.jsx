@@ -21,7 +21,7 @@ export default function NandavanamLanding() {
         </div>
         <div className="nv-hero-image">
           <img
-            src="/images/graph.png"
+            src={`${import.meta.env.BASE_URL}images/graph.png`}
             alt="Temple campus aerial"
             loading="eager"
           />
@@ -40,7 +40,7 @@ export default function NandavanamLanding() {
     </p>
   </div>
   <img
-    src="/images/bubble.png"
+    src={`${import.meta.env.BASE_URL}images/bubble.png`}
     alt="Most common trees in the Nandavanams (bubble chart)"
     loading="eager"
     className="nv-bubble-img"

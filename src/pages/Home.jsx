@@ -12,7 +12,7 @@ const Home = () => {
         {/* Section 1 */}
         <section
           className="home-hero"
-          style={{ backgroundImage: "url('/images/pappakudi.jpg')" }}
+          style={{ backgroundImage: `url(${import.meta.env.BASE_URL}images/pappakudi.jpg)` }}
         >
           <div className="home-hero-content">
             <h1>What is a Nandavanam?</h1>
@@ -32,7 +32,7 @@ Traditionally, sanctuaries for deities were established beneath  sacred trees (S
         {/* Section: Star Plants */}
         <section
           className="home-hero section-divider"
-          style={{ backgroundImage: "url('/images/poopalagai.JPG')" }}
+          style={{ backgroundImage: `url(${import.meta.env.BASE_URL}images/poopalagai.JPG)` }}
         >
           <div className="home-hero-content">
             <h2>What are Star Plants?</h2>
@@ -57,7 +57,7 @@ characteristic trees for worshipping, honoring, and maintaining good health.
         {/* Section 2 */}
         <section
           className="home-hero section-divider"
-          style={{ backgroundImage: "url('/images/butterfly.JPG')" }}
+          style={{ backgroundImage: `url(${import.meta.env.BASE_URL}images/butterfly.JPG)` }}
         >
           <div className="home-hero-content">
             <h2>What Biodiversity does a Nandavanam Support?</h2>
@@ -81,7 +81,7 @@ function StarPlantsCarousel() {
 
   useEffect(() => {
     let mounted = true;
-    fetch('/images/starplants/manifest.json')
+        fetch(`${import.meta.env.BASE_URL}images/starplants/manifest.json`)
       .then(res => res.json())
       .then(list => {
         if (!mounted) return;
@@ -91,7 +91,7 @@ function StarPlantsCarousel() {
           if (typeof item === 'string') {
             const file = item;
             const name = file.split('/').pop().replace(/\.[^/.]+$/, '');
-            return { file: `/images/starplants/${file}`, name, star: '' };
+            return { file: `${import.meta.env.BASE_URL}images/starplants/${file}`, name, star: '' };
           }
 
           // object form
@@ -99,7 +99,7 @@ function StarPlantsCarousel() {
           const file = fileField || '';
           const name = item.name || (file ? file.split('/').pop().replace(/\.[^/.]+$/, '') : '');
           const star = item.star || item.starName || '';
-          const fileUrl = file.startsWith('/') ? file : `/images/starplants/${file}`;
+          const fileUrl = file.startsWith('/') ? `${import.meta.env.BASE_URL}${file.slice(1)}` : `${import.meta.env.BASE_URL}images/starplants/${file}`;
           return { file: fileUrl, name, star };
         });
 
@@ -108,10 +108,10 @@ function StarPlantsCarousel() {
       .catch(() => {
         if (!mounted) return;
         setImages([
-          { file: '/images/starplants/templ2.JPG', name: 'templ2', star: '' },
-          { file: '/images/starplants/templ3.JPG', name: 'templ3', star: '' },
-          { file: '/images/starplants/templ4.jpg', name: 'templ4', star: '' },
-          { file: '/images/starplants/templ5.jpg', name: 'templ5', star: '' }
+          { file: `${import.meta.env.BASE_URL}images/starplants/templ2.JPG`, name: 'templ2', star: '' },
+          { file: `${import.meta.env.BASE_URL}images/starplants/templ3.JPG`, name: 'templ3', star: '' },
+          { file: `${import.meta.env.BASE_URL}images/starplants/templ4.jpg`, name: 'templ4', star: '' },
+          { file: `${import.meta.env.BASE_URL}images/starplants/templ5.jpg`, name: 'templ5', star: '' }
         ]);
       });
 

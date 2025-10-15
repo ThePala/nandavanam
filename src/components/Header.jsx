@@ -18,7 +18,7 @@ export default function Header() {
       <div className="header-container">
         {/* Logo + Brand */}
         <Link to="/" className="brand" onClick={closeAll}>
-          <img src="/images/logonobg.png" alt="ATREE logo" />
+          <img src={`${import.meta.env.BASE_URL}images/logonobg.png`} alt="ATREE logo" />
           <span className="brand-text">
             ASHOKA TRUST FOR RESEARCH IN 
             <br />ECOLOGY AND THE ENVIRONMENT
