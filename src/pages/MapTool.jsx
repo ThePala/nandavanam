@@ -45,7 +45,7 @@ function MapTool() {
   const blockLabelsRef = useRef([]);
 
   useEffect(() => {
-    fetch('/templenameslistworker.csv')
+    fetch(import.meta.env.BASE_URL + 'templenameslistworker.csv')
       .then(res => res.text())
       .then(text => {
         const lines = text.trim().split('\n');
@@ -193,7 +193,7 @@ function MapTool() {
       mapRef.current.removeLayer(treeLayerRef.current);
     }
 
-    fetch('/trees.geojson')
+    fetch(import.meta.env.BASE_URL + 'trees.geojson')
       .then(res => res.json())
       .then(data => {
         const blocks = new Set();
@@ -279,7 +279,7 @@ function MapTool() {
     });
     mapRef.current = map;
 
-    fetch('/district_blocks.geojson')
+    fetch(import.meta.env.BASE_URL + 'district_blocks.geojson')
       .then(res => res.json())
       .then(data => {
         const polygonLayer = L.geoJSON(data, {
