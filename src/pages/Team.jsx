@@ -23,7 +23,7 @@ export default function Team() {
   return (
     <main className="team-page">
       <section className="team-hero">
-        <img src={`${import.meta.env.BASE_URL}images/team/team-hero.jpg`} alt="Team group" className="team-hero__img" />
+        <img src={`${import.meta.env.BASE_URL}images/team/team-hero.jpg`} alt="TamizhMani_Team Photo" className="team-hero__img" />
         <h1 className="team-hero__title">Our Team</h1>
       </section>
 
