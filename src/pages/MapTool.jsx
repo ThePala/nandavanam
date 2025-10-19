@@ -20,6 +20,15 @@ function MapTool() {
   const [speciesColorMap, setSpeciesColorMap] = useState({});
   const [templeNameMap, setTempleNameMap] = useState({}); 
   const [templeBlockMap, setTempleBlockMap] = useState({});
+  const [commonNameMap, setCommonNameMap] = useState({});
+  const formatPieTooltip = (value, name) => [`${value} trees`, getDisplayName(name)];
+
+
+    const getDisplayName = (scientific) => {
+    const common = commonNameMap[scientific];
+    return common && common.trim() !== '' ? common : scientific;
+  };
+
 
   // Orientation handling
   const [showOrientationPopup, setShowOrientationPopup] = useState(false);
@@ -89,6 +98,20 @@ function MapTool() {
         setTempleBlockMap(blockMap);
       });
   }, []);
+
+  useEffect(() => {
+  fetch(import.meta.env.BASE_URL + 'scientific_to_common.csv')
+    .then(res => res.text())
+    .then(text => {
+      const lines = text.trim().split('\n');
+      const mapping = {};
+      for (let i = 1; i < lines.length; i++) {
+        const [scientific, common] = lines[i].split(',');
+        if (scientific && common) mapping[scientific.trim()] = common.trim();
+      }
+      setCommonNameMap(mapping);
+    });
+}, []);
 
   const colorPalette = [
     '#e6194b', '#3cb44b', '#ffe119', '#4363d8', '#f58231',
@@ -568,13 +591,15 @@ function MapTool() {
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Pie>
-                <Tooltip formatter={(value, name) => [`${value} trees`, name]} />
+                <Tooltip formatter={formatPieTooltip} />
+
               </PieChart>
               <ul className="legend">
                 {speciesDistribution.map(entry => (
                   <li key={entry.name} style={{ marginBottom: '4px', display: 'flex', alignItems: 'center' }}>
                     <span style={{ background: entry.color, width: 12, height: 12, display: 'inline-block', marginRight: 6, borderRadius: '50%' }}></span>
-                    {entry.name}
+                    {getDisplayName(entry.name)}
+
                   </li>
                 ))}
               </ul>
@@ -633,7 +658,8 @@ function MapTool() {
                         <Cell key={`cell-${index}`} fill={entry.color} />
                       ))}
                     </Pie>
-                    <Tooltip formatter={(value, name) => [`${value} trees`, name]} />
+                    <Tooltip formatter={formatPieTooltip} />
+
                   </PieChart>
                   <ul className="legend">
                     {templeSpeciesDistribution.map(entry => (
@@ -646,7 +672,8 @@ function MapTool() {
                           marginRight: 6,
                           borderRadius: '50%'
                         }}></span>
-                        {entry.name}
+                        {getDisplayName(entry.name)}
+
                       </li>
                     ))}
                   </ul>
@@ -664,7 +691,10 @@ function MapTool() {
           </h2>
           {treeDetailsOpen && selectedTree && (
             <div>
-              <p><b>Species:</b> {selectedTree['data-details-species'] || 'Unknown'}</p>
+              <p>
+              <b>Common Name:</b> {commonNameMap[selectedTree['data-details-species']] || 'N/A'}<br />
+              <b>Scientific Name:</b> {selectedTree['data-details-species'] || 'Unknown'}
+              </p>
               <p><b>Height:</b> {(selectedTree['data-details-height'] ? selectedTree['data-details-height'] + ' m' : 'N/A')}</p>
               <p><b>Threats:</b> {selectedTree['data-details-threats'] || 'N/A'}</p>
               <p><b>No of trees:</b> {selectedTree['No of trees'] || 'N/A'}</p>

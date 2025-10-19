@@ -62,7 +62,7 @@ characteristic trees for worshipping, honoring, and maintaining good health.
           <div className="home-hero-content">
             <h2>What Biodiversity does a Nandavanam Support?</h2>
             <p>
-Owing to their relatively longer history of formal protection of forests, sacred groves host unique assemblages of biodiversity – species and genes – that are not found elsewhere, kind of like a repository.
+Owing to their relatively longer history of formal protection of forests, sacred groves host unique assemblages of biodiversity - species and genes - that are not found elsewhere, kind of like a repository.
 
 “It is difficult to imagine being able to conserve all of India's biodiversity in formal protected areas, which cover less than 5% of our geographic area,” said Anand Osuri, a PhD student at the National Centre for Biological Sciences. “It is important that we understand and utilise the potential of areas outside protected areas to conserve biodiversity. Although small and often fragmented, these networks can provide resources such as fruiting trees or nesting sites, as well as act as stepping stones for wildlife across human-used landscapes.”
 In their study of the ecological value of 61 temples, they found 135 species of shrubs and trees such as mahua, bael, neem, arjuna, jackfruit, Indian sandalwood, palash. In terms of biodiversity, they observed 51 bird species, 16 butterfly species and four mammals.
